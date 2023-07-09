@@ -23,7 +23,7 @@
         TYPE** result = (TYPE**)malloc(WIDTH * sizeof(TYPE*));          \
         for (int i = 0; i < WIDTH; i++)                                 \
         {                                                               \
-            result[i] = zvector(TYPE, HEIGHT);                          \
+            result[i] = zeros_vector(TYPE, HEIGHT);                     \
         }                                                               \
         result;                                                         \
     })
@@ -39,6 +39,10 @@
 
 float vdot(float* a, float* b, int size);
 
+float* vprod(float a, float* v, int size);
+
 float* mdot(float** a, float** b, int size);
+
+float** mprod(float a, float** v, int size);
 
 #endif /* TENSORS_H */

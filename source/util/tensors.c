@@ -14,6 +14,18 @@ float vdot(float* a, float* b, int size)
     return result;
 }
 
+float* vprod(float a, float* v, int size)
+{
+    float* result = vector(float, size);
+
+    for (int i = 0; i < size; i++)
+    {
+        result[i] = v[i] * a;
+    }
+
+    return result;
+}
+
 // Compute the dot product of two matrixes
 float* mdot(float** a, float** b, int size)
 {
@@ -26,6 +38,18 @@ float* mdot(float** a, float** b, int size)
         {
             result[i] += a[i][j] * b[j][i];
         }
+    }
+
+    return result;
+}
+
+float** mprod(float a, float** m, int size)
+{
+    float** result = vector(float*, size);
+
+    for (int i = 0; i < size; i++)
+    {
+        result[i] = vprod(a, m[i], size);
     }
 
     return result;
