@@ -4,35 +4,51 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#define vector(TYPE, LENGTH) (TYPE*)malloc(LENGTH * sizeof(TYPE))
+#define vector(TYPE, LENGTH)                                            \
+    ({                                                                  \
+        TYPE* VECTOR_RESULT = (TYPE*)malloc(LENGTH * sizeof(TYPE));     \
+        if (VECTOR_RESULT == NULL)                                      \
+        {                                                               \
+            exit(EXIT_FAILURE);                                         \
+        }                                                               \
+        VECTOR_RESULT;                                                  \
+    })
 
-#define zeros_vector(TYPE, LENGTH) (TYPE*)calloc(LENGTH, sizeof(TYPE))
+#define zeros_vector(TYPE, LENGTH)                                      \
+    ({                                                                  \
+        TYPE* VECTOR_RESULT = (TYPE*)calloc(LENGTH, sizeof(TYPE));      \
+        if (VECTOR_RESULT == NULL)                                      \
+        {                                                               \
+            exit(EXIT_FAILURE);                                         \
+        }                                                               \
+        VECTOR_RESULT;                                                  \
+    })
 
 #define matrix(TYPE, WIDTH, HEIGHT)                                     \
     ({                                                                  \
-        TYPE** result = (TYPE**)malloc(WIDTH * sizeof(TYPE*));          \
-        for (int i = 0; i < WIDTH; i++)                                 \
+        TYPE** MATRIX_RESULT = vector(TYPE*, WIDTH);                    \
+        for (int MACRO_i = 0; MACRO_i < WIDTH; MACRO_i++)               \
         {                                                               \
-            result[i] = vector(TYPE, HEIGHT);                           \
+            MATRIX_RESULT[MACRO_i] = vector(TYPE, HEIGHT);              \
         }                                                               \
-        result;                                                         \
+        MATRIX_RESULT;                                                  \
     })
 
 #define zeros_matrix(TYPE, WIDTH, HEIGHT)                               \
     ({                                                                  \
-        TYPE** result = (TYPE**)malloc(WIDTH * sizeof(TYPE*));          \
-        for (int i = 0; i < WIDTH; i++)                                 \
+        TYPE** MATRIX_RESULT = zeros_vector(TYPE*, WIDTH);              \
+        for (int MACRO_i = 0; MACRO_i < WIDTH; MACRO_i++)               \
         {                                                               \
-            result[i] = zeros_vector(TYPE, HEIGHT);                     \
+            MATRIX_RESULT[MACRO_i] = zeros_vector(TYPE, HEIGHT);        \
         }                                                               \
-        result;                                                         \
+        MATRIX_RESULT;                                                  \
     })
 
 #define free_matrix(MATRIX, WIDTH)                                      \
     ({                                                                  \
-        for (int i = 0; i < WIDTH; i++)                                 \
+        for (int MACRO_i = 0; MACRO_i < WIDTH; MACRO_i++)               \
         {                                                               \
-            free(MATRIX[i]);                                            \
+            free(MATRIX[MACRO_i]);                                      \
         }                                                               \
         free(MATRIX);                                                   \
     })
