@@ -54,7 +54,7 @@ wire* drop_wires(datasheet ds)
 
 void detect_junctions(
     datasheet ds, wire* ws,     // inputs
-    junction* js, int* js_count // output
+    junction** js, int* js_count // output
 )
 {
     // create a list to contain the discovered junctions
@@ -64,7 +64,6 @@ void detect_junctions(
     *js_count = 0;
 
     // iterate over all wire junctions
-    #pragma omp parallel for collapse(2)
     for (int i = 0; i < ds.wires_count; i++)
     {
         for (int j = i + 1; j < ds.wires_count; j++)
@@ -100,29 +99,35 @@ void detect_junctions(
             )
             {
                 // create a list node and save the junction data in it
-                struct node element = { { i, j, (point) { x, y } }, head };
+                struct node* element = (struct node*)malloc(sizeof(struct node));
+                element->value = (junction) { i, j, (point) { x, y } };
+                element->tail = head;
 
                 // set the element as the new head of the list
-                head = &element;
+                head = element;
 
                 // increment the junctions counter
-                *js_count++;
+                *js_count += 1;
             }
         }
     }
 
     // create an array to contain the found junctions
-    js = vector(junction, *js_count);
+    *js = vector(junction, *js_count);
 
     // fill the junctions array
+    struct node* to_free;
     for (int i = 0; i < *js_count; i++)
     {
-        js[i] = (junction) {
+        (*js)[i] = (junction)
+        {
             head->value.first_wire,
             head->value.second_wire,
             head->value.position
         };
+        to_free = head;
         head = head->tail;
+        free(to_free);
     }
 }
 
