@@ -7,12 +7,12 @@
 #include "junction.h"
 #include "wire.h"
 
+/// Topology of the Nanowire Network.
 typedef struct
 {
-    wire*       Ws;
-
-    int         js_count;
-    junction*   Js;
+    wire*       Ws;         ///< Position of the wires in the packaging.
+    int         js_count;   ///< Number of junctions identified.
+    junction*   Js;         ///< Position of the identified junctions.
 } network_topology;
 
 typedef struct

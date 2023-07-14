@@ -10,7 +10,7 @@
 
 wire* drop_wires(datasheet ds);
 
-void detect_junctions(datasheet ds, wire* ws, junction* js, int* js_count);
+void detect_junctions(datasheet ds, wire* ws, junction** js, int* js_count);
 
 bool** construe_adjacency_matrix(datasheet ds, network_topology nt);
 
