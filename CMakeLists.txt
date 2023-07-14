@@ -7,11 +7,15 @@ option(BUILD_DOC "Build documentation" ON)
 # set the C standard version
 set(CMAKE_C_STANDARD 99)
 
+###############################################################################
+# LIBRARY                                                                     #
+###############################################################################
+
 # find the source (i.e., .c) files
-file(GLOB_RECURSE SOURCES source/*.c)
+file(GLOB_RECURSE SOURCES sources/*.c)
 
 # add the include directories (i.e., containing .h files)
-include_directories(include)
+include_directories(headers)
 
 # create the library
 add_library(nns STATIC ${SOURCES})
@@ -27,6 +31,10 @@ if(OpenMP_CXX_FOUND)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
     target_link_libraries(nns PUBLIC OpenMP::OpenMP_CXX)
 endif()
+
+###############################################################################
+# DOCUMENTATION                                                               #
+###############################################################################
 
 # if available, build doxygen docs
 find_package(Doxygen)
@@ -47,6 +55,30 @@ if (DOXYGEN_FOUND)
     )
 endif (DOXYGEN_FOUND)
 
+###############################################################################
+# EXAMPLES                                                                    #
+###############################################################################
+
 # build example programs using the nns library
-add_executable(example1.elf example/example_1.c)
+add_executable(example1.elf examples/example_1.c)
 target_link_libraries(example1.elf nns)
+
+###############################################################################
+# TESTS                                                                       #
+###############################################################################
+
+# contains some cmake macros that will help with discovery of tests
+find_package(Check REQUIRED)
+
+# include libcheck directories
+include_directories(${CHECK_INCLUDE_DIRS})
+
+# find the test (i.e., .c) files
+file(GLOB_RECURSE TESTS tests/*.c)
+
+include_directories(headers)
+
+# build testing binaries
+add_executable(tests.elf ${TESTS})
+target_sources(tests.elf PRIVATE ${SOURCES})
+target_link_libraries(tests.elf PRIVATE check pthread m)
