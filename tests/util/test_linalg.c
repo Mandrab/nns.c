@@ -9,7 +9,7 @@ START_TEST(test_conjugate_gradient)
     int size = 4;
 
     float** A = matrix(float, size, size);
-    float x[size];
+    float x[size] = { };
     float b[size];
 
     // Ax = b:
@@ -30,10 +30,10 @@ START_TEST(test_conjugate_gradient)
     // call the conjugate_gradient function
     conjugate_gradient(A, x, b, size);
 
-    ck_assert_float_eq_tol(x[0],  1.00, 1e-5); // a
-    ck_assert_float_eq_tol(x[1], -0.75, 1e-5); // b
-    ck_assert_float_eq_tol(x[2],  0.25, 1e-2); // c
-    ck_assert_float_eq_tol(x[3], -0.25, 1e-5); // d
+    ck_assert_float_eq_tol(x[0],  1.00, 1e-6); // a
+    ck_assert_float_eq_tol(x[1], -0.75, 1e-6); // b
+    ck_assert_float_eq_tol(x[2],  0.25, 1e-6); // c
+    ck_assert_float_eq_tol(x[3], -0.25, 1e-6); // d
 
     free_matrix(A, size);
 }
