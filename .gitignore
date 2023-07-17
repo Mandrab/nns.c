@@ -1,6 +1,7 @@
 # file types
 *.a
 *.elf
+*.log
 *.o
 cmake_install.cmake
 CMakeCache.txt
