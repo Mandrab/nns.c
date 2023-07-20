@@ -1,6 +1,6 @@
-#ifndef LINALG_H
-#define LINALG_H
+#ifndef TEST_LINALG_H
+#define TEST_LINALG_H
 
 Suite* linalg_suite();
 
-#endif /* LINALG_H */
+#endif /* TEST_LINALG_H */
