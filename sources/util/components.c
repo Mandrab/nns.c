@@ -16,7 +16,7 @@ network_state* connected_components(network_state ns, int* nss_count, int** nss_
     for (int i = 0; i < ns.size; i++)
     {
         // if a CC has higher index, update the count
-        if (mapping[i] > *nss_count)
+        if (mapping[i] >= *nss_count)
         {
             // the CCs index starts from 0, so the number is max + 1
             *nss_count = mapping[i] + 1;
@@ -110,8 +110,10 @@ int* map_components(bool** adj, int size)
     // create a mapping from node to connected component
     int* mapping = zeros_vector(int, size);
 
-    // create a vector to mark the nodes as visited
+    // create vectors to mark the nodes as visited
+    // or discovered as adjacent but not yet visited
     bool visited[size] = { };
+    bool discovered[size] = { };
 
     // iterate all the nodes to discover their adjacency
     for (int i = 0, cc_count = 0; i < size; i++)
@@ -138,10 +140,11 @@ int* map_components(bool** adj, int size)
             // check all the nodes to find the nodes neighbors
             for (int j = 0; j < size; j++)
             {
-                // if the node is adjacent and not-visited add it to the stack
-                if (adj[node][j] && ! visited[j])
+                // if the node is adjacent and not yet discovered add it to the stack
+                if (adj[node][j] && ! discovered[j])
                 {
                     stack[++top] = j;
+                    discovered[j] = true;
                 }
             }
         }
