@@ -1,4 +1,3 @@
-#include <check.h>
 #include <float.h>
 #include <stdbool.h>
 #include <stdint.h>
