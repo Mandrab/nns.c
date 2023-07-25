@@ -20,8 +20,11 @@ include_directories(headers)
 # create the library
 add_library(nns STATIC ${SOURCES})
 
-# link the math library
-target_link_libraries(nns PRIVATE m)
+# find LAPACKE (C-LAPACK) library
+find_package(LAPACK REQUIRED)
+
+# link the math and LAPACK libraries
+target_link_libraries(nns PRIVATE m LAPACK::LAPACK)
 
 # if available, link openMP library
 find_package(OpenMP)
@@ -81,4 +84,4 @@ include_directories(headers)
 # build testing binaries
 add_executable(tests.elf ${TESTS})
 target_sources(tests.elf PRIVATE ${SOURCES})
-target_link_libraries(tests.elf PRIVATE check pthread m)
+target_link_libraries(tests.elf PRIVATE check pthread m LAPACK::LAPACK)
