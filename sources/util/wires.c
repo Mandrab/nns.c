@@ -134,12 +134,13 @@ void detect_junctions(
 bool** construe_adjacency_matrix(datasheet ds, network_topology nt)
 {
     // create the adjacency matrix
-    bool** adj = matrix(bool, ds.wires_count, ds.wires_count);
+    bool** adj = zeros_matrix(bool, ds.wires_count, ds.wires_count);
 
     // set an "adjacency" in presence of each junction
     for (int i = 0; i < nt.js_count; i++)
     {
         adj[nt.Js[i].first_wire][nt.Js[i].second_wire] = true;
+        adj[nt.Js[i].second_wire][nt.Js[i].first_wire] = true;
     }
 
     return adj;
