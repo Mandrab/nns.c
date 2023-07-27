@@ -2,9 +2,11 @@
 #include "util/components.h"
 #include "util/tensors.h"
 
+/// Given the adjacency matrix return a vector containing for
+/// each node the index of the parent connected component.
 int* map_components(bool** adj, int size);
 
-network_state* connected_components(network_state ns, int* nss_count, int** nss_nodes)
+const network_state* connected_components(const network_state ns, int* nss_count)
 {
     // map the node indexes with the CC indexes
     int* mapping = map_components(ns.A, ns.size);
@@ -24,13 +26,13 @@ network_state* connected_components(network_state ns, int* nss_count, int** nss_
     }
 
     // create counters to store the number of nodes in each cc
-    *nss_nodes = zeros_vector(int, *nss_count);
+    int nss_nodes[*nss_count] = { };
 
     // calculate the number of nodes in each CC
     for (int i = 0; i < ns.size; i++)
     {
         // increment the counter of the CC containing i
-        (*nss_nodes)[mapping[i]]++;
+        nss_nodes[mapping[i]]++;
     }
 
     // create a vector of network states, one for each component
@@ -40,11 +42,11 @@ network_state* connected_components(network_state ns, int* nss_count, int** nss_
     for (int i = 0; i < *nss_count; i++)
     {
         // create a zero initialized network state
-        nss[i].size = (*nss_nodes)[i];
-        nss[i].A = zeros_matrix(bool, (*nss_nodes)[i], (*nss_nodes)[i]);
-        nss[i].G = zeros_matrix(float, (*nss_nodes)[i], (*nss_nodes)[i]);
-        nss[i].Y = zeros_matrix(float, (*nss_nodes)[i], (*nss_nodes)[i]);
-        nss[i].V = zeros_vector(float, (*nss_nodes)[i]);
+        nss[i].size = nss_nodes[i];
+        nss[i].A = zeros_matrix(bool, nss_nodes[i], nss_nodes[i]);
+        nss[i].G = zeros_matrix(double, nss_nodes[i], nss_nodes[i]);
+        nss[i].Y = zeros_matrix(double, nss_nodes[i], nss_nodes[i]);
+        nss[i].V = zeros_vector(double, nss_nodes[i]);
     }
 
     // create counters to memorize how many nodes belonging to each CC were visited
@@ -88,17 +90,17 @@ network_state* connected_components(network_state ns, int* nss_count, int** nss_
     return nss;
 }
 
-network_state* largest_component(network_state* nss, int nss_count, int* nodes_count)
+const network_state* largest_component(const network_state* nss, int nss_count)
 {
     int largest_cc_index = 0;
 
     // find the index of the largest connected component
     for (int i = 0, max = 0; i < nss_count; i++)
     {
-        if (nodes_count[i] > max)
+        if (nss[i].size > max)
         {
             largest_cc_index = i;
-            max = nodes_count[i];
+            max = nss[i].size;
         }
     }
 
