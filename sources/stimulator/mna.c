@@ -6,28 +6,7 @@
 #include "stimulator/mna.h"
 #include "util/errors.h"
 
-/**
- * Performs the Modified Nodal Analysis on the Nanowire Network
- * equivalent electrical circuit. The voltage distribution is
- * stored in the V vector of the \p ns parameter.
- * 
- * @note This function uses the LAPACK functions to perform
- * efficient calculations. Previously, some algorithms for systems
- * solution were studied with the aim to find the most efficient
- * one. The considered factorization methods are the following:
- * - backward substitution -> not applicable as the elements
- *   on the bottom right of the diagonal are != 0
- * - cholesky -> not applicable as the matrix is
- *   not positive-defined
- * - LU decomposition -> costs n^3
- * - Gauss-Jordan elimination -> costs n^3
- * 
- * @param[in] ns The state of the NN (including its electrical state).
- * @param[in] it The set of ingoing / outgoing connection to the NN.
- * @param[in] inputs The voltage potential on the source nodes 
- * ordered according to their index.
- */
-void voltage_stimulation(network_state ns, interface it, float* inputs)
+void voltage_stimulation(network_state ns, const interface it, const double* inputs)
 {
     // calculate size of MNA matrix
     int size = ns.size + it.sources_count - it.grounds_count;
