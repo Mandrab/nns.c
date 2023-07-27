@@ -5,7 +5,6 @@
 #include "device/datasheet.h"
 #include "stimulator/mna.h"
 #include "util/errors.h"
-#include "util/tensors.h"
 
 /**
  * Performs the Modified Nodal Analysis on the Nanowire Network
