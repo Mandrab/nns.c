@@ -23,20 +23,35 @@ void voltage_stimulation(network_state ns, const interface it, const double* inp
     // if INFO = 0, WORK(1) returns the optimal L-WORK
     double work[size];
 
-    // fill the A matrix as required to run the MNA algorithm 
-    for (int i = 0, gcx = 0; i < ns.size; i++)
+    // count and memorize the number of grounds preceding a node
+    int skips[size] = { };
+    for (int i = 1; i < size; i++)
     {
-        // if i is a grounded node increment the counter and continue
-        if (gcx < it.grounds_count && it.grounds_mask[i])
+        if (it.grounds_mask[i - 1])
         {
-            gcx++;
+            skips[i] = skips[i - 1] + 1;
+        }
+        else
+        {
+            skips[i] = skips[i - 1];
+        }
+    }
+
+    // fill the A matrix as required to run the MNA algorithm 
+    #pragma omp parallel for
+    for (int i = 0; i < ns.size; i++)
+    {
+        // if i is a grounded node continue
+        if (it.grounds_mask[i])
+        {
             continue;
         }
 
         // iterate over the columns of A (excluding grounds)
         // setting the value as the negate of the conductance
         // and summing their positive values on the diagonal
-        for (int j = 0, gcy = 0; j < ns.size; j++)
+        #pragma omp parallel for
+        for (int j = 0; j < ns.size; j++)
         {
             // if i == j, continue to the next element (the diagonal is 0)
             if (i == j)
@@ -45,27 +60,26 @@ void voltage_stimulation(network_state ns, const interface it, const double* inp
             }
 
             // sum the outgoing conductances on the diagonal
-            // linearization of A[i - gcx][i - gcx]
-            A[(i - gcx) * size + i - gcx] += ns.Y[i][j];
+            // linearization of A[i - skips[i]][i - skips[i]]
+            A[(i - skips[i]) * size + i - skips[i]] += ns.Y[i][j];
 
-            // if j is a grounded node increment the counter and continue
-            if (gcy < it.grounds_count && it.grounds_mask[j])
+            // if j is a grounded node continue
+            if (it.grounds_mask[j])
             {
-                gcy++;
                 continue;
             }
 
             // negate the conductance of the Y matrix
-            // linearization of A[i - gcx][j - gcy] and A[j - gcy][i - gcx]
-            A[(i - gcx) * size + j - gcy] = - ns.Y[i][j];
-            A[(j - gcy) * size + i - gcx] = - ns.Y[i][j]; // TODO not useful as LAPACK considers the upper or lower triangular matrix
+            // linearization of A[i - skips[i]][j - skips[j]] and A[j - skips[j]][i - skips[i]]
+            A[(i - skips[i]) * size + j - skips[j]] = - ns.Y[i][j];
+            A[(j - skips[j]) * size + i - skips[i]] = - ns.Y[i][j]; // TODO not useful as LAPACK considers the upper or lower triangular matrix
         }
 
         // add the loads conductance to the diagonal of A
         if (it.loads_mask[i])
         {
-            // linearization of A[i - gcx][i - gcx]
-            A[(i - gcx) * size + i - gcx] = it.loads_weight[i];
+            // linearization of A[i - skips[i]][i - skips[i]]
+            A[(i - skips[i]) * size + i - skips[i]] = it.loads_weight[i];
         }
     }
 
@@ -106,16 +120,16 @@ void voltage_stimulation(network_state ns, const interface it, const double* inp
     assert(info == 0, info, "The MNA system cannot be solved!");
 
     // set the voltages vector
-    for (int i = 0, gc = 0; i < ns.size; i++)
+    #pragma opm parallel for
+    for (int i = 0; i < ns.size; i++)
     {
         if (it.grounds_mask[i])
         {
             ns.V[i] = 0;
-            gc++;
         }
         else
         {
-            ns.V[i] = b[i - gc];
+            ns.V[i] = b[i - skips[i]];
         }
     }
 }
