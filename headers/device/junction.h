@@ -3,7 +3,7 @@
 
 #include "util/point.h"
 
-/// Stores the index of the wires forming the junction together with its position.
+/// @brief Stores the index of the wires forming the junction together with its position.
 typedef struct
 {
     int     first_wire;     ///< First wire forming the junction.

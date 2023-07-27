@@ -1,7 +1,7 @@
 #ifndef DATASHEET_H
 #define DATASHEET_H
 
-/// Defines the static characteristics of the device.
+/// @brief Defines the static characteristics of the device.
 typedef const struct
 {
     int     wires_count;        ///< Total number of wires in the Nanowire Network.
