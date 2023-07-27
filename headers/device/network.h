@@ -10,19 +10,19 @@
 /// @brief Topology of the Nanowire Network.
 typedef struct
 {
-    wire*       Ws;         ///< Position of the wires in the packaging.
-    int         js_count;   ///< Number of junctions identified.
-    junction*   Js;         ///< Position of the identified junctions.
+    wire*       Ws;             ///< Position of the wires in the packaging.
+    int         js_count;       ///< Number of junctions identified.
+    junction*   Js;             ///< Position of the identified junctions.
 } network_topology;
 
 /// @brief State of the Nanowire Network.
 typedef struct
 {
-    int     size;           /// Number of wires in the network.
-    bool**  A;              /// Adjacency matrix of the Nanowire Network.
-    double** G;             /// Conductances of the equivalent electrical circuit.
-    double** Y;             /// Admittances of the equivalent electrical circuit.
-    double*  V;             /// Voltage distribution across the wires.
+    int         size;           /// Number of wires in the network.
+    bool**      A;              /// Adjacency matrix of the Nanowire Network.
+    double**    G;              /// Conductances of the equivalent electrical circuit.
+    double**    Y;              /// Admittances of the equivalent electrical circuit.
+    double*     V;              /// Voltage distribution across the wires.
 } network_state;
 
 
