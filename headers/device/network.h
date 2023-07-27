@@ -28,14 +28,14 @@ typedef struct
 
 /// @brief Create the Nanowire Network topology determining the wires and junctions distribution.
 /// 
-/// @param ds The datasheet describing the Nanowire Network.
+/// @param[in] ds The datasheet describing the Nanowire Network.
 /// @return The topology of the created Nanowire Network.
 const network_topology create_network(const datasheet ds);
 
 /// @brief Construe the equivalent electrical circuit of the Nanowire Network.
 /// 
-/// @param ds The datasheet describing the Nanowire Network.
-/// @param nt The topology of the Nanowire Network.
+/// @param[in] ds The datasheet describing the Nanowire Network.
+/// @param[in] nt The topology of the Nanowire Network.
 /// @return The electrical representation of the Nanowire Network.
 const network_state construe_circuit(const datasheet ds, const network_topology nt);
 
