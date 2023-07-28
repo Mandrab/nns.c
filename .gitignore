@@ -4,6 +4,7 @@
 *.elf
 *.log
 *.o
+tests/run_all.c
 cmake_install.cmake
 CMakeCache.txt
 CMakeDoxyfile.in
@@ -14,3 +15,4 @@ Makefile
 .vscode
 CMakeFiles
 docs
+Testing
