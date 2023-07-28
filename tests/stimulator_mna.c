@@ -1,6 +1,8 @@
-#include "test_mna.h"
+#include <math.h>
+
 #include "device/network.h"
 #include "stimulator/mna.h"
+#include "util/errors.h"
 #include "util/tensors.h"
 
 /**
@@ -8,16 +10,16 @@
  * 
  *      SRC-----R-----R-----GND
  */
-START_TEST(test_modified_nodal_analysis_minimal)
+void test_modified_nodal_analysis_minimal()
 {
     const int size = 3;
 
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(float, size, size),
-        matrix(float, size, size),
-        vector(float, size)
+        matrix(double, size, size),
+        matrix(double, size, size),
+        vector(double, size)
     };
 
     ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 0;
@@ -27,7 +29,7 @@ START_TEST(test_modified_nodal_analysis_minimal)
     bool sources[3] = { true, false, false };
     bool grounds[3] = { false, false, true };
     bool loads[3] = { false, false, false };
-    float weights[3] = { 0.0 };
+    double weights[3] = { 0.0 };
     interface it = (interface) {
         1, sources,
         1, grounds,
@@ -35,21 +37,20 @@ START_TEST(test_modified_nodal_analysis_minimal)
     };
 
     // define the voltage of the first input
-    float vs[1] = { 5 };
+    double vs[1] = { 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
 
-    ck_assert_float_eq_tol(ns.V[0],  5.00, 1e-2); // a - source
-    ck_assert_float_eq_tol(ns.V[1],  2.50, 1e-2); // b - voltage divider
-    ck_assert_float_eq_tol(ns.V[2],  0.00, 1e-2); // c - ground
+    assert(fabs(ns.V[0] - 5.00) < 1e-2, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - source
+    assert(fabs(ns.V[1] - 2.50) < 1e-2, -1, "ns.V[1] == %f but should be %f", ns.V[1], 2.50); // b - voltage divider
+    assert(fabs(ns.V[2] - 0.00) < 1e-2, -1, "ns.V[2] == %f but should be %f", ns.V[2], 0.00); // c - ground
 
     free_matrix(ns.A, size);
     free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
-END_TEST
 
 /**
  * Testing the following circuit:
@@ -67,16 +68,16 @@ END_TEST
  * - R_2 = 0.33 Ω
  * - R_3 = 0.25 Ω
  */
-START_TEST(test_modified_nodal_analysis_basic)
+void test_modified_nodal_analysis_basic()
 {
     const int size = 4;
 
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(float, size, size),
-        matrix(float, size, size),
-        vector(float, size)
+        matrix(double, size, size),
+        matrix(double, size, size),
+        vector(double, size)
     };
 
     // Ax = b:
@@ -95,7 +96,7 @@ START_TEST(test_modified_nodal_analysis_basic)
     bool sources[4] = { true, false, false, false };
     bool grounds[4] = { false, false, false, true };
     bool loads[4] = { false, false, false, false };
-    float weights[4] = { 0.0 };
+    double weights[4] = { 0.0 };
     interface it = (interface) {
         1, sources,
         1, grounds,
@@ -103,22 +104,21 @@ START_TEST(test_modified_nodal_analysis_basic)
     };
 
     // define the voltage of the first input
-    float vs[1] = { 5 };
+    double vs[1] = { 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
 
-    ck_assert_float_eq_tol(ns.V[0],  5.00, 1e-2); // a - source
-    ck_assert_float_eq_tol(ns.V[1],  5.00, 1e-2); // b - disconnected from ground
-    ck_assert_float_eq_tol(ns.V[2],  2.14, 1e-2); // c - voltage divider
-    ck_assert_float_eq_tol(ns.V[3],  0.00, 1e-2); // d - ground
+    assert(fabs(ns.V[0] - 5.00) < 1e-2, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - source
+    assert(fabs(ns.V[1] - 5.00) < 1e-2, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00); // b - disconnected from ground
+    assert(fabs(ns.V[2] - 2.14) < 1e-2, -1, "ns.V[2] == %f but should be %f", ns.V[2], 2.14); // c - voltage divider
+    assert(fabs(ns.V[3] - 0.00) < 1e-2, -1, "ns.V[3] == %f but should be %f", ns.V[3], 0.00); // d - ground
 
     free_matrix(ns.A, size);
     free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
-END_TEST
 
 /**
  * Testing the following circuit:
@@ -143,16 +143,16 @@ END_TEST
  * 
  * All the resistances are 1kΩ.
  */
-START_TEST(test_modified_nodal_analysis_advanced)
+void test_modified_nodal_analysis_advanced()
 {
     const int size = 12;
 
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(float, size, size),
-        matrix(float, size, size),
-        vector(float, size)
+        matrix(double, size, size),
+        matrix(double, size, size),
+        vector(double, size)
     };
 
     ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 0; ns.Y[0][3] = 0; ns.Y[0][4] = 1; ns.Y[0][5] = 0;
@@ -197,7 +197,7 @@ START_TEST(test_modified_nodal_analysis_advanced)
     bool grounds[12] = { };
     grounds[10] = true;
     bool loads[12] = { };
-    float weights[12] = { 0.0 };
+    double weights[12] = { 0.0 };
     interface it = (interface) {
         1, sources,
         1, grounds,
@@ -205,40 +205,35 @@ START_TEST(test_modified_nodal_analysis_advanced)
     };
 
     // define the voltage of the first input
-    float vs[1] = { 5 };
+    double vs[1] = { 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
 
-    ck_assert_float_eq_tol(ns.V[0],  5.00, 1e-2);
-    ck_assert_float_eq_tol(ns.V[1],  5.00, 1e-2);
-    ck_assert_float_eq_tol(ns.V[2],  5.00, 1e-2);
-    ck_assert_float_eq_tol(ns.V[3],  5.00, 1e-2);
-    ck_assert_float_eq_tol(ns.V[4],  3.62, 1e-2);
-    ck_assert_float_eq_tol(ns.V[5],  1.90, 1e-2);
-    ck_assert_float_eq_tol(ns.V[6],  1.37, 1e-2);
-    ck_assert_float_eq_tol(ns.V[7],  2.07, 1e-2);
-    ck_assert_float_eq_tol(ns.V[8],  5.00, 1e-2);
-    ck_assert_float_eq_tol(ns.V[9],  2.25, 1e-2);
-    ck_assert_float_eq_tol(ns.V[10], 0.00, 1e-2);
-    ck_assert_float_eq_tol(ns.V[11], 5.00, 1e-2);
+    assert(fabs(ns.V[0]  - 5.00) < 1e-2, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00);
+    assert(fabs(ns.V[1]  - 5.00) < 1e-2, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00);
+    assert(fabs(ns.V[2]  - 5.00) < 1e-2, -1, "ns.V[2] == %f but should be %f", ns.V[2], 2.14);
+    assert(fabs(ns.V[3]  - 5.00) < 1e-2, -1, "ns.V[3] == %f but should be %f", ns.V[3], 0.00);
+    assert(fabs(ns.V[4]  - 3.62) < 1e-2, -1, "ns.V[4] == %f but should be %f", ns.V[4], 5.00);
+    assert(fabs(ns.V[5]  - 1.90) < 1e-2, -1, "ns.V[5] == %f but should be %f", ns.V[5], 5.00);
+    assert(fabs(ns.V[6]  - 1.37) < 1e-2, -1, "ns.V[6] == %f but should be %f", ns.V[6], 2.14);
+    assert(fabs(ns.V[7]  - 2.07) < 1e-2, -1, "ns.V[7] == %f but should be %f", ns.V[7], 0.00);
+    assert(fabs(ns.V[8]  - 5.00) < 1e-2, -1, "ns.V[8] == %f but should be %f", ns.V[8], 5.00);
+    assert(fabs(ns.V[9]  - 2.25) < 1e-2, -1, "ns.V[9] == %f but should be %f", ns.V[9], 5.00);
+    assert(fabs(ns.V[10] - 0.00) < 1e-2, -1, "ns.V[10] == %f but should be %f", ns.V[10], 2.14);
+    assert(fabs(ns.V[11] - 5.00) < 1e-2, -1, "ns.V[11] == %f but should be %f", ns.V[11], 0.00);
 
     free_matrix(ns.A, size);
     free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
-END_TEST
 
-Suite* mna_suite()
+int stimulator_mna()
 {
-    Suite* suite = suite_create("Modified nodal analysis");
-    TCase* tc_core = tcase_create("Distribution of the voltages in a circuit connected with a source and a ground");
+    test_modified_nodal_analysis_minimal();
+    test_modified_nodal_analysis_basic();
+    test_modified_nodal_analysis_advanced();
 
-    tcase_add_test(tc_core, test_modified_nodal_analysis_minimal);
-    tcase_add_test(tc_core, test_modified_nodal_analysis_basic);
-    tcase_add_test(tc_core, test_modified_nodal_analysis_advanced);
-    suite_add_tcase(suite, tc_core);
-
-    return suite;
+    return 0;
 }

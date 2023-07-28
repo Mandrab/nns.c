@@ -20,6 +20,10 @@ include_directories(headers)
 # create the library
 add_library(nns STATIC ${SOURCES})
 
+# find OpenBLAS library
+set(BLA_VENDOR OpenBLAS)
+find_package(BLAS REQUIRED)
+
 # find LAPACKE (C-LAPACK) library
 find_package(LAPACK REQUIRED)
 
@@ -62,26 +66,12 @@ endif (DOXYGEN_FOUND)
 # EXAMPLES                                                                    #
 ###############################################################################
 
-# build example programs using the nns library
-add_executable(example1.elf examples/example_1.c)
-target_link_libraries(example1.elf nns)
+# include examples directory
+add_subdirectory(examples)
 
 ###############################################################################
 # TESTS                                                                       #
 ###############################################################################
 
-# contains some cmake macros that will help with discovery of tests
-find_package(Check REQUIRED)
-
-# include libcheck directories
-include_directories(${CHECK_INCLUDE_DIRS})
-
-# find the test (i.e., .c) files
-file(GLOB_RECURSE TESTS tests/*.c)
-
-include_directories(headers)
-
-# build testing binaries
-add_executable(tests.elf ${TESTS})
-target_sources(tests.elf PRIVATE ${SOURCES})
-target_link_libraries(tests.elf PRIVATE check pthread m LAPACK::LAPACK)
+# include testing directory
+add_subdirectory(tests)
