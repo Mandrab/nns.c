@@ -20,7 +20,7 @@ wire* drop_wires(datasheet ds)
     // generate the distribution of the wires
     for (int i = 0; i < ds.wires_count; i++)
     {
-        float length;
+        double length;
 
         // generate the (positive) length of the wire
         do
@@ -29,9 +29,9 @@ wire* drop_wires(datasheet ds)
         } while (length <= 0);
 
         // generate the centroids of the ws
-        float xc = (float) rand() / RAND_MAX * ds.package_size;
-        float yc = (float) rand() / RAND_MAX * ds.package_size;
-        float theta = (float) rand() / RAND_MAX * M_PI;
+        double xc = (double) rand() / RAND_MAX * ds.package_size;
+        double yc = (double) rand() / RAND_MAX * ds.package_size;
+        double theta = (double) rand() / RAND_MAX * M_PI;
 
         // save the information into the data-structure
         ws[i] = (wire)
@@ -72,10 +72,10 @@ void detect_junctions(
             point sj = ws[j].start_edge, ej = ws[j].end_edge;
 
             // calculate the distance between the point edges on each axis
-            float Δxi = si.x - ei.x, Δyi = si.y - ei.y;
-            float Δxj = sj.x - ej.x, Δyj = sj.y - ej.y;
+            double Δxi = si.x - ei.x, Δyi = si.y - ei.y;
+            double Δxj = sj.x - ej.x, Δyj = sj.y - ej.y;
 
-            float c = Δxi * Δyj - Δyi * Δxj;
+            double c = Δxi * Δyj - Δyi * Δxj;
 
             // if there is no intersection, check the next pair
             if (fabs(c) < 0.01)
@@ -83,12 +83,12 @@ void detect_junctions(
                 continue;
             }
 
-            float a = si.x * ei.y - si.y * ei.x;
-            float b = sj.x * ej.y - sj.y * ej.x;
+            double a = si.x * ei.y - si.y * ei.x;
+            double b = sj.x * ej.y - sj.y * ej.x;
 
             // calculate the possible intersection point
-            float x = (a * Δxj - b * Δxi) / c;
-            float y = (a * Δyj - b * Δyi) / c;
+            double x = (a * Δxj - b * Δxi) / c;
+            double y = (a * Δyj - b * Δyi) / c;
 
             // exclude intersection points outside the wires area
             if (
