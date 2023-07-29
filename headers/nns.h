@@ -14,5 +14,6 @@
 #include "util/components.h"
 #include "util/measures.h"
 #include "util/point.h"
+#include "util/tensors.h"
 
 #endif /* NNS_H */
