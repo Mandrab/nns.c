@@ -12,7 +12,7 @@ The library is inspired by the code used in the paper [_Connectome of memristive
 - [OPTIONAL] Doxygen for the generation of the documentation
 
 ## Instructions
-To run the examples: `clear; cmake .; make clean; make; time ./example1.elf`</br>
+To run the examples: `clear; cmake .; make clean; make; time ./examples/[EXAMPLE NAME].elf`</br>
 To run the tests: `clear; cmake .; make clean; make; cd tests; ctest; cd ..`
 
 ## Notes
