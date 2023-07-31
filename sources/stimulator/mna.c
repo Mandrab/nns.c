@@ -79,7 +79,7 @@ void voltage_stimulation(network_state ns, const interface it, const double* inp
         if (it.loads_mask[i])
         {
             // linearization of A[i - skips[i]][i - skips[i]]
-            A[(i - skips[i]) * size + i - skips[i]] = it.loads_weight[i];
+            A[(i - skips[i]) * size + i - skips[i]] += it.loads_weight[i];
         }
     }
 
