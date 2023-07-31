@@ -1,0 +1,101 @@
+#include <stdio.h>
+
+#include "nns.h"
+
+int main()
+{
+    printf("Defining the Nanowire Network characteristics\n");
+
+    // define the NN datasheet, i.e., its technical information
+    datasheet ds = {
+        1500,
+        14.0,
+        14.0 * 0.35,
+        250,
+        1234
+    };
+
+    printf("Creating the Nanowire Network\n");
+
+    // generate the NN topology
+    const network_topology nt = create_network(ds);
+
+    printf("Construing the Nanowire Network equivalent electrical circuit\n");
+
+    // interpret the NN as an electrical circuit
+    const network_state ns = construe_circuit(ds, nt);
+
+    printf("Finding and selecting the largest connected component of the Nanowire Network\n");
+
+    // separate the network into connected component networks
+    // and get the largest connected component state
+    int nss_count;
+    const network_state* nss = connected_components(ns, &nss_count);
+    const network_state* lns = largest_component(nss, nss_count);
+
+    printf("Keeping the largest connected component (%d nodes) and dereferencing the others\n", lns->size);
+
+    // free the unused connected components
+    for (int i = 0; i < nss_count; i++)
+    {
+        if (&nss[i] != lns)
+        {
+            free_matrix(nss[i].A, nss[i].size);
+            free_matrix(nss[i].G, nss[i].size);
+            free_matrix(nss[i].Y, nss[i].size);
+            free(nss[i].V);
+        }
+    }
+
+    printf("Creating an interface to stimulate the nanowire network.\n");
+
+    // creating the interface to stimulate the device
+    bool sources[lns->size] = { };
+    sources[0] = true;
+    bool grounds[lns->size] = { };
+    bool loads[lns->size] = { };
+    loads[lns->size - 1] = true;
+    double loads_weight[lns->size] = { };
+    loads_weight[lns->size - 1] = 0.001;
+
+    interface it = {
+        1, sources,
+        0, grounds,
+        1, loads, loads_weight,
+    };
+    double v[1] = { 5.0 };
+
+    printf("Performing the voltage stimulation and weight update of the nanowire network\n");
+
+    // let the system stabilize
+    for (int i = 0; i < 1000; i++)
+    {
+        update_conductance(lns);
+    }
+
+    // update and stimulate the nanowire network
+    printf("Conductance variation: ");
+    for (int i = 0; i < 100; i++)
+    {
+        voltage_stimulation(*lns, it, v);
+        update_conductance(lns);
+        double conductance = 1 / resistive_distance(*lns, 0, lns->size - 1);
+        printf("%f ", conductance);
+    }
+
+    // stop stimulating the nanowire network
+    v[0] = 0.0;
+
+    for (int i = 0; i < 100; i++)
+    {
+        voltage_stimulation(*lns, it, v);
+        update_conductance(lns);
+        double conductance = 1 / resistive_distance(*lns, 0, lns->size - 1);
+        printf("%f ", conductance);
+    }
+    printf("\n");
+
+    printf("Terminating the simulation\n");
+
+    return 0;
+}
