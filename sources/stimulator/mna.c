@@ -6,7 +6,7 @@
 #include "stimulator/mna.h"
 #include "util/errors.h"
 
-void voltage_stimulation(network_state ns, const interface it, const double* inputs)
+void voltage_stimulation(network_state ns, const interface it, double* io)
 {
     // calculate size of MNA matrix
     int size = ns.size + it.sources_count - it.grounds_count;
@@ -23,18 +23,13 @@ void voltage_stimulation(network_state ns, const interface it, const double* inp
     // if INFO = 0, WORK(1) returns the optimal L-WORK
     double work[size];
 
-    // count and memorize the number of grounds preceding a node
-    int skips[size] = { };
-    for (int i = 1; i < size; i++)
+    // count and memorize the number of grounds and sources preceding a node
+    int skips[ns.size] = { };
+    int index[ns.size] = { };
+    for (int i = 1; i < ns.size; i++)
     {
-        if (it.grounds_mask[i - 1])
-        {
-            skips[i] = skips[i - 1] + 1;
-        }
-        else
-        {
-            skips[i] = skips[i - 1];
-        }
+        skips[i] = skips[i - 1] + it.grounds_mask[i - 1];
+        index[i] = index[i - 1] + it.sources_mask[i - 1];
     }
 
     // fill the A matrix as required to run the MNA algorithm 
@@ -75,6 +70,16 @@ void voltage_stimulation(network_state ns, const interface it, const double* inp
             A[(j - skips[j]) * size + i - skips[i]] = - ns.Y[i][j]; // TODO not useful as LAPACK considers the upper or lower triangular matrix
         }
 
+        // mark the sources with a 1 on the right and bottom most part of the matrix
+        if (it.sources_mask[i])
+        {
+            // linearization of:
+            // A[size - it.sources_count + index[i]][i]
+            // A[i][size - it.sources_count + index[i]]
+            A[(size - it.sources_count + index[i]) * size + i - skips[i]] = 1;
+            A[(i - skips[i]) * size + size - it.sources_count + index[i]] = 1;
+        }
+
         // add the loads conductance to the diagonal of A
         if (it.loads_mask[i])
         {
@@ -83,28 +88,10 @@ void voltage_stimulation(network_state ns, const interface it, const double* inp
         }
     }
 
-    // set the sources on the right and bottom of the matrix
-    for (int i = 0; i < it.sources_count; i++)
-    {
-        // set the source on the right-most side of the matrix
-        // linearization of A[i][size - it.sources_count + i]
-        A[
-            i * size +                              // row
-            size - it.sources_count + i             // column
-        ] = 1;
-
-        // set the source on the bottom side of the matrix
-        // linearization of A[size - it.sources_count + i][i]
-        A[
-            size * (i + size - it.sources_count) +  // row
-            i                                       // column
-        ] = 1;  // TODO not useful as LAPACK considers the upper or lower triangular matrix
-    }
-
     // fill the b vector with the known voltages
     for (int i = 0; i < it.sources_count; i++)
     {
-        b[size - it.sources_count + i] = inputs[i];
+        b[size - it.sources_count + i] = io[i];
     }
 
     // consider A as an upper triangular matrix
@@ -131,5 +118,12 @@ void voltage_stimulation(network_state ns, const interface it, const double* inp
         {
             ns.V[i] = b[i - skips[i]];
         }
+    }
+
+    // set the currents vector
+    #pragma opm parallel for
+    for (int i = 0; i < it.sources_count; i++)
+    {
+        io[i] = b[size - it.sources_count + i];
     }
 }

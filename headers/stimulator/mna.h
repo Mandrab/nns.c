@@ -25,8 +25,14 @@
 /// on which performing the MNA.
 /// @param[in] it The interface of the Nanowire Network with the external
 /// world, including sources, grounds and loads.
-/// @param[in] inputs The voltage potential on the source nodes ordered
-/// according to their index.
-void voltage_stimulation(network_state nw, const interface it, const double* inputs);
+/// @param[in, out] io An array with an entry for each source. As input
+/// parameter it contains the voltage applied to the source, as output it
+/// contains the current drawn from that node. The values in the array are
+/// ordered according to the index of the corresponding source. E.g.:
+///     node: 5, volt: 5, current: 10
+///     node: 7, volt: 3, current: 8
+///     io as input: [5, 3]
+///     io as output: [10, 8]
+void voltage_stimulation(network_state nw, const interface it, double* io);
 
 #endif /* MNA_H */
