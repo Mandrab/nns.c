@@ -13,7 +13,7 @@
  * 
  *      SRC-----R-----R-----GND
  */
-void test_modified_nodal_analysis_divider()
+void test_divider_one()
 {
     const int size = 3;
 
@@ -58,6 +58,58 @@ void test_modified_nodal_analysis_divider()
 /**
  * Testing the following circuit:
  * 
+ *      GND-----R-----SRC-----R-----GND
+ *                     |
+ *                     R
+ *                     |
+ *                    --
+ */
+void test_divider_two()
+{
+    const int size = 4;
+
+    network_state ns = (network_state) {
+        size,
+        matrix(bool, size, size),
+        matrix(double, size, size),
+        matrix(double, size, size),
+        vector(double, size)
+    };
+
+    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 0; ns.Y[0][3] = 0;
+    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 1; ns.Y[1][3] = 1;
+    ns.Y[2][0] = 0; ns.Y[2][1] = 1; ns.Y[2][2] = 0; ns.Y[2][3] = 0;
+    ns.Y[3][0] = 0; ns.Y[3][1] = 1; ns.Y[3][2] = 0; ns.Y[3][3] = 0;
+
+    bool sources[4] = { false, true, false, false };
+    bool grounds[4] = { true, false, true, false };
+    bool loads[4] = { false, false, false, false };
+    interface it = (interface) {
+        1, sources,
+        2, grounds,
+        0, loads, NULL
+    };
+
+    // define the voltage of the first input
+    double vs[1] = { 5 };
+
+    // call the conjugate_gradient function
+    voltage_stimulation(ns, it, vs);
+
+    assert(fabs(ns.V[0] - 0.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 0.00); // a - ground
+    assert(fabs(ns.V[1] - 5.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00); // b - source
+    assert(fabs(ns.V[2] - 0.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 0.00); // c - ground
+    assert(fabs(ns.V[3] - 5.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[3], 5.00); // d - disconnected
+
+    free_matrix(ns.A, size);
+    free_matrix(ns.G, size);
+    free_matrix(ns.Y, size);
+    free(ns.V);
+}
+
+/**
+ * Testing the following circuit:
+ * 
  *              SRC
  *               |
  *        --R_1-----R_2--
@@ -71,7 +123,7 @@ void test_modified_nodal_analysis_divider()
  * - R_2 = 0.33 Ω
  * - R_3 = 0.25 Ω
  */
-void test_modified_nodal_analysis_parallel()
+void test_parallel()
 {
     const int size = 4;
 
@@ -146,7 +198,7 @@ void test_modified_nodal_analysis_parallel()
  * 
  * All the resistances are 1kΩ.
  */
-void test_modified_nodal_analysis_complex()
+void test_complex()
 {
     const int size = 12;
 
@@ -248,7 +300,7 @@ void test_modified_nodal_analysis_complex()
  * - R_2 = 0.25 Ω
  * - R_L = 0.50 Ω
  */
-void test_modified_nodal_analysis_loaded()
+void test_loaded()
 {
     const int size = 3;
 
@@ -310,7 +362,7 @@ void test_modified_nodal_analysis_loaded()
  * - R_4 = 1.00 Ω
  * - R_L = 0.50 Ω
  */
-void test_modified_nodal_analysis_grounded_and_loaded()
+void test_grounded_and_loaded()
 {
     const int size = 5;
 
@@ -365,13 +417,72 @@ void test_modified_nodal_analysis_grounded_and_loaded()
     free(ns.V);
 }
 
+/**
+ * Testing the following circuit:
+ * 
+ *      5 V          10 V
+ *       |            |
+ *       ---R------R---
+ *             |
+ *             R
+ *             |
+ *            GND
+ */
+void test_input_currents()
+{
+    const int size = 4;
+
+    network_state ns = (network_state) {
+        size,
+        matrix(bool, size, size),
+        matrix(double, size, size),
+        matrix(double, size, size),
+        vector(double, size)
+    };
+
+    ns.Y[0][0] = 0; ns.Y[0][1] = 1;    ns.Y[0][2] = 0;    ns.Y[0][3] = 0;
+    ns.Y[1][0] = 1; ns.Y[1][1] = 0;    ns.Y[1][2] = 0.33; ns.Y[1][3] = 1;
+    ns.Y[2][0] = 0; ns.Y[2][1] = 0.33; ns.Y[2][2] = 0;    ns.Y[2][3] = 0;
+    ns.Y[3][0] = 0; ns.Y[3][1] = 1;    ns.Y[3][2] = 0;    ns.Y[3][3] = 0;
+
+    bool sources[4] = { true, false, true, false };
+    bool grounds[4] = { false, false, false, true };
+    bool loads[4] = { false, false, false, false };
+    interface it = (interface) {
+        2, sources,
+        1, grounds,
+        0, loads, NULL
+    };
+
+    // define the voltage of the first input
+    double vs[2] = { 5, 10 };
+
+    // call the conjugate_gradient function
+    voltage_stimulation(ns, it, vs);
+
+    assert(fabs(ns.V[0] - 5.00)  < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0],  5.00); // a - source 5 v
+    assert(fabs(ns.V[1] - 3.57)  < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1],  3.57); // b - voltage divider
+    assert(fabs(ns.V[2] - 10.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 10.00); // c - source 10 v
+    assert(fabs(ns.V[3] - 0.00)  < TOLERANCE, -1, "ns.V[3] == %f but should be %f", ns.V[3],  0.00); // d - ground
+
+    assert(fabs(vs[0] - 1.43) < TOLERANCE, -1, "I_1 == %f but should be %f", vs[0], 1.43);  // in mA
+    assert(fabs(vs[1] - 2.14) < TOLERANCE, -1, "I_2 == %f but should be %f", vs[1], 2.14);  // in mA
+
+    free_matrix(ns.A, size);
+    free_matrix(ns.G, size);
+    free_matrix(ns.Y, size);
+    free(ns.V);
+}
+
 int stimulator_mna()
 {
-    test_modified_nodal_analysis_divider();
-    test_modified_nodal_analysis_parallel();
-    test_modified_nodal_analysis_complex();
-    test_modified_nodal_analysis_loaded();
-    test_modified_nodal_analysis_grounded_and_loaded();
+    test_divider_one();
+    test_divider_two();
+    test_parallel();
+    test_complex();
+    test_loaded();
+    test_grounded_and_loaded();
+    test_input_currents();
 
     return 0;
 }
