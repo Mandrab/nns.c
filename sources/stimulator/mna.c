@@ -124,6 +124,6 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
     #pragma opm parallel for
     for (int i = 0; i < it.sources_count; i++)
     {
-        io[i] = b[size - it.sources_count + i];
+        io[i] = - b[size - it.sources_count + i];
     }
 }
