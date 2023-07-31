@@ -5,7 +5,7 @@
 #include "util/errors.h"
 #include "util/tensors.h"
 
-// allows half volt difference between calculated and expected
+// allows 0.05 volt difference between calculated and expected
 #define TOLERANCE 5e-2
 
 /**
@@ -237,6 +237,64 @@ void test_modified_nodal_analysis_complex()
  * 
  *              SRC
  *               |
+ *        --R_1-----R_2---
+ *       |               |
+ *      --              R_L
+ *                       |
+ *                      GND
+ * 
+ * where:
+ * - R_1 = 1.00 Ω
+ * - R_2 = 0.25 Ω
+ * - R_L = 0.50 Ω
+ */
+void test_modified_nodal_analysis_loaded()
+{
+    const int size = 3;
+
+    network_state ns = (network_state) {
+        size,
+        matrix(bool, size, size),
+        matrix(double, size, size),
+        matrix(double, size, size),
+        vector(double, size)
+    };
+
+    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 4;
+    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 0;
+    ns.Y[2][0] = 4; ns.Y[2][1] = 0; ns.Y[2][2] = 0;
+
+    bool sources[5] = { true, false, false };
+    bool grounds[5] = { false, false, false };
+    bool loads[5] = { false, false, true };
+    double weights[5] = { .0, .0, 2.0 };
+    interface it = (interface) {
+        1, sources,
+        0, grounds,
+        1, loads, weights
+    };
+
+    // define the voltage of the first input
+    double vs[1] = { 5 };
+
+    // call the conjugate_gradient function
+    voltage_stimulation(ns, it, vs);
+
+    assert(fabs(ns.V[0] - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - source
+    assert(fabs(ns.V[1] - 5.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00); // b - disconnected from ground
+    assert(fabs(ns.V[2] - 3.33) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 3.33); // c - voltage divider
+
+    free_matrix(ns.A, size);
+    free_matrix(ns.G, size);
+    free_matrix(ns.Y, size);
+    free(ns.V);
+}
+
+/**
+ * Testing the following circuit:
+ * 
+ *              SRC
+ *               |
  *        --R_1-----R_2-----R_4---
  *       |              |        |
  *      --             R_3      R_L
@@ -252,7 +310,7 @@ void test_modified_nodal_analysis_complex()
  * - R_4 = 1.00 Ω
  * - R_L = 0.50 Ω
  */
-void test_modified_nodal_analysis_loaded()
+void test_modified_nodal_analysis_grounded_and_loaded()
 {
     const int size = 5;
 
@@ -313,6 +371,7 @@ int stimulator_mna()
     test_modified_nodal_analysis_parallel();
     test_modified_nodal_analysis_complex();
     test_modified_nodal_analysis_loaded();
+    test_modified_nodal_analysis_grounded_and_loaded();
 
     return 0;
 }
