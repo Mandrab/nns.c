@@ -8,6 +8,9 @@
 
 #include "interface/interface.h"
 
+#include "io/deserializer.h"
+#include "io/serializer.h"
+
 #include "stimulator/mna.h"
 #include "stimulator/update.h"
 
