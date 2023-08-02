@@ -1,6 +1,7 @@
 # file types
 *.a
 *.bak
+*.dat
 *.elf
 *.log
 *.o
