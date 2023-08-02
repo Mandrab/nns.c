@@ -4,8 +4,6 @@
 #include "device/network.h"
 #include "interface/interface.h"
 
-// NOTE THE DATA STRUCT PASSED AS ARGUMENTS HAVE TO BE EMPTY / NEW
-
 /// @brief Deserialize the static characteristics of the network from a file
 /// named "nanowire_network.ID.dat", where ID is the univocal identifier of the
 /// NN.
