@@ -22,6 +22,8 @@
 /// ```
 typedef struct
 {
+    int     mask_size;      ///< The size of the nodes masks.
+
     int     sources_count;  ///< Number of sources connected to the device.
     bool*   sources_mask;   ///< Mask of the source nodes (TRUE = source).
 
@@ -30,7 +32,7 @@ typedef struct
 
     int     loads_count;    ///< Number of loads connected to the device.
     bool*   loads_mask;     ///< Mask of the loaded nodes (TRUE = loaded).
-    double* loads_weight;   ///< Weight of the optional load connected to the node.
+    double* loads_weight;   ///< Weight of the optional load connected to the node (in siemens).
 } interface;
 
 #endif /* INTERFACE_H */
