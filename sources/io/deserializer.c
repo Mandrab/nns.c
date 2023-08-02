@@ -95,7 +95,6 @@ int deserialize_state(network_state* ns, int id)
     fscanf(file, "\n\nnetwork size: %d", &ns->size);
 
     ns->A = matrix(bool, ns->size, ns->size);
-    ns->G = matrix(double, ns->size, ns->size);
     ns->Y = matrix(double, ns->size, ns->size);
     ns->V = vector(double, ns->size);
 
@@ -105,16 +104,6 @@ int deserialize_state(network_state* ns, int id)
         for (int j = 0; j < ns->size; j++)
         {
             fscanf(file, "%d ", &ns->A[i][j]);
-        }
-        fscanf(file, "\n\t");
-    }
-
-    fscanf(file, "\nG:\n\t");
-    for (int i = 0; i < ns->size; i++)
-    {
-        for (int j = 0; j < ns->size; j++)
-        {
-            fscanf(file, "%lf ", &ns->G[i][j]);
         }
         fscanf(file, "\n\t");
     }

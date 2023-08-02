@@ -136,14 +136,9 @@ void test_state_io()
                 i, j, ns.A[i][j], loaded_ns.A[i][j]
             );
             assert(
-                fabs(loaded_ns.G[i][j] - ns.G[i][j]) < TOLERANCE, -1,
-                "The (de)serialization of G[%i][%d] is not correct: original = %d, loaded = %d",
-                i, j, ns.G[i][j], loaded_ns.G[i][j]
-            );
-            assert(
                 fabs(loaded_ns.Y[i][j] - ns.Y[i][j]) < TOLERANCE, -1,
                 "The (de)serialization of Y[%d][%d] is not correct: original = %d, loaded = %d",
-                i, j, ns.G[i][j], loaded_ns.Y[i][j]
+                i, j, ns.Y[i][j], loaded_ns.Y[i][j]
             );
         }
         assert(

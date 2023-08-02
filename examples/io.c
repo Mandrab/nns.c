@@ -69,7 +69,6 @@ int main()
         if (&nss[i] != lns)
         {
             free_matrix(nss[i].A, nss[i].size);
-            free_matrix(nss[i].G, nss[i].size);
             free_matrix(nss[i].Y, nss[i].size);
             free(nss[i].V);
         }

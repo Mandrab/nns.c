@@ -20,7 +20,6 @@ typedef struct
 {
     int         size;           /// Number of wires in the network.
     bool**      A;              /// Adjacency matrix of the Nanowire Network.
-    double**    G;              /// Conductances of the equivalent electrical circuit.
     double**    Y;              /// Admittances of the equivalent electrical circuit.
     double*     V;              /// Voltage distribution across the wires.
 } network_state;

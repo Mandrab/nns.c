@@ -21,7 +21,6 @@ void test_divider_one()
         size,
         matrix(bool, size, size),
         matrix(double, size, size),
-        matrix(double, size, size),
         vector(double, size)
     };
 
@@ -51,7 +50,6 @@ void test_divider_one()
     assert(fabs(ns.V[2] - 0.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 0.00); // c - ground
 
     free_matrix(ns.A, size);
-    free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
@@ -72,7 +70,6 @@ void test_divider_two()
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(double, size, size),
         matrix(double, size, size),
         vector(double, size)
     };
@@ -104,7 +101,6 @@ void test_divider_two()
     assert(fabs(ns.V[3] - 5.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[3], 5.00); // d - disconnected
 
     free_matrix(ns.A, size);
-    free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
@@ -132,7 +128,6 @@ void test_parallel()
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(double, size, size),
         matrix(double, size, size),
         vector(double, size)
     };
@@ -173,7 +168,6 @@ void test_parallel()
     assert(fabs(ns.V[3] - 0.00) < TOLERANCE, -1, "ns.V[3] == %f but should be %f", ns.V[3], 0.00); // d - ground
 
     free_matrix(ns.A, size);
-    free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
@@ -208,7 +202,6 @@ void test_complex()
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(double, size, size),
         matrix(double, size, size),
         vector(double, size)
     };
@@ -283,7 +276,6 @@ void test_complex()
     assert(fabs(ns.V[11] - 5.00) < TOLERANCE, -1, "ns.V[11] == %f but should be %f", ns.V[11], 0.00);
 
     free_matrix(ns.A, size);
-    free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
@@ -311,7 +303,6 @@ void test_loaded()
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(double, size, size),
         matrix(double, size, size),
         vector(double, size)
     };
@@ -342,7 +333,6 @@ void test_loaded()
     assert(fabs(ns.V[2] - 3.33) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 3.33); // c - voltage divider
 
     free_matrix(ns.A, size);
-    free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
@@ -374,7 +364,6 @@ void test_grounded_and_loaded()
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(double, size, size),
         matrix(double, size, size),
         vector(double, size)
     };
@@ -418,7 +407,6 @@ void test_grounded_and_loaded()
     assert(fabs(ns.V[4] - 0.00) < TOLERANCE, -1, "ns.V[4] == %f but should be %f", ns.V[4], 0.00); // e - ground
 
     free_matrix(ns.A, size);
-    free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }
@@ -441,7 +429,6 @@ void test_input_currents()
     network_state ns = (network_state) {
         size,
         matrix(bool, size, size),
-        matrix(double, size, size),
         matrix(double, size, size),
         vector(double, size)
     };
@@ -476,7 +463,6 @@ void test_input_currents()
     assert(fabs(vs[1] - 2.14) < TOLERANCE, -1, "I_2 == %f but should be %f", vs[1], 2.14);  // in mA
 
     free_matrix(ns.A, size);
-    free_matrix(ns.G, size);
     free_matrix(ns.Y, size);
     free(ns.V);
 }

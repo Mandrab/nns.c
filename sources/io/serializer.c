@@ -84,16 +84,6 @@ int serialize_state(network_state ns, int id)
         fprintf(file, "\n\t");
     }
 
-    fprintf(file, "\nG:\n\t");
-    for (int i = 0; i < ns.size; i++)
-    {
-        for (int j = 0; j < ns.size; j++)
-        {
-            fprintf(file, "%f \t", ns.G[i][j]);
-        }
-        fprintf(file, "\n\t");
-    }
-
     fprintf(file, "\nY:\n\t");
     for (int i = 0; i < ns.size; i++)
     {

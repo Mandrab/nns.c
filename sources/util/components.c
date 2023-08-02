@@ -44,7 +44,6 @@ const network_state* connected_components(const network_state ns, int* nss_count
         // create a zero initialized network state
         nss[i].size = nss_nodes[i];
         nss[i].A = zeros_matrix(bool, nss_nodes[i], nss_nodes[i]);
-        nss[i].G = zeros_matrix(double, nss_nodes[i], nss_nodes[i]);
         nss[i].Y = zeros_matrix(double, nss_nodes[i], nss_nodes[i]);
         nss[i].V = zeros_vector(double, nss_nodes[i]);
     }
@@ -79,7 +78,6 @@ const network_state* connected_components(const network_state ns, int* nss_count
 
             // set the matrixes in the network state with the correct informations
             nss[ci].A[cix][ciy] = ns.A[i][j];
-            nss[ci].G[cix][ciy] = ns.G[i][j];
             nss[ci].Y[cix][ciy] = ns.Y[i][j];
         }
 

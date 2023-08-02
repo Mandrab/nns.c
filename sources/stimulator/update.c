@@ -25,12 +25,12 @@ void update_conductance(const network_state* ns)
             double kd = KD * exp(-ETA_D * ΔV);
             double kpd = kp + kd;
 
-            // calculate and set the conductance
-            double partial = kd / kp * ns->G[i][j] * exp(-TAU * kpd);
-            ns->G[i][j] = ns->G[j][i] = kp / kpd * (1 + partial);
+            // calculate the conductance of the junction
+            double g = (ns->Y[i][j] - Y_MIN) / (Y_MAX - Y_MIN);
+            g = kp / kpd * (1 + kd / kp * g * exp(-TAU * kpd));
 
             // calculate and set circuit admittance
-            ns->Y[i][j] = ns->Y[j][i] = Y_MIN + ns->G[i][j] * (Y_MAX - Y_MIN);
+            ns->Y[i][j] = ns->Y[j][i] = Y_MIN + g * (Y_MAX - Y_MIN);
         }
     }
 }
