@@ -34,6 +34,7 @@ void test_divider_one()
     bool loads[3] = { false, false, false };
     double weights[3] = { 0.0 };
     interface it = (interface) {
+        3,
         1, sources,
         1, grounds,
         0, loads, weights
@@ -85,6 +86,7 @@ void test_divider_two()
     bool grounds[4] = { true, false, true, false };
     bool loads[4] = { false, false, false, false };
     interface it = (interface) {
+        4,
         1, sources,
         2, grounds,
         0, loads, NULL
@@ -153,6 +155,7 @@ void test_parallel()
     bool loads[4] = { false, false, false, false };
     double weights[4] = { 0.0 };
     interface it = (interface) {
+        4,
         1, sources,
         1, grounds,
         0, loads, weights
@@ -254,6 +257,7 @@ void test_complex()
     bool loads[12] = { };
     double weights[12] = { 0.0 };
     interface it = (interface) {
+        12,
         1, sources,
         1, grounds,
         0, loads, weights
@@ -321,6 +325,7 @@ void test_loaded()
     bool loads[5] = { false, false, true };
     double weights[5] = { .0, .0, 2.0 };
     interface it = (interface) {
+        5,
         1, sources,
         0, grounds,
         1, loads, weights
@@ -394,6 +399,7 @@ void test_grounded_and_loaded()
     bool loads[5] = { false, false, false, true, false };
     double weights[5] = { .0, .0, .0, 2.0, .0 };
     interface it = (interface) {
+        5,
         1, sources,
         1, grounds,
         1, loads, weights
@@ -449,6 +455,7 @@ void test_input_currents()
     bool grounds[4] = { false, false, false, true };
     bool loads[4] = { false, false, false, false };
     interface it = (interface) {
+        4,
         2, sources,
         1, grounds,
         0, loads, NULL

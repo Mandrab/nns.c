@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 
 #include "nns.h"
@@ -57,11 +58,12 @@ int main()
     bool loads[lns->size] = { };
 
     interface it = {
+        lns->size,
         1, sources,
         1, grounds,
         0, loads, NULL,
     };
-    double v[1] = { 5.0 };
+    double v[1] = { };
 
     printf("Performing the voltage stimulation and weight update of the nanowire network\n");
 
@@ -75,21 +77,25 @@ int main()
     printf("Conductance variation: ");
     for (int i = 0; i < 100; i++)
     {
-        voltage_stimulation(*lns, it, v);
         update_conductance(lns);
-        double conductance = 1 / resistive_distance(*lns, 0, lns->size - 1);
-        printf("%f ", conductance);
+
+        v[0] = 5.00;
+
+        voltage_stimulation(*lns, it, v);
+
+        printf("%f ", fabs(v[0] / 5.0));
     }
 
     // stop stimulating the nanowire network
-    v[0] = 0.0;
-
     for (int i = 0; i < 100; i++)
     {
-        voltage_stimulation(*lns, it, v);
         update_conductance(lns);
-        double conductance = 1 / resistive_distance(*lns, 0, lns->size - 1);
-        printf("%f ", conductance);
+
+        v[0] = 0.0;
+
+        voltage_stimulation(*lns, it, v);
+
+        printf("%f ", fabs(v[0] / 5.0));
     }
     printf("\n");
 
