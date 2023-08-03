@@ -103,7 +103,7 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
     // e > 0: the diagonal of e is zero
     int b_size = 1, info;
 
-    dsysv_(&L, &size, &b_size, A, &size, pivots, b, &size, work, &size, &info, size);
+    dsysv_rook_(&L, &size, &b_size, A, &size, pivots, b, &size, work, &size, &info, size);
     assert(info == 0, info, "The MNA system cannot be solved!");
 
     // set the voltages vector
