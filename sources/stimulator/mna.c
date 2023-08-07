@@ -45,7 +45,6 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
         // iterate over the columns of A (excluding grounds)
         // setting the value as the negate of the conductance
         // and summing their positive values on the diagonal
-        #pragma omp parallel for
         for (int j = 0; j < ns.size; j++)
         {
             // if i == j, continue to the next element (the diagonal is 0)
