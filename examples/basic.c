@@ -9,10 +9,10 @@ int main()
 
     // define the NN datasheet, i.e., its technical information
     datasheet ds = {
-        1500,
+        2000,
         14.0,
-        14.0 * 0.35,
-        250,
+        40.0,
+        500,
         1234
     };
 
