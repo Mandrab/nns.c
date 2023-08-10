@@ -51,31 +51,31 @@ void test_network_io()
     for (int i = 0; i < ds.wires_count; i++)
     {
         assert(
-            fabs(loaded_nt.Ws[i].centroid.x == nt.Ws[i].centroid.x) < TOLERANCE, -1,
+            fabs(loaded_nt.Ws[i].centroid.x - nt.Ws[i].centroid.x) < TOLERANCE, -1,
             "The (de)serialization of centroid.x is not correct"
         );
         assert(
-            fabs(loaded_nt.Ws[i].centroid.y == nt.Ws[i].centroid.y) < TOLERANCE, -1,
+            fabs(loaded_nt.Ws[i].centroid.y - nt.Ws[i].centroid.y) < TOLERANCE, -1,
             "The (de)serialization of centroid.y is not correct"
         );
         assert(
-            fabs(loaded_nt.Ws[i].start_edge.x == nt.Ws[i].start_edge.x) < TOLERANCE, -1,
+            fabs(loaded_nt.Ws[i].start_edge.x - nt.Ws[i].start_edge.x) < TOLERANCE, -1,
             "The (de)serialization of start_edge.x is not correct"
         );
         assert(
-            fabs(loaded_nt.Ws[i].start_edge.y == nt.Ws[i].start_edge.y) < TOLERANCE, -1,
+            fabs(loaded_nt.Ws[i].start_edge.y - nt.Ws[i].start_edge.y) < TOLERANCE, -1,
             "The (de)serialization of start_edge.y is not correct"
         );
         assert(
-            fabs(loaded_nt.Ws[i].end_edge.x == nt.Ws[i].end_edge.x) < TOLERANCE, -1,
+            fabs(loaded_nt.Ws[i].end_edge.x - nt.Ws[i].end_edge.x) < TOLERANCE, -1,
             "The (de)serialization of end_edge.x is not correct"
         );
         assert(
-            fabs(loaded_nt.Ws[i].end_edge.y == nt.Ws[i].end_edge.y) < TOLERANCE, -1,
+            fabs(loaded_nt.Ws[i].end_edge.y - nt.Ws[i].end_edge.y) < TOLERANCE, -1,
             "The (de)serialization of end_edge.y is not correct"
         );
         assert(
-            fabs(loaded_nt.Ws[i].length == nt.Ws[i].length) < TOLERANCE, -1,
+            fabs(loaded_nt.Ws[i].length - nt.Ws[i].length) < TOLERANCE, -1,
             "The (de)serialization of length is not correct"
         );
     }
@@ -94,11 +94,11 @@ void test_network_io()
             "The (de)serialization of second_wire is not correct"
         );
         assert(
-            fabs(loaded_nt.Js[i].position.x == nt.Js[i].position.x) < TOLERANCE, -1,
+            fabs(loaded_nt.Js[i].position.x - nt.Js[i].position.x) < TOLERANCE, -1,
             "The (de)serialization of position.x is not correct"
         );
         assert(
-            fabs(loaded_nt.Js[i].position.y == nt.Js[i].position.y) < TOLERANCE, -1,
+            fabs(loaded_nt.Js[i].position.y - nt.Js[i].position.y) < TOLERANCE, -1,
             "The (de)serialization of position.y is not correct"
         );
     }
