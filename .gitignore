@@ -4,6 +4,7 @@
 *.dat
 *.elf
 *.log
+*.nns
 *.o
 tests/run_all.c
 cmake_install.cmake
