@@ -18,8 +18,8 @@
 
 /* IO INFORMATION */
 
-#define NETWORK_FILE_NAME_FORMAT "nanowire_network.%d.dat"
-#define STATE_FILE_NAME_FORMAT "network_state.%d.dat"
-#define INTERFACE_FILE_NAME_FORMAT "interface.%d.dat"
+#define NETWORK_FILE_NAME_FORMAT    "device_%d.nn.nns"
+#define STATE_FILE_NAME_FORMAT      "device_%d.ns.nns"
+#define INTERFACE_FILE_NAME_FORMAT  "device_%d.it.nns"
 
 #endif /* CONFIG_H */
