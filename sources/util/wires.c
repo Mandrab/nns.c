@@ -137,6 +137,7 @@ bool** construe_adjacency_matrix(datasheet ds, network_topology nt)
     bool** adj = zeros_matrix(bool, ds.wires_count, ds.wires_count);
 
     // set an "adjacency" in presence of each junction
+    #pragma omp parallel for
     for (int i = 0; i < nt.js_count; i++)
     {
         adj[nt.Js[i].first_wire][nt.Js[i].second_wire] = true;
