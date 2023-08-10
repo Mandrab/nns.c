@@ -1,58 +1,40 @@
 #include <stdio.h>
 
 #include "io/serializer.h"
+#include "util/errors.h"
 #include "config.h"
 
-#define VERSION_NUMBER "0.0.1"
+const int VERSION_NUMBER = 0;
 
 int serialize_network(const datasheet ds, const network_topology nt, int id)
 {
     char name[100];
 
+    // create the name of the file according to the format
     snprintf(name, 100, NETWORK_FILE_NAME_FORMAT, id);
-    FILE* file = fopen(name, "w");
-    if (file == NULL)
-    {
-        printf("Impossible to open the network file");
-        return -1;
-    }
+    FILE* file = fopen(name, "wb");
+    assert(file != NULL, -1, "Impossible to open the network file");
 
-    fprintf(file, "NN FILE - VERSION %s", VERSION_NUMBER);
+    // write the version of the serialized file
+    fwrite(&VERSION_NUMBER, sizeof(int), 1, file);
 
-    fprintf(file, "\n\nDATASHEET:");
-    fprintf(file, "\n\twires count: %d", ds.wires_count);
-    fprintf(file, "\n\twires mean length: %f", ds.length_mean);
-    fprintf(file, "\n\twires standard deviation length: %f", ds.length_std_dev);
-    fprintf(file, "\n\tpackage size: %d", ds.package_size);
-    fprintf(file, "\n\tgeneration seed: %d", ds.generation_seed);
+    // DATASHEET WRITING
 
-    fprintf(file, "\n\nTOPOLOGY:");
-    for (int i = 0; i < ds.wires_count; i++)
-    {
-        fprintf(
-            file,
-            "\n\tWIRE centroid: {x: %f, y: %f}, start edge: {%f %f}, end edge: {%f %f}, length: %f",
-            nt.Ws[i].centroid.x,
-            nt.Ws[i].centroid.y,
-            nt.Ws[i].start_edge.x,
-            nt.Ws[i].start_edge.y,
-            nt.Ws[i].end_edge.x,
-            nt.Ws[i].end_edge.y,
-            nt.Ws[i].length
-        );
-    }
-    fprintf(file, "\n\tjunctions count: %d", nt.js_count);
-    for (int i = 0; i < nt.js_count; i++)
-    {
-        fprintf(
-            file,
-            "\n\tJUNCTION i: %d, j: %d, position: {%f %f}",
-            nt.Js[i].first_wire,
-            nt.Js[i].second_wire,
-            nt.Js[i].position.x,
-            nt.Js[i].position.y
-        );
-    }
+    fwrite(&ds.wires_count, sizeof(int), 1, file);
+    fwrite(&ds.length_mean, sizeof(double), 1, file);
+    fwrite(&ds.length_std_dev, sizeof(double), 1, file);
+    fwrite(&ds.package_size, sizeof(int), 1, file);
+    fwrite(&ds.generation_seed, sizeof(int), 1, file);
+
+    // TOPOLOGY WRITING
+
+    // write number of junctions
+    fwrite(&nt.js_count, sizeof(int), 1, file);
+
+    // write the wires and junctions informations
+    fwrite(nt.Ws, sizeof(wire), ds.wires_count, file);
+    fwrite(nt.Js, sizeof(junction), nt.js_count, file);
+
     fclose(file);
 
     return 0;
@@ -62,44 +44,31 @@ int serialize_state(network_state ns, int id)
 {
     char name[100];
 
+    // create the name of the file according to the format
     snprintf(name, 100, STATE_FILE_NAME_FORMAT, id);
-    FILE* file = fopen(name, "w");
-    if (file == NULL)
-    {
-        printf("Impossible to open the network file");
-        return -1;
-    }
+    FILE* file = fopen(name, "wb");
+    assert(file != NULL, -1, "Impossible to open the state file");
 
-    fprintf(file, "NS FILE - VERSION %s", VERSION_NUMBER);
+    // write the version of the serialized file
+    fwrite(&VERSION_NUMBER, sizeof(int), 1, file);
 
-    fprintf(file, "\n\nnetwork size: %d", ns.size);
+    // write the network size
+    fwrite(&ns.size, sizeof(int), 1, file);
 
-    fprintf(file, "\nA:\n\t");
+    // write the A matrix
     for (int i = 0; i < ns.size; i++)
     {
-        for (int j = 0; j < ns.size; j++)
-        {
-            fprintf(file, "%d ", ns.A[i][j]);
-        }
-        fprintf(file, "\n\t");
+        fwrite(ns.A[i], sizeof(bool), ns.size, file);
     }
 
-    fprintf(file, "\nY:\n\t");
+    // write the Y matrix
     for (int i = 0; i < ns.size; i++)
     {
-        for (int j = 0; j < ns.size; j++)
-        {
-            fprintf(file, "%f \t", ns.Y[i][j]);
-        }
-        fprintf(file, "\n\t");
+        fwrite(ns.Y[i], sizeof(double), ns.size, file);
     }
 
-    fprintf(file, "\nV:\n\t");
-    for (int i = 0; i < ns.size; i++)
-    {
-        fprintf(file, "%f \t", ns.V[i]);
-    }
-    fprintf(file, "\n");
+    // write the V array
+    fwrite(ns.V, sizeof(double), ns.size, file);
 
     fclose(file);
 
@@ -110,40 +79,29 @@ int serialize_interface(const interface it, int id)
 {
     char name[100];
 
+    // create the name of the file according to the format
     snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, id);
-    FILE* file = fopen(name, "w");
-    if (file == NULL)
-    {
-        printf("Impossible to open the network file");
-        return -1;
-    }
+    FILE* file = fopen(name, "wb");
+    assert(file != NULL, -1, "Impossible to open the interface file");
 
-    fprintf(file, "IT FILE - VERSION %s\n\n", VERSION_NUMBER);
+    // write the version of the serialized file
+    fwrite(&VERSION_NUMBER, sizeof(int), 1, file);
 
-    fprintf(file, "mask size: %d\n", it.mask_size);
+    // write the masks size
+    fwrite(&it.mask_size, sizeof(int), 1, file);
 
-    fprintf(file, "sources count: %d\n", it.sources_count);
-    for (int i = 0; i < it.mask_size; i++)
-    {
-        fprintf(file, "%d ", it.sources_mask[i]);
-    }
+    // write the sources count and mask
+    fwrite(&it.sources_count, sizeof(int), 1, file);
+    fwrite(it.sources_mask, sizeof(bool), it.mask_size, file);
 
-    fprintf(file, "\ngrounds count: %d\n", it.grounds_count);
-    for (int i = 0; i < it.mask_size; i++)
-    {
-        fprintf(file, "%d ", it.grounds_mask[i]);
-    }
+    // write the grounds count and mask
+    fwrite(&it.grounds_count, sizeof(int), 1, file);
+    fwrite(it.grounds_mask, sizeof(bool), it.mask_size, file);
 
-    fprintf(file, "\nloads count: %d\n", it.loads_count);
-    for (int i = 0; i < it.mask_size; i++)
-    {
-        fprintf(file, "%d ", it.loads_mask[i]);
-    }
-    fprintf(file, "\n");
-    for (int i = 0; i < it.mask_size; i++)
-    {
-        fprintf(file, "%f ", it.loads_weight[i]);
-    }
+    // write the loads count, mask and weight
+    fwrite(&it.loads_count, sizeof(int), 1, file);
+    fwrite(it.loads_mask, sizeof(bool), it.mask_size, file);
+    fwrite(it.loads_weight, sizeof(double), it.mask_size, file);
 
     fclose(file);
 
