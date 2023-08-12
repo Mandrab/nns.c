@@ -6,7 +6,7 @@ import numpy as np
 from .base import draw_wires, draw_junctions
 
 # set the default colormap
-plt.rcParams['image.cmap'] = plt.cm.coolwarm
+plt.rcParams["image.cmap"] = "coolwarm"
 
 def draw_network(ds, nt):
     fig = plt.figure(figsize=(10, 10))
@@ -27,7 +27,7 @@ def draw_voltage_state(ns):
     plt.figure(figsize=(10, 10))
     plt.title("Voltage distribution")
 
-    graph = nx.from_numpy_matrix(np.matrix(ns[1]))
+    graph = nx.from_numpy_array(np.matrix(ns[1]))
     nx.draw_kamada_kawai(
         graph,
         node_size=min(5000 / graph.number_of_nodes(), 50),
@@ -42,7 +42,7 @@ def draw_conductance_state(ns):
     plt.figure(figsize=(10, 10))
     plt.title("Conductance distribution")
 
-    graph = nx.from_numpy_matrix(np.matrix(ns[1]))
+    graph = nx.from_numpy_array(np.matrix(ns[1]))
     weight = [ns[2][i][j] for i, j in graph.edges()]
 
     nx.draw_kamada_kawai(
