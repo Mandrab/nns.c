@@ -16,6 +16,7 @@ Makefile
 
 # folders
 __pycache__
+.venv
 .vscode
 CMakeFiles
 docs
