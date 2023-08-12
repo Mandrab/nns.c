@@ -15,6 +15,7 @@ CTestTestfile.cmake
 Makefile
 
 # folders
+__pycache__
 .vscode
 CMakeFiles
 docs
