@@ -43,7 +43,7 @@ int main()
     printf("Serializing the network state\n");
 
     // serialize the network state
-    serialize_state(ns, 0);
+    serialize_state(ns, 0, -1);
 
     printf("Deserializing the network state\n");
 
@@ -51,7 +51,7 @@ int main()
     network_state loaded_ns;
 
     // deserialize the network state
-    deserialize_state(&loaded_ns, 0);
+    deserialize_state(&loaded_ns, 0, -1);
 
     printf("Finding and selecting the largest connected component of the Nanowire Network\n");
 
@@ -74,19 +74,6 @@ int main()
         }
     }
 
-    printf("Serializing the state of the largest connected component\n");
-
-    // serialize the state of the largest connected component of the network
-    serialize_state(*lns, 0);
-
-    printf("Deserializing the state of the largest connected component\n");
-
-    // create a data-structure to deserialize the state of the largest connected component of the network
-    network_state loaded_lns;
-
-    // deserialize the state of the largest connected component of the network
-    deserialize_state(&loaded_lns, 0);
-
     printf("Creating an interface to stimulate the nanowire network.\n");
 
     // creating the interface to stimulate the device
@@ -106,10 +93,34 @@ int main()
         0, loads, weight,
     };
 
+    printf("Stimulate the nanowire network and serializing the state variation.\n");
+
+    double v[1];
+
+    for (int i = 0; i < 100; i++)
+    {
+        update_conductance(lns);
+
+        v[0] = 5.00;
+
+        voltage_stimulation(*lns, it, v);
+
+        // serialize the state of the largest connected component of the network
+        serialize_state(*lns, 0, i);
+    }
+
+    printf("Deserializing the last state of the largest connected component\n");
+
+    // create a data-structure to deserialize the state of the largest connected component of the network
+    network_state loaded_lns;
+
+    // deserialize the state of the largest connected component of the network
+    deserialize_state(&loaded_lns, 0, 0);
+
     printf("Serializing the network interface\n");
 
     // serialize the network interface
-    serialize_interface(it, 0);
+    serialize_interface(it, 0, 0);
 
     printf("Deserializing the network interface\n");
 
@@ -117,7 +128,7 @@ int main()
     interface loaded_it;
 
     // deserialize the network interface
-    deserialize_interface(&loaded_it, 0);
+    deserialize_interface(&loaded_it, 0, 0);
 
     printf("Terminating the simulation\n");
 
