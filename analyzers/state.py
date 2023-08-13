@@ -12,7 +12,7 @@ network_path, interface_path, *states_path = sys.argv[1:]
 ds, nt = load_network(network_path)
 draw_network(ds, nt)
 draw_voltage_state(load_state(states_path[-1]))
-draw_conductance_state(load_state(states_path[-1]))
-animate_conductance_variation(
+draw_admittance_state(load_state(states_path[-1]))
+animate_admittance_variation(
     map(load_state, states_path)    # lazy load of the network states
 )

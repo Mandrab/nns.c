@@ -38,8 +38,8 @@ def draw_voltage_state(ns):
     plt.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(vmin=min(ns[3]), vmax=max(ns[3]))))
     plt.show()
 
-def draw_conductance_state(ns):
-    plt.title("Conductance distribution")
+def draw_admittance_state(ns):
+    plt.title("Admittance distribution")
 
     graph = nx.from_numpy_array(np.matrix(ns[1]))
     weight = [ns[2][i][j] for i, j in graph.edges()]
@@ -54,14 +54,14 @@ def draw_conductance_state(ns):
     plt.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(vmin=min(ns[3]), vmax=max(ns[3]))))
     plt.show()
 
-def animate_conductance_variation(nss, save=False):
+def animate_admittance_variation(nss, save=False):
     fig, _ = plt.subplots()
 
     def step(ins):
         i, ns = ins
 
         plt.cla()
-        plt.title(f"Conductance variation [step {i}]")
+        plt.title(f"Admittance variation [step {i}]")
 
         graph = nx.from_numpy_array(np.matrix(ns[1]))
         weight = [ns[2][i][j] for i, j in graph.edges()]
