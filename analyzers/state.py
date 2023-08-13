@@ -13,6 +13,9 @@ ds, nt = load_network(network_path)
 draw_network(ds, nt)
 draw_voltage_state(load_state(states_path[-1]))
 draw_admittance_state(load_state(states_path[-1]))
+animate_voltage_variation(
+    map(load_state, states_path)    # lazy load of the network states
+)
 animate_admittance_variation(
     map(load_state, states_path)    # lazy load of the network states
 )
