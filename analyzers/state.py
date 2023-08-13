@@ -2,15 +2,17 @@
 
 import sys
 
-from util.load import load_network, load_state
-from util.plot import draw_network, draw_voltage_state, draw_conductance_state
+from util.load import *
+from util.plot import *
 
 assert len(sys.argv) > 1, "The path to the file must be provided!"
 
-network_path, state_path = sys.argv[1:]
+network_path, interface_path, *states_path = sys.argv[1:]
 
 ds, nt = load_network(network_path)
-ns = load_state(state_path)
 draw_network(ds, nt)
-draw_voltage_state(ns)
-draw_conductance_state(ns)
+draw_voltage_state(load_state(states_path[-1]))
+draw_conductance_state(load_state(states_path[-1]))
+animate_conductance_variation(
+    map(load_state, states_path)    # lazy load of the network states
+)
