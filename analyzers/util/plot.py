@@ -54,6 +54,31 @@ def draw_admittance_state(ns):
     plt.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(vmin=min(ns[3]), vmax=max(ns[3]))))
     plt.show()
 
+def animate_voltage_variation(nss, save=False):
+    fig, _ = plt.subplots()
+
+    def step(ins):
+        i, ns = ins
+
+        plt.cla()
+        plt.title(f"Voltage variation [step {i}]")
+
+        graph = nx.from_numpy_array(np.matrix(ns[1]))
+        nx.draw_kamada_kawai(
+            graph,
+            node_color=ns[3],
+            node_size=min(5000 / graph.number_of_nodes(), 50),
+            width=min(1000 / graph.number_of_edges(), 2),
+            vmin=0, vmax=5
+        )
+
+    ani = FuncAnimation(fig, step, interval=100, blit=False, repeat=True, frames=enumerate(nss))
+    if save:
+        ani.save("conductance_variation.gif", dpi=300, writer=PillowWriter(fps=25))
+
+    plt.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(vmin=0, vmax=5)))
+    plt.show()
+
 def animate_admittance_variation(nss, save=False):
     fig, _ = plt.subplots()
 
@@ -70,10 +95,11 @@ def animate_admittance_variation(nss, save=False):
             graph,
             node_size=min(5000 / graph.number_of_nodes(), 50),
             width=min(1000 / graph.number_of_edges(), 2),
-            edge_color=weight, edge_cmap=plt.cm.coolwarm
+            edge_color=weight, edge_cmap=plt.cm.coolwarm,
+            edge_vmin=0.001, edge_vmax=0.1
         )
 
-    ani = FuncAnimation(fig, step, interval=250, blit=False, repeat=True, frames=enumerate(nss))
+    ani = FuncAnimation(fig, step, interval=100, blit=False, repeat=True, frames=enumerate(nss))
     if save:
         ani.save("conductance_variation.gif", dpi=300, writer=PillowWriter(fps=25))
 
