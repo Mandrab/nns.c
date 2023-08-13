@@ -14,7 +14,7 @@ The library is inspired by the code used in the paper [_Connectome of memristive
 ## Instructions
 To run the examples: `clear; cmake .; make clean; make; time ./examples/[EXAMPLE NAME].elf`</br>
 To run the tests: `clear; cmake .; make clean; make; cd tests; ctest; cd ..`</br>
-To visualize the saved networks, for examples produced by io.elf: `analyzers/state.py device_[ID].nn.nns device_[ID].ns.nns`
+To visualize the saved networks, for examples produced by io.elf: `analyzers/state.py device_[ID]/constant.nn.nns device_[ID]/instant_[STEP].it.nns device_[ID]/instant_[STEP].ns.nns device_[ID]/instant_[STEP + 1].ns.nns ...`
 
 ## Troubleshoot
 - [IMPORTANT] A segmentation fault may happen if too large networks are simulated. To solve this problem it is simply needed to increase the memory that the program can allocate. See: `ulimit -s 32767`.
