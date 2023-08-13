@@ -22,8 +22,9 @@ int serialize_network(const datasheet ds, const network_topology nt, int id);
 /// @param[in] ns The network state to serialize.
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
+/// @param[in] step The id of the network state in a specific instant.
 /// @return -1 if the file cannot be open, 0 otherwise.
-int serialize_state(const network_state ns, int id);
+int serialize_state(const network_state ns, int id, int step);
 
 /// @brief Serialize the network interface to a file named "interface.ID.dat",
 /// where ID is the univocal identifier of the NN. Any other file named the
@@ -32,7 +33,8 @@ int serialize_state(const network_state ns, int id);
 /// @param[in] it The interface to serialize.
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
+/// @param[in] step The id of the network interface in a specific instant.
 /// @return -1 if the file cannot be open, 0 otherwise.
-int serialize_interface(const interface it, int id);
+int serialize_interface(const interface it, int id, int step);
 
 #endif /* SERIALIZER_H */

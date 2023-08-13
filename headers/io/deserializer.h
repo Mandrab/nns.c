@@ -25,9 +25,10 @@ int deserialize_network(datasheet* ds, network_topology* nt, int id);
 /// file. It has to not be initialized.
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
+/// @param[in] step The id of the network state in a specific instant.
 /// @return -1 if the file cannot be open or if its version is not supported,
 /// 0 otherwise.
-int deserialize_state(network_state* ns, int id);
+int deserialize_state(network_state* ns, int id, int step);
 
 /// @brief Deserialize the interface to the network from a file named
 /// "interface.ID.dat", where ID is the univocal identifier of the NN.
@@ -36,8 +37,9 @@ int deserialize_state(network_state* ns, int id);
 /// file. It has to not be initialized.
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
+/// @param[in] step The id of the network interface in a specific instant.
 /// @return -1 if the file cannot be open or if its version is not supported,
 /// 0 otherwise.
-int deserialize_interface(interface* ns, int id);
+int deserialize_interface(interface* ns, int id, int step);
 
 #endif /* DESERIALIZER_H */

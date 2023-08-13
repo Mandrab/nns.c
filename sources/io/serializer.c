@@ -10,10 +10,14 @@ int serialize_network(const datasheet ds, const network_topology nt, int id)
 {
     char name[100];
 
+    // create the name of the folder according to the format
+    snprintf(name, 100, DIRECTORY_FORMAT, id);
+    mkdir(name, 0700);
+
     // create the name of the file according to the format
     snprintf(name, 100, NETWORK_FILE_NAME_FORMAT, id);
     FILE* file = fopen(name, "wb");
-    assert(file != NULL, -1, "Impossible to open the network file");
+    assert(file != NULL, -1, "Impossible to open the network file\n");
 
     // write the version of the serialized file
     fwrite(&VERSION_NUMBER, sizeof(int), 1, file);
@@ -40,14 +44,18 @@ int serialize_network(const datasheet ds, const network_topology nt, int id)
     return 0;
 }
 
-int serialize_state(network_state ns, int id)
+int serialize_state(network_state ns, int id, int step)
 {
     char name[100];
 
+    // create the name of the folder according to the format
+    snprintf(name, 100, DIRECTORY_FORMAT, id);
+    mkdir(name, 0700);
+
     // create the name of the file according to the format
-    snprintf(name, 100, STATE_FILE_NAME_FORMAT, id);
+    snprintf(name, 100, STATE_FILE_NAME_FORMAT, id, step);
     FILE* file = fopen(name, "wb");
-    assert(file != NULL, -1, "Impossible to open the state file");
+    assert(file != NULL, -1, "Impossible to open the state file\n");
 
     // write the version of the serialized file
     fwrite(&VERSION_NUMBER, sizeof(int), 1, file);
@@ -75,14 +83,18 @@ int serialize_state(network_state ns, int id)
     return 0;
 }
 
-int serialize_interface(const interface it, int id)
+int serialize_interface(const interface it, int id, int step)
 {
     char name[100];
 
+    // create the name of the folder according to the format
+    snprintf(name, 100, DIRECTORY_FORMAT, id);
+    mkdir(name, 0700);
+
     // create the name of the file according to the format
-    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, id);
+    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, id, step);
     FILE* file = fopen(name, "wb");
-    assert(file != NULL, -1, "Impossible to open the interface file");
+    assert(file != NULL, -1, "Impossible to open the interface file\n");
 
     // write the version of the serialized file
     fwrite(&VERSION_NUMBER, sizeof(int), 1, file);

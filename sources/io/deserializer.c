@@ -16,13 +16,13 @@ int deserialize_network(datasheet* ds, network_topology* nt, int id)
     // open the file with the name according to the format
     snprintf(name, 100, NETWORK_FILE_NAME_FORMAT, id);
     FILE* file = fopen(name, "rb");
-    assert(file != NULL, -1, "Impossible to open the network file");
+    assert(file != NULL, -1, "Impossible to open the network file\n");
 
     // load the version of the serialized file
     fread(&version, sizeof(int), 1, file);
     if (version != VERSION_NUMBER)
     {
-        printf("The file version is not supported by this version of the simulator");
+        printf("The file version is not supported by this version of the simulator\n");
         return -1;
     }
 
@@ -52,21 +52,21 @@ int deserialize_network(datasheet* ds, network_topology* nt, int id)
     return 0;
 }
 
-int deserialize_state(network_state* ns, int id)
+int deserialize_state(network_state* ns, int id, int step)
 {
     char name[100];
     int version;
 
     // open the file with the name according to the format
-    snprintf(name, 100, STATE_FILE_NAME_FORMAT, id);
+    snprintf(name, 100, STATE_FILE_NAME_FORMAT, id, step);
     FILE* file = fopen(name, "rb");
-    assert(file != NULL, -1, "Impossible to open the state file");
+    assert(file != NULL, -1, "Impossible to open the state file\n");
 
     // load the version of the serialized file
     fread(&version, sizeof(int), 1, file);
     if (version != VERSION_NUMBER)
     {
-        printf("The file version is not supported by this version of the simulator");
+        printf("The file version is not supported by this version of the simulator\n");
         return -1;
     }
 
@@ -96,21 +96,21 @@ int deserialize_state(network_state* ns, int id)
     return 0;
 }
 
-int deserialize_interface(interface* it, int id)
+int deserialize_interface(interface* it, int id, int step)
 {
     char name[100];
     int version;
 
     // open the file with the name according to the format
-    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, id);
+    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, id, step);
     FILE* file = fopen(name, "rb");
-    assert(file != NULL, -1, "Impossible to open the interface file");
+    assert(file != NULL, -1, "Impossible to open the interface file\n");
 
     // load the version of the serialized file
     fread(&version, sizeof(int), 1, file);
     if (version != VERSION_NUMBER)
     {
-        printf("The file version is not supported by this version of the simulator");
+        printf("The file version is not supported by this version of the simulator\n");
         return -1;
     }
 
