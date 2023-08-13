@@ -18,8 +18,9 @@
 
 /* IO INFORMATION */
 
-#define NETWORK_FILE_NAME_FORMAT    "device_%d.nn.nns"
-#define STATE_FILE_NAME_FORMAT      "device_%d.ns.nns"
-#define INTERFACE_FILE_NAME_FORMAT  "device_%d.it.nns"
+#define DIRECTORY_FORMAT            "./device_%d"
+#define NETWORK_FILE_NAME_FORMAT    "./device_%d/constant.nn.nns"
+#define STATE_FILE_NAME_FORMAT      "./device_%d/instant_%d.ns.nns"
+#define INTERFACE_FILE_NAME_FORMAT  "./device_%d/instant_%d.it.nns"
 
 #endif /* CONFIG_H */
