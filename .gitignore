@@ -3,6 +3,7 @@
 *.bak
 *.dat
 *.elf
+*.gif
 *.log
 *.nns
 *.o
