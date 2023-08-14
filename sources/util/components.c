@@ -2,9 +2,56 @@
 #include "util/components.h"
 #include "util/tensors.h"
 
-/// Given the adjacency matrix return a vector containing for
-/// each node the index of the parent connected component.
-int* map_components(bool** adj, int size);
+const int* map_components(bool** adj, int size)
+{
+    // create a mapping from node to connected component
+    int* mapping = zeros_vector(int, size);
+
+    // create vectors to mark the nodes as visited
+    // or discovered as adjacent but not yet visited
+    bool visited[size] = { };
+    bool discovered[size] = { };
+
+    // iterate all the nodes to discover their adjacency
+    for (int i = 0, cc_count = 0; i < size; i++)
+    {
+        // if the node is already visited, continue to the next one
+        if (visited[i])
+        {
+            continue;
+        }
+
+        // create a stack to store the non-visited neighbors and add the origin
+        int stack[size];
+        int top = 0;
+        stack[top] = i;
+
+        // iterate while the stack is not empty
+        while (top >= 0)
+        {
+            // remove an element from the stack and mark it as visited
+            int node = stack[top--];
+            visited[node] = true;
+            mapping[node] = cc_count;
+
+            // check all the nodes to find the nodes neighbors
+            for (int j = 0; j < size; j++)
+            {
+                // if the node is adjacent and not yet discovered add it to the stack
+                if (adj[node][j] && ! discovered[j])
+                {
+                    stack[++top] = j;
+                    discovered[j] = true;
+                }
+            }
+        }
+
+        // increment the counter of the connected components
+        cc_count++;
+    }
+
+    return mapping;
+}
 
 const network_state* connected_components(const network_state ns, int* nss_count)
 {
@@ -103,55 +150,4 @@ const network_state* largest_component(const network_state* nss, int nss_count)
     }
 
     return &nss[largest_cc_index];
-}
-
-int* map_components(bool** adj, int size)
-{
-    // create a mapping from node to connected component
-    int* mapping = zeros_vector(int, size);
-
-    // create vectors to mark the nodes as visited
-    // or discovered as adjacent but not yet visited
-    bool visited[size] = { };
-    bool discovered[size] = { };
-
-    // iterate all the nodes to discover their adjacency
-    for (int i = 0, cc_count = 0; i < size; i++)
-    {
-        // if the node is already visited, continue to the next one
-        if (visited[i])
-        {
-            continue;
-        }
-
-        // create a stack to store the non-visited neighbors and add the origin
-        int stack[size];
-        int top = 0;
-        stack[top] = i;
-
-        // iterate while the stack is not empty
-        while (top >= 0)
-        {
-            // remove an element from the stack and mark it as visited
-            int node = stack[top--];
-            visited[node] = true;
-            mapping[node] = cc_count;
-
-            // check all the nodes to find the nodes neighbors
-            for (int j = 0; j < size; j++)
-            {
-                // if the node is adjacent and not yet discovered add it to the stack
-                if (adj[node][j] && ! discovered[j])
-                {
-                    stack[++top] = j;
-                    discovered[j] = true;
-                }
-            }
-        }
-
-        // increment the counter of the connected components
-        cc_count++;
-    }
-
-    return mapping;
 }
