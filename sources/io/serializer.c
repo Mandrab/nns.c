@@ -6,7 +6,7 @@
 
 const int VERSION_NUMBER = 0;
 
-int serialize_network(const datasheet ds, const network_topology nt, int id)
+int serialize_network(const datasheet ds, const network_topology nt, const int* mapping, int id)
 {
     char name[100];
 
@@ -38,6 +38,10 @@ int serialize_network(const datasheet ds, const network_topology nt, int id)
     // write the wires and junctions informations
     fwrite(nt.Ws, sizeof(wire), ds.wires_count, file);
     fwrite(nt.Js, sizeof(junction), nt.js_count, file);
+
+    // CC MAP WRITING
+
+    fwrite(mapping, sizeof(int), ds.wires_count, file);
 
     fclose(file);
 
