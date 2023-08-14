@@ -16,11 +16,13 @@ void test_network_io()
         1234
     };
     const network_topology nt = create_network(ds);
+    const int mapping[2000];
 
-    serialize_network(ds, nt, 0);
+    serialize_network(ds, nt, mapping, 0);
     datasheet loaded_ds;
     network_topology loaded_nt;
-    deserialize_network(&loaded_ds, &loaded_nt, 0);
+    int* loaded_mapping;
+    deserialize_network(&loaded_ds, &loaded_nt, &loaded_mapping, 0);
 
     assert(
         fabs(loaded_ds.wires_count - ds.wires_count) < TOLERANCE, -1,
@@ -77,6 +79,10 @@ void test_network_io()
         assert(
             fabs(loaded_nt.Ws[i].length - nt.Ws[i].length) < TOLERANCE, -1,
             "The (de)serialization of length is not correct"
+        );
+        assert(
+            fabs(loaded_mapping[i] == mapping[i]), -1,
+            "The (de)serialization of mapping is not correct"
         );
     }
     assert(
