@@ -21,24 +21,26 @@ int main()
     // generate the NN topology
     const network_topology nt = create_network(ds);
 
+    printf("Construing the Nanowire Network equivalent electrical circuit\n");
+
+    // interpret the NN as an electrical circuit
+    const network_state ns = construe_circuit(ds, nt);
+    const int* mapping = map_components(ns.A, ds.wires_count);
+
     printf("Serializing the Nanowire Network\n");
 
     // serialize the datasheet and network topology
-    serialize_network(ds, nt, 0);
+    serialize_network(ds, nt, mapping, 0);
 
     printf("Deserializing the Nanowire Network\n");
 
     // create the data structures to de-serialize the datasheet and network topology
     datasheet loaded_ds;
     network_topology loaded_nt;
+    int* loaded_mapping;
 
     // deserialize the datasheet and network topology
-    deserialize_network(&loaded_ds, &loaded_nt, 0);
-
-    printf("Construing the Nanowire Network equivalent electrical circuit\n");
-
-    // interpret the NN as an electrical circuit
-    const network_state ns = construe_circuit(ds, nt);
+    deserialize_network(&loaded_ds, &loaded_nt, &mapping, 0);
 
     printf("Serializing the network state\n");
 
@@ -101,7 +103,7 @@ int main()
     {
         update_conductance(lns);
 
-        v[0] = 5.00;
+        v[0] = i / 20.0;
 
         voltage_stimulation(*lns, it, v);
 
