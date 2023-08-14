@@ -1,3 +1,4 @@
+import numpy as np
 import struct
 
 VERSION_NUMBER = 0
@@ -38,9 +39,13 @@ def load_network(path):
             ) for _ in range(js_count)
         ]
 
+        # CC MAP READING
+
+        mapping = struct.unpack(f"<{datasheet[0]}i", file.read(datasheet[0] * INT_SIZE))
+
         # print(js_count, Ws[:5], Js[:5])
 
-        return datasheet, (js_count, Ws, Js)
+        return datasheet, (js_count, Ws, Js), mapping
 
 def load_state(path):
     """Load the network state saved in "*.ns.nns" files."""
@@ -52,15 +57,15 @@ def load_state(path):
 
         size = struct.unpack("<i", file.read(INT_SIZE))[0]
 
-        A = [
+        A = np.matrix([
             struct.unpack(f"<{size}?", file.read(size * BOOL_SIZE))
             for _ in range(size)
-        ]
+        ])
 
-        Y = [
+        Y = np.matrix([
             struct.unpack(f"<{size}d", file.read(size * DOUBLE_SIZE))
             for _ in range(size)
-        ]
+        ])
 
         V = struct.unpack(f"<{size}d", file.read(size * DOUBLE_SIZE))
 
