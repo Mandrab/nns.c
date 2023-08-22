@@ -7,6 +7,7 @@
 *.log
 *.nns
 *.o
+*.so
 tests/run_all.c
 cmake_install.cmake
 CMakeCache.txt
