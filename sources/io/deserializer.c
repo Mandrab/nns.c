@@ -8,7 +8,7 @@
 
 extern const int VERSION_NUMBER;
 
-int deserialize_network(datasheet* ds, network_topology* nt, int** mapping, int id)
+int deserialize_network(datasheet* ds, network_topology* nt, int id)
 {
     char name[100];
     int version;
@@ -46,11 +46,6 @@ int deserialize_network(datasheet* ds, network_topology* nt, int** mapping, int 
     // load the junctions informations
     nt->Js = vector(junction, nt->js_count);
     fread(nt->Js, sizeof(junction), nt->js_count, file);
-
-    // CC MAP WRITING
-
-    *mapping = vector(int, ds->wires_count);
-    fread(*mapping, sizeof(int), ds->wires_count, file);
 
     fclose(file);
 
