@@ -18,7 +18,7 @@ file(GLOB_RECURSE SOURCES sources/*.c)
 include_directories(headers)
 
 # create the library
-add_library(nns STATIC ${SOURCES})
+add_library(nns SHARED ${SOURCES})
 
 # find OpenBLAS library
 set(BLA_VENDOR OpenBLAS)
