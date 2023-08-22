@@ -13,7 +13,7 @@
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
 /// @return -1 if the file cannot be open, 0 otherwise.
-int serialize_network(const datasheet ds, const network_topology nt, const int* mapping, int id);
+int serialize_network(const datasheet ds, const network_topology nt, int id);
 
 /// @brief Serialize the network state (a.k.a. electrical equivalent circuit)
 /// to a file named "nanowire_state.ID.dat", where ID is the univocal

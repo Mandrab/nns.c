@@ -6,7 +6,7 @@
 
 const int VERSION_NUMBER = 0;
 
-int serialize_network(const datasheet ds, const network_topology nt, const int* mapping, int id)
+int serialize_network(const datasheet ds, const network_topology nt, int id)
 {
     char name[100];
 
