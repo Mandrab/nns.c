@@ -39,10 +39,6 @@ int serialize_network(const datasheet ds, const network_topology nt, const int* 
     fwrite(nt.Ws, sizeof(wire), ds.wires_count, file);
     fwrite(nt.Js, sizeof(junction), nt.js_count, file);
 
-    // CC MAP WRITING
-
-    fwrite(mapping, sizeof(int), ds.wires_count, file);
-
     fclose(file);
 
     return 0;

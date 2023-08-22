@@ -10,8 +10,6 @@
 /// 
 /// @param[in] ds The datasheet to serialize.
 /// @param[in] nt The network topology to serialize.
-/// @param[in] mapping The mapping of each node to the parent connected
-/// component.
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
 /// @return -1 if the file cannot be open, 0 otherwise.
