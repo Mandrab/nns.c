@@ -12,7 +12,7 @@ struct node {
     struct node* tail;
 };
 
-wire* drop_wires(datasheet ds)
+wire* drop_wires(const datasheet ds)
 {
     // create the array of wires to fill
     wire* ws = vector(wire, ds.wires_count);
@@ -53,7 +53,7 @@ wire* drop_wires(datasheet ds)
 }
 
 void detect_junctions(
-    datasheet ds, wire* ws,     // inputs
+    const datasheet ds, const wire* ws, // inputs
     junction** js, int* js_count // output
 )
 {
@@ -131,7 +131,7 @@ void detect_junctions(
     }
 }
 
-bool** construe_adjacency_matrix(datasheet ds, network_topology nt)
+bool** construe_adjacency_matrix(const datasheet ds, const network_topology nt)
 {
     // create the adjacency matrix
     bool** adj = zeros_matrix(bool, ds.wires_count, ds.wires_count);

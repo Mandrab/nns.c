@@ -4,7 +4,7 @@
 #include "stimulator/update.h"
 #include "config.h"
 
-void update_conductance(const network_state* ns)
+void update_conductance(network_state* ns)
 {
     // iterate over all the junction indexes
     #pragma omp parallel for collapse(2)

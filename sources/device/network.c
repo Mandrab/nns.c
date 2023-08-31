@@ -5,7 +5,7 @@
 #include "util/wires.h"
 #include "config.h"
 
-const network_topology create_network(const datasheet ds)
+network_topology create_network(const datasheet ds)
 {
     // set the random seed for the device generation
     srand(ds.generation_seed);
@@ -21,7 +21,7 @@ const network_topology create_network(const datasheet ds)
     return (network_topology){ wires, junctions_count, junctions };
 }
 
-const network_state construe_circuit(const datasheet ds, const network_topology nt)
+network_state construe_circuit(const datasheet ds, const network_topology nt)
 {
     // obtain the adjacency matrix and create the Y matrix
     bool** A = construe_adjacency_matrix(ds, nt);

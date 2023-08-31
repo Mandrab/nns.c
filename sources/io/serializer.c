@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <sys/stat.h>
 
 #include "io/serializer.h"
 #include "util/errors.h"
@@ -44,7 +45,7 @@ int serialize_network(const datasheet ds, const network_topology nt, int id)
     return 0;
 }
 
-int serialize_state(network_state ns, int id, int step)
+int serialize_state(const network_state ns, int id, int step)
 {
     char name[100];
 

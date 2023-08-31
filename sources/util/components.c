@@ -53,10 +53,10 @@ const int* map_components(bool** adj, int size)
     return mapping;
 }
 
-const network_state* connected_components(const network_state ns, int* nss_count)
+network_state* connected_components(const network_state ns, int* nss_count)
 {
     // map the node indexes with the CC indexes
-    int* mapping = map_components(ns.A, ns.size);
+    const int* mapping = map_components(ns.A, ns.size);
 
     // set the variable to save the number of CCs (assume at least one exists)
     *nss_count = 1;
@@ -135,7 +135,7 @@ const network_state* connected_components(const network_state ns, int* nss_count
     return nss;
 }
 
-const network_state* largest_component(const network_state* nss, int nss_count)
+network_state* largest_component(network_state* nss, int nss_count)
 {
     int largest_cc_index = 0;
 
