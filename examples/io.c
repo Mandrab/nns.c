@@ -58,8 +58,8 @@ int main()
     // separate the network into connected component networks
     // and get the largest connected component state
     int nss_count;
-    const network_state* nss = connected_components(ns, &nss_count);
-    const network_state* lns = largest_component(nss, nss_count);
+    network_state* nss = connected_components(ns, &nss_count);
+    network_state* lns = largest_component(nss, nss_count);
 
     printf("Keeping the largest connected component (%d nodes) and dereferencing the others\n", lns->size);
 
