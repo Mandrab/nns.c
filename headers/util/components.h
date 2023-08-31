@@ -19,13 +19,16 @@ const int* map_components(bool** adj, int size);
 /// discovered.
 /// @return The array of discovered connected components and corresponding
 /// networks.
-const network_state* connected_components(const network_state ns, int* nss_count);
+network_state* connected_components(const network_state ns, int* nss_count);
 
-/// @brief Given an array of connected components, select the largest.
+/// @brief Given an array of connected components, select the largest. The
+/// selection returns a pointer to the largest component, and not to its copy.
+/// Therefore, by modifying the return of this function also the original
+/// element stored in the nns array will be modified.
 /// 
 /// @param[in] nss The array of connected components networks.
 /// @param[in] count The number of connected components.
 /// @return The pointer to the largest connected component.
-const network_state* largest_component(const network_state* nss, int count);
+network_state* largest_component(network_state* nss, int count);
 
 #endif /* COMPONENTS_H */
