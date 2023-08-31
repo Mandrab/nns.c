@@ -1,5 +1,8 @@
-cmake_minimum_required(VERSION 3.12)
-project(nns)
+cmake_minimum_required(VERSION 3.0)
+project(nns VERSION 0.0.1)
+
+# to access to standard installation directory variables (CMAKE_INSTALL_xDIR).
+include(GNUInstallDirs)
 
 # indicate that the documentation build is an option (ON by default)
 option(BUILD_DOC "Build documentation" ON)
@@ -18,7 +21,7 @@ file(GLOB_RECURSE SOURCES sources/*.c)
 include_directories(headers)
 
 # create the library
-add_library(nns SHARED ${SOURCES})
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 # find OpenBLAS library
 set(BLA_VENDOR OpenBLAS)
@@ -28,7 +31,7 @@ find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 
 # link the math and LAPACK libraries
-target_link_libraries(nns PRIVATE m LAPACK::LAPACK)
+target_link_libraries(${PROJECT_NAME} PRIVATE m LAPACK::LAPACK)
 
 # if available, link openMP library
 find_package(OpenMP)
@@ -36,8 +39,20 @@ if(OpenMP_CXX_FOUND)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-    target_link_libraries(nns PUBLIC OpenMP::OpenMP_CXX)
+    target_link_libraries(${PROJECT_NAME} PUBLIC OpenMP::OpenMP_CXX)
 endif()
+
+# install shared library file to /usr/local/lib
+install(TARGETS ${PROJECT_NAME}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+# install header files to /usr/local/include
+install(
+    DIRECTORY ${CMAKE_SOURCE_DIR}/headers/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING PATTERN "*.h"
+)
 
 ###############################################################################
 # DOCUMENTATION                                                               #
