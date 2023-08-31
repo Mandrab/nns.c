@@ -30,13 +30,13 @@ void test_fully_connected_network()
 
     int nss_count;
 
-    const network_state* nss = connected_components(ns, &nss_count);
+    network_state* nss = connected_components(ns, &nss_count);
 
     assert(nss_count == 1, -1, "Wrong number of connected components identified");
     char* error = "The # of nodes in the CC (%d) is different from the expected 3";
     assert(nss[0].size == 3, -1, error, nss[0]);
 
-    const network_state* lns = largest_component(nss, nss_count);
+    network_state* lns = largest_component(nss, nss_count);
 
     assert(lns == &(nss[0]), -1, "The largest connected component does not point correctly");
 }
@@ -66,7 +66,7 @@ void test_disjoint_network()
 
     int nss_count;
 
-    const network_state* nss = connected_components(ns, &nss_count);
+    network_state* nss = connected_components(ns, &nss_count);
 
     assert(nss_count == 3, -1, "Wrong number of connected components identified");
 
@@ -98,7 +98,7 @@ void test_disjoint_network()
     assert(nss[2].A[1][0] == 1 && nss[2].Y[1][0] == 40, -1, error);
     assert(nss[2].A[1][1] == 0 && nss[2].Y[1][1] == 41, -1, error);
 
-    const network_state* lns = largest_component(nss, nss_count);
+    network_state* lns = largest_component(nss, nss_count);
 
     assert(lns == &(nss[0]), -1, "The largest connected component does not point correctly");
 }
