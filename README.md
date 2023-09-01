@@ -17,4 +17,4 @@ To run the examples: `cmake . && make && time ./examples/[EXAMPLE NAME].elf`</br
 To run the tests: `cmake . && make && cd tests && ctest; cd ..`</br>
 
 ## Troubleshoot
-- [IMPORTANT] A segmentation fault may happen if too large networks are simulated. To solve this problem it is simply needed to increase the memory that the program can allocate. See: `ulimit -s 32767`.
+- [IMPORTANT] A segmentation fault may happen if too large networks are simulated. To solve this problem it is simply needed to increase the memory that the program can allocate. See: `ulimit -s 65535`.
