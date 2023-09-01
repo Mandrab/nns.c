@@ -29,7 +29,7 @@ int main()
     printf("Serializing the Nanowire Network\n");
 
     // serialize the datasheet and network topology
-    serialize_network(ds, nt, 0);
+    serialize_network(ds, nt, ".", 0);
 
     printf("Deserializing the Nanowire Network\n");
 
@@ -38,12 +38,12 @@ int main()
     network_topology loaded_nt;
 
     // deserialize the datasheet and network topology
-    deserialize_network(&loaded_ds, &loaded_nt, 0);
+    deserialize_network(&loaded_ds, &loaded_nt, ".", 0);
 
     printf("Serializing the network state\n");
 
     // serialize the network state
-    serialize_state(ns, 0, -1);
+    serialize_state(ns, ".", 0, -1);
 
     printf("Deserializing the network state\n");
 
@@ -51,7 +51,7 @@ int main()
     network_state loaded_ns;
 
     // deserialize the network state
-    deserialize_state(&loaded_ns, 0, -1);
+    deserialize_state(&loaded_ns, ".", 0, -1);
 
     printf("Finding and selecting the largest connected component of the Nanowire Network\n");
 
@@ -105,7 +105,7 @@ int main()
         voltage_stimulation(lns, it, v);
 
         // serialize the state of the largest connected component of the network
-        serialize_state(lns, 0, i);
+        serialize_state(lns, ".", 0, i);
     }
 
     printf("Deserializing the last state of the largest connected component\n");
@@ -114,12 +114,12 @@ int main()
     network_state loaded_lns;
 
     // deserialize the state of the largest connected component of the network
-    deserialize_state(&loaded_lns, 0, 0);
+    deserialize_state(&loaded_lns, ".", 0, 0);
 
     printf("Serializing the network interface\n");
 
     // serialize the network interface
-    serialize_interface(it, 0, 0);
+    serialize_interface(it, ".", 0, 0);
 
     printf("Deserializing the network interface\n");
 
@@ -127,7 +127,7 @@ int main()
     interface loaded_it;
 
     // deserialize the network interface
-    deserialize_interface(&loaded_it, 0, 0);
+    deserialize_interface(&loaded_it, ".", 0, 0);
 
     printf("Freeing all the allocated memory\n");
 
