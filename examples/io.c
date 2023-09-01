@@ -68,9 +68,8 @@ int main()
     {
         if (&nss[i] != lns)
         {
-            free_matrix(nss[i].A, nss[i].size);
-            free_matrix(nss[i].Y, nss[i].size);
-            free(nss[i].V);
+            // nss is an array of nt, therefore we cannot free one of its elements, just its content
+            destroy_stack_state(nss[i]);
         }
     }
 
@@ -129,6 +128,24 @@ int main()
 
     // deserialize the network interface
     deserialize_interface(&loaded_it, 0, 0);
+
+    printf("Freeing all the allocated memory\n");
+
+    // free the network topology and state
+    destroy_stack_topology(nt);
+    destroy_stack_topology(loaded_nt);
+    destroy_stack_state(ns);
+    destroy_stack_state(loaded_ns);
+
+    // nss is an array of nt, therefore we cannot free one of its elements, just its content
+    destroy_stack_state(*lns);
+    destroy_stack_state(loaded_lns);
+
+    // lets free the array of nns
+    free(nss);
+
+    // the content of the loaded interface is created with malloc and has to be freed
+    destroy_stack_interface(loaded_it);
 
     printf("Terminating the simulation\n");
 
