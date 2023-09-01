@@ -8,6 +8,6 @@
 /// Original model proposed by Enrique Miranda.
 /// 
 /// @param[in, out] ns The Nanowire Network electrical state that will be updated.
-void update_conductance(network_state* ns);
+void update_conductance(network_state ns);
 
 #endif /* UPDATE_H */
