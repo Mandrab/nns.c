@@ -22,13 +22,15 @@ const int* map_components(bool** adj, int size);
 network_state* connected_components(const network_state ns, int* nss_count);
 
 /// @brief Given an array of connected components, select the largest. The
-/// selection returns a pointer to the largest component, and not to its copy.
-/// Therefore, by modifying the return of this function also the original
-/// element stored in the nns array will be modified.
+/// selection returns a copy of the largest component network state. The
+/// pointers contained in the network state still points to the same
+/// data-structures (i.e., A, Y, and V). Therefore, by modifying the A, Y, and
+/// V of the return of this function, also the original elements stored in the
+/// nss array will be modified.
 /// 
 /// @param[in] nss The array of connected components networks.
 /// @param[in] count The number of connected components.
 /// @return The pointer to the largest connected component.
-network_state* largest_component(network_state* nss, int count);
+network_state largest_component(const network_state* nss, int count);
 
 #endif /* COMPONENTS_H */

@@ -135,7 +135,7 @@ network_state* connected_components(const network_state ns, int* nss_count)
     return nss;
 }
 
-network_state* largest_component(network_state* nss, int nss_count)
+network_state largest_component(const network_state* nss, int nss_count)
 {
     int largest_cc_index = 0;
 
@@ -149,5 +149,5 @@ network_state* largest_component(network_state* nss, int nss_count)
         }
     }
 
-    return &nss[largest_cc_index];
+    return nss[largest_cc_index];
 }
