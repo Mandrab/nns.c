@@ -59,14 +59,14 @@ int main()
     // and get the largest connected component state
     int nss_count;
     network_state* nss = connected_components(ns, &nss_count);
-    network_state* lns = largest_component(nss, nss_count);
+    network_state lns = largest_component(nss, nss_count);
 
-    printf("Keeping the largest connected component (%d nodes) and dereferencing the others\n", lns->size);
+    printf("Keeping the largest connected component (%d nodes) and dereferencing the others\n", lns.size);
 
     // free the unused connected components
     for (int i = 0; i < nss_count; i++)
     {
-        if (&nss[i] != lns)
+        if (nss[i].A != lns.A)
         {
             // nss is an array of nt, therefore we cannot free one of its elements, just its content
             destroy_stack_state(nss[i]);
@@ -76,17 +76,17 @@ int main()
     printf("Creating an interface to stimulate the nanowire network.\n");
 
     // creating the interface to stimulate the device
-    bool sources[lns->size] = { };
+    bool sources[lns.size] = { };
     sources[0] = true;
-    bool grounds[lns->size] = { };
-    grounds[lns->size - 1] = true;
-    bool loads[lns->size] = { };
-    loads[(int) lns->size / 2] = true;
-    double weight[lns->size] = { };
-    weight[(int) lns->size / 2] = 0.5;
+    bool grounds[lns.size] = { };
+    grounds[lns.size - 1] = true;
+    bool loads[lns.size] = { };
+    loads[(int) lns.size / 2] = true;
+    double weight[lns.size] = { };
+    weight[(int) lns.size / 2] = 0.5;
 
     interface it = {
-        lns->size,
+        lns.size,
         1, sources,
         1, grounds,
         0, loads, weight,
@@ -102,10 +102,10 @@ int main()
 
         v[0] = i / 20.0;
 
-        voltage_stimulation(*lns, it, v);
+        voltage_stimulation(lns, it, v);
 
         // serialize the state of the largest connected component of the network
-        serialize_state(*lns, 0, i);
+        serialize_state(lns, 0, i);
     }
 
     printf("Deserializing the last state of the largest connected component\n");
@@ -138,7 +138,7 @@ int main()
     destroy_stack_state(loaded_ns);
 
     // nss is an array of nt, therefore we cannot free one of its elements, just its content
-    destroy_stack_state(*lns);
+    destroy_stack_state(lns);
     destroy_stack_state(loaded_lns);
 
     // lets free the array of nns
