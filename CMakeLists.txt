@@ -10,6 +10,16 @@ option(BUILD_DOC "Build documentation" ON)
 # set the C standard version
 set(CMAKE_C_STANDARD 99)
 
+# if not specified, set Release compilation
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+# set compilation flags
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 ###############################################################################
 # LIBRARY                                                                     #
 ###############################################################################
