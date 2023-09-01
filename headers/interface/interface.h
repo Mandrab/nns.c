@@ -35,4 +35,19 @@ typedef struct
     double* loads_weight;   ///< Weight of the optional load connected to the node (in siemens).
 } interface;
 
+/// @brief Destroy an interface memorized in the stack. This function
+/// practically frees the masks and weights of the interface. The arrays to be
+/// freed must have been allocated in the heap with malloc/calloc.
+/// 
+/// @param[in, out] it The interface to destroy.
+void destroy_stack_interface(interface it);
+
+/// @brief Destroy an interface memorized in the heap. This function
+/// practically frees the masks and weights of the interface. In addition it
+/// frees also the interface pointer. The arrays to be freed must have been
+/// allocated in the heap with malloc/calloc.
+/// 
+/// @param[in, out] it The pointer to the interface to destroy.
+void destroy_heap_interface(interface* it);
+
 #endif /* INTERFACE_H */
