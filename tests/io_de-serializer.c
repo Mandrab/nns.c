@@ -17,10 +17,10 @@ void test_network_io()
     };
     const network_topology nt = create_network(ds);
 
-    serialize_network(ds, nt, 0);
+    serialize_network(ds, nt, ".", 0);
     datasheet loaded_ds;
     network_topology loaded_nt;
-    deserialize_network(&loaded_ds, &loaded_nt, 0);
+    deserialize_network(&loaded_ds, &loaded_nt, ".", 0);
 
     assert(
         fabs(loaded_ds.wires_count - ds.wires_count) < TOLERANCE, -1,
@@ -116,9 +116,9 @@ void test_state_io()
     const network_topology nt = create_network(ds);
     const network_state ns = construe_circuit(ds, nt);
 
-    serialize_state(ns, 0, 0);
+    serialize_state(ns, ".", 0, 0);
     network_state loaded_ns;
-    deserialize_state(&loaded_ns, 0, 0);
+    deserialize_state(&loaded_ns, ".", 0, 0);
 
     assert(
         loaded_ns.size == ns.size, -1,
@@ -157,9 +157,9 @@ void test_interface_io()
     double W[5] = { .1, .2, .3, .4, .5 };
     const interface it = { 5, 2, S, 2, G, 1, L, W };
 
-    serialize_interface(it, 0, 0);
+    serialize_interface(it, ".", 0, 0);
     interface loaded_it;
-    deserialize_interface(&loaded_it, 0, 0);
+    deserialize_interface(&loaded_it, ".", 0, 0);
 
     assert(
         loaded_it.mask_size == it.mask_size, -1,
