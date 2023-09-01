@@ -8,13 +8,13 @@
 
 extern const int VERSION_NUMBER;
 
-int deserialize_network(datasheet* ds, network_topology* nt, int id)
+int deserialize_network(datasheet* ds, network_topology* nt, char* path, int id)
 {
     char name[100];
     int version;
 
     // open the file with the name according to the format
-    snprintf(name, 100, NETWORK_FILE_NAME_FORMAT, id);
+    snprintf(name, 100, NETWORK_FILE_NAME_FORMAT, path, id);
     FILE* file = fopen(name, "rb");
     assert(file != NULL, -1, "Impossible to open the network file\n");
 
@@ -52,13 +52,13 @@ int deserialize_network(datasheet* ds, network_topology* nt, int id)
     return 0;
 }
 
-int deserialize_state(network_state* ns, int id, int step)
+int deserialize_state(network_state* ns, char* path, int id, int step)
 {
     char name[100];
     int version;
 
     // open the file with the name according to the format
-    snprintf(name, 100, STATE_FILE_NAME_FORMAT, id, step);
+    snprintf(name, 100, STATE_FILE_NAME_FORMAT, path, id, step);
     FILE* file = fopen(name, "rb");
     assert(file != NULL, -1, "Impossible to open the state file\n");
 
@@ -96,13 +96,13 @@ int deserialize_state(network_state* ns, int id, int step)
     return 0;
 }
 
-int deserialize_interface(interface* it, int id, int step)
+int deserialize_interface(interface* it, char* path, int id, int step)
 {
     char name[100];
     int version;
 
     // open the file with the name according to the format
-    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, id, step);
+    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, path, id, step);
     FILE* file = fopen(name, "rb");
     assert(file != NULL, -1, "Impossible to open the interface file\n");
 

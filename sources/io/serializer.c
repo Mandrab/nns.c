@@ -7,16 +7,16 @@
 
 const int VERSION_NUMBER = 0;
 
-int serialize_network(const datasheet ds, const network_topology nt, int id)
+int serialize_network(const datasheet ds, const network_topology nt, char* path, int id)
 {
     char name[100];
 
     // create the name of the folder according to the format
-    snprintf(name, 100, DIRECTORY_FORMAT, id);
+    snprintf(name, 100, DIRECTORY_FORMAT, path, id);
     mkdir(name, 0700);
 
     // create the name of the file according to the format
-    snprintf(name, 100, NETWORK_FILE_NAME_FORMAT, id);
+    snprintf(name, 100, NETWORK_FILE_NAME_FORMAT, path, id);
     FILE* file = fopen(name, "wb");
     assert(file != NULL, -1, "Impossible to open the network file\n");
 
@@ -45,16 +45,16 @@ int serialize_network(const datasheet ds, const network_topology nt, int id)
     return 0;
 }
 
-int serialize_state(const network_state ns, int id, int step)
+int serialize_state(const network_state ns, char* path, int id, int step)
 {
     char name[100];
 
     // create the name of the folder according to the format
-    snprintf(name, 100, DIRECTORY_FORMAT, id);
+    snprintf(name, 100, DIRECTORY_FORMAT, path, id);
     mkdir(name, 0700);
 
     // create the name of the file according to the format
-    snprintf(name, 100, STATE_FILE_NAME_FORMAT, id, step);
+    snprintf(name, 100, STATE_FILE_NAME_FORMAT, path, id, step);
     FILE* file = fopen(name, "wb");
     assert(file != NULL, -1, "Impossible to open the state file\n");
 
@@ -84,16 +84,16 @@ int serialize_state(const network_state ns, int id, int step)
     return 0;
 }
 
-int serialize_interface(const interface it, int id, int step)
+int serialize_interface(const interface it, char* path, int id, int step)
 {
     char name[100];
 
     // create the name of the folder according to the format
-    snprintf(name, 100, DIRECTORY_FORMAT, id);
+    snprintf(name, 100, DIRECTORY_FORMAT, path, id);
     mkdir(name, 0700);
 
     // create the name of the file according to the format
-    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, id, step);
+    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, path, id, step);
     FILE* file = fopen(name, "wb");
     assert(file != NULL, -1, "Impossible to open the interface file\n");
 
