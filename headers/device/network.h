@@ -38,4 +38,35 @@ network_topology create_network(const datasheet ds);
 /// @return The electrical representation of the Nanowire Network.
 network_state construe_circuit(const datasheet ds, const network_topology nt);
 
+/// @brief Destroy a network topology memorized in the stack. This function
+/// practically frees the wires and junctions array of the network topology.
+/// The arrays to be freed must have been allocated in the heap with
+/// malloc/calloc.
+/// 
+/// @param[in, out] nt The network topology to destroy.
+void destroy_stack_topology(network_topology nt);
+
+/// @brief Destroy a network topology memorized in the stack. This function
+/// practically frees the wires and junctions array of the network topology. In
+/// addition it frees also the network_topology pointer. The arrays to be freed
+/// must have been allocated in the heap with malloc/calloc.
+/// 
+/// @param[in, out] nt The pointer to the network topology to destroy.
+void destroy_heap_topology(network_topology* nt);
+
+/// @brief Destroy a network state memorized in the stack. This function
+/// practically frees A, Y, and V of the network state. The matrixes and arrays
+/// to be freed must have been allocated in the heap with malloc/calloc.
+/// 
+/// @param[in, out] ns The network state to destroy.
+void destroy_stack_state(network_state ns);
+
+/// @brief Destroy a network state memorized in the stack. This function
+/// practically frees A, Y, and V of the network state. In addition it frees
+/// also the network_state pointer. The matrixes and arrays to be freed must
+/// have been allocated in the heap with malloc/calloc.
+/// 
+/// @param[in, out] ns The pointer to the network state to destroy.
+void destroy_heap_state(network_state* ns);
+
 #endif /* NETWORK_H */

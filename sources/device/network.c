@@ -43,3 +43,28 @@ network_state construe_circuit(const datasheet ds, const network_topology nt)
     // return the generated network state
     return (network_state){ ds.wires_count, A, Y, V };
 }
+
+void destroy_stack_topology(network_topology nt)
+{
+    free(nt.Ws);
+    free(nt.Js);
+}
+
+void destroy_heap_topology(network_topology* nt)
+{
+    destroy_stack_topology(*nt);
+    free(nt);
+}
+
+void destroy_stack_state(network_state ns)
+{
+    free_matrix(ns.A, ns.size);
+    free_matrix(ns.Y, ns.size);
+    free(ns.V);
+}
+
+void destroy_heap_state(network_state* ns)
+{
+    destroy_stack_state(*ns);
+    free(ns);
+}
