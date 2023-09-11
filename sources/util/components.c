@@ -132,6 +132,9 @@ network_state* connected_components(const network_state ns, int* nss_count)
         nss[ci].V[cix] = ns.V[i];
     }
 
+    // free the mapping array
+    free(mapping);
+
     return nss;
 }
 
