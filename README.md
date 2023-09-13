@@ -12,9 +12,19 @@ The library is inspired by the code used in the paper [_Connectome of memristive
 - [OPTIONAL] Doxygen for the generation of the documentation
 
 ## Instructions
-To install the library system-wide: `cmake . && make && sudo make install`</br>
-To run the examples: `cmake . && make && time ./examples/[EXAMPLE NAME].elf`</br>
-To run the tests: `cmake . && make && cd tests && ctest; cd ..`</br>
+1. To compile the source code, examples, and tests: `cmake . && make`</br>
+2. To install the library system-wide [requires 1]: `sudo make install`</br>
+3. To run the examples [requires 1]: `time ./examples/[EXAMPLE NAME].elf`</br>
+4. To run the tests [requires 1]: `cd tests && ctest; cd ..`</br>
+5. To run Valgrind memory-leak tests [requires 1 and 2]: `valgrind --leak-check=yes --log-file=valgrind.rpt examples/[EXAMPLE NAME].elf`</br>
+
+A common usage is:
+```
+$ cmake . && make && sudo make install
+$ cd tests && ctest; cd ..
+$ time ./examples/basic.elf
+```
 
 ## Troubleshoot
 - [IMPORTANT] A segmentation fault may happen if too large networks are simulated. To solve this problem it is simply needed to increase the memory that the program can allocate. See: `ulimit -s 65535`.
+- The Valgrind test [does not work correctly](https://medium.com/@auraham/pseudo-memory-leaks-when-using-openmp-11a383cc4cf9) when used with OpenMP. Therefore, to perform the test is necessary to compile the library without OpenMP and with a sequential implementation of BLAS.
