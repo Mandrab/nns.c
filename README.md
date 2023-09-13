@@ -21,6 +21,7 @@ The library is inspired by the code used in the paper [_Connectome of memristive
 A common usage is:
 ```
 $ cmake . && make && sudo make install
+$ ulimit -s 65535
 $ cd tests && ctest; cd ..
 $ time ./examples/basic.elf
 ```
