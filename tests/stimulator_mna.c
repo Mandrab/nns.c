@@ -296,7 +296,7 @@ void test_complex()
  * - R_2 = 0.25 Ω
  * - R_L = 0.50 Ω
  */
-void test_loaded()
+void test_load_one()
 {
     const int size = 3;
 
@@ -311,12 +311,12 @@ void test_loaded()
     ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 0;
     ns.Y[2][0] = 4; ns.Y[2][1] = 0; ns.Y[2][2] = 0;
 
-    bool sources[5] = { true, false, false };
-    bool grounds[5] = { false, false, false };
-    bool loads[5] = { false, false, true };
-    double weights[5] = { .0, .0, 2.0 };
+    bool sources[3] = { true, false, false };
+    bool grounds[3] = { false, false, false };
+    bool loads[3] = { false, false, true };
+    double weights[3] = { .0, .0, 2.0 };
     interface it = (interface) {
-        5,
+        3,
         1, sources,
         0, grounds,
         1, loads, weights
@@ -330,6 +330,63 @@ void test_loaded()
 
     assert(fabs(ns.V[0] - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - source
     assert(fabs(ns.V[1] - 5.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00); // b - disconnected from ground
+    assert(fabs(ns.V[2] - 3.33) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 3.33); // c - voltage divider
+
+    free_matrix(ns.A, size);
+    free_matrix(ns.Y, size);
+    free(ns.V);
+}
+
+/**
+ * Testing the following circuit:
+ * 
+ *      SRC2     SRC1
+ *       |        |
+ *        --R_1-----R_2---
+ *       |               |
+ *      --              R_L
+ *                       |
+ *                      GND
+ * 
+ * where:
+ * - R_1 = 1.00 Ω
+ * - R_2 = 0.25 Ω
+ * - R_L = 0.50 Ω
+ */
+void test_load_two()
+{
+    const int size = 3;
+
+    network_state ns = (network_state) {
+        size,
+        matrix(bool, size, size),
+        matrix(double, size, size),
+        vector(double, size)
+    };
+
+    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 4;
+    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 0;
+    ns.Y[2][0] = 4; ns.Y[2][1] = 0; ns.Y[2][2] = 0;
+
+    bool sources[3] = { true, true, false };
+    bool grounds[3] = { false, false, false };
+    bool loads[3] = { false, false, true };
+    double weights[3] = { .0, .0, 2.0 };
+    interface it = (interface) {
+        3,
+        1, sources,
+        0, grounds,
+        1, loads, weights
+    };
+
+    // define the voltage of the first input
+    double vs[5] = { 5, 10 };
+
+    // call the conjugate_gradient function
+    voltage_stimulation(ns, it, vs);
+
+    assert(fabs(ns.V[0] - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - first source
+    assert(fabs(ns.V[1] - 10.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 10.00); // b - second source
     assert(fabs(ns.V[2] - 3.33) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 3.33); // c - voltage divider
 
     free_matrix(ns.A, size);
@@ -473,7 +530,8 @@ int stimulator_mna()
     test_divider_two();
     test_parallel();
     test_complex();
-    test_loaded();
+    test_load_one();
+    test_load_two();
     test_grounded_and_loaded();
     test_input_currents();
 
