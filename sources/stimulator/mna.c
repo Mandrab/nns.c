@@ -65,8 +65,9 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
 
             // negate the conductance of the Y matrix
             // linearization of A[i - skips[i]][j - skips[j]] and A[j - skips[j]][i - skips[i]]
+            // Since LAPACK only considers the upper / lower triangular matrix,
+            // setting just one of the two is enough
             A[(i - skips[i]) * size + j - skips[j]] = - ns.Y[i][j];
-            A[(j - skips[j]) * size + i - skips[i]] = - ns.Y[i][j]; // TODO not useful as LAPACK considers the upper or lower triangular matrix
         }
 
         // mark the sources with a 1 on the right and bottom most part of the matrix
@@ -75,8 +76,12 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
             // linearization of:
             // A[size - it.sources_count + index[i]][i]
             // A[i][size - it.sources_count + index[i]]
-            A[(size - it.sources_count + index[i]) * size + i - skips[i]] = 1;
+            // Since LAPACK only considers the upper / lower triangular matrix,
+            // setting just one of the two is enough
             A[(i - skips[i]) * size + size - it.sources_count + index[i]] = 1;
+
+            // if 'i' is a source, set its voltage value in b
+            b[size - it.sources_count + index[i]] = io[i];
         }
 
         // add the loads conductance to the diagonal of A
@@ -85,12 +90,6 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
             // linearization of A[i - skips[i]][i - skips[i]]
             A[(i - skips[i]) * size + i - skips[i]] += it.loads_weight[i];
         }
-    }
-
-    // fill the b vector with the known voltages
-    for (int i = 0; i < it.sources_count; i++)
-    {
-        b[size - it.sources_count + i] = io[i];
     }
 
     // consider A as an upper triangular matrix
@@ -105,11 +104,17 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
     dsysv_rook_(&L, &size, &b_size, A, &size, pivots, b, &size, work, &size, &info, size);
     assert(info == 0, info, "The MNA system cannot be solved!");
 
-    // set the voltages vector
+    // set the voltages in the ns.V array and the input currents in the io array
+    // according to the MNA calculation
     #pragma opm parallel for
     for (int i = 0; i < ns.size; i++)
     {
-        if (it.grounds_mask[i])
+        if (it.sources_mask[i])
+        {
+            ns.V[i] = io[i];
+            io[i] = - b[size - it.sources_count + index[i]];
+        }
+        else if (it.grounds_mask[i])
         {
             ns.V[i] = 0;
         }
@@ -117,12 +122,5 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
         {
             ns.V[i] = b[i - skips[i]];
         }
-    }
-
-    // set the currents vector
-    #pragma opm parallel for
-    for (int i = 0; i < it.sources_count; i++)
-    {
-        io[i] = - b[size - it.sources_count + i];
     }
 }
