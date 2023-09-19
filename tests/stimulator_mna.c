@@ -40,7 +40,7 @@ void test_divider_one()
     };
 
     // define the voltage of the first input
-    double vs[1] = { 5 };
+    double vs[3] = { 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
@@ -90,7 +90,7 @@ void test_divider_two()
     };
 
     // define the voltage of the first input
-    double vs[1] = { 5 };
+    double vs[4] = { 0, 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
@@ -157,7 +157,7 @@ void test_parallel()
     };
 
     // define the voltage of the first input
-    double vs[1] = { 5 };
+    double vs[4] = { 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
@@ -257,7 +257,7 @@ void test_complex()
     };
 
     // define the voltage of the first input
-    double vs[1] = { 5 };
+    double vs[12] = { 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
@@ -323,7 +323,7 @@ void test_loaded()
     };
 
     // define the voltage of the first input
-    double vs[1] = { 5 };
+    double vs[5] = { 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
@@ -395,7 +395,7 @@ void test_grounded_and_loaded()
     };
 
     // define the voltage of the first input
-    double vs[1] = { 5 };
+    double vs[5] = { 5 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
@@ -449,7 +449,7 @@ void test_input_currents()
     };
 
     // define the voltage of the first input
-    double vs[2] = { 5, 10 };
+    double vs[4] = { 5, 0, 10 };
 
     // call the conjugate_gradient function
     voltage_stimulation(ns, it, vs);
@@ -460,7 +460,7 @@ void test_input_currents()
     assert(fabs(ns.V[3] - 0.00)  < TOLERANCE, -1, "ns.V[3] == %f but should be %f", ns.V[3],  0.00); // d - ground
 
     assert(fabs(vs[0] - 1.43) < TOLERANCE, -1, "I_1 == %f but should be %f", vs[0], 1.43);  // in mA
-    assert(fabs(vs[1] - 2.14) < TOLERANCE, -1, "I_2 == %f but should be %f", vs[1], 2.14);  // in mA
+    assert(fabs(vs[2] - 2.14) < TOLERANCE, -1, "I_2 == %f but should be %f", vs[1], 2.14);  // in mA
 
     free_matrix(ns.A, size);
     free_matrix(ns.Y, size);
