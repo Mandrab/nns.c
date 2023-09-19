@@ -94,7 +94,7 @@ int main()
 
     printf("Stimulate the nanowire network and serializing the state variation.\n");
 
-    double v[1];
+    double v[lns.size];
 
     for (int i = 0; i < 100; i++)
     {

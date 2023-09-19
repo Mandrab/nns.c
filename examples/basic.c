@@ -61,7 +61,7 @@ int main()
         1, grounds,
         0, loads, NULL,
     };
-    double v[1] = { };
+    double v[lns.size];
 
     printf("Performing the voltage stimulation and weight update of the nanowire network\n");
 
