@@ -35,6 +35,12 @@ typedef struct
     double* loads_weight;   ///< Weight of the optional load connected to the node (in siemens).
 } interface;
 
+/// @brief Create a deep copy of an interface.
+/// 
+/// @param[in] it The interface to copy.
+/// @return The deep copy of the interface.
+interface copy(const interface it);
+
 /// @brief Destroy an interface memorized in the stack. This function
 /// practically frees the masks and weights of the interface. The arrays to be
 /// freed must have been allocated in the heap with malloc/calloc.
