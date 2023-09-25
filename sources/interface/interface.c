@@ -17,10 +17,10 @@ interface copy(const interface it)
     copy.loads_weight = vector(double, it.mask_size);
 
     // copy the memory area of the array of the original interface
-    memcpy(copy.sources_mask, it.sources_mask, it.mask_size);
-    memcpy(copy.grounds_mask, it.grounds_mask, it.mask_size);
-    memcpy(copy.loads_mask, it.loads_mask, it.mask_size);
-    memcpy(copy.loads_weight, it.loads_weight, it.mask_size);
+    memcpy(copy.sources_mask, it.sources_mask, it.mask_size * sizeof(bool));
+    memcpy(copy.grounds_mask, it.grounds_mask, it.mask_size * sizeof(bool));
+    memcpy(copy.loads_mask, it.loads_mask, it.mask_size * sizeof(bool));
+    memcpy(copy.loads_weight, it.loads_weight, it.mask_size * sizeof(double));
 
     return copy;
 }
