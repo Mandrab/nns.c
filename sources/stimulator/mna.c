@@ -78,7 +78,7 @@ void voltage_stimulation(network_state ns, const interface it, double* io)
             // A[i][size - it.sources_count + index[i]]
             // Since LAPACK only considers the upper / lower triangular matrix,
             // setting just one of the two is enough
-            A[(i - skips[i]) * size + size - it.sources_count + index[i]] = 1;
+            A[(i - skips[i] + 1) * size - it.sources_count + index[i]] = 1;
 
             // if 'i' is a source, set its voltage value in b
             b[size - it.sources_count + index[i]] = io[i];
