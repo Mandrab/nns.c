@@ -6,7 +6,7 @@
 
 /// @brief Deserialize the static characteristics of the network from a file
 /// named "nanowire_network.ID.dat", where ID is the univocal identifier of the
-/// NN.
+/// NN. If any problem occurs, the system will exit with an error.
 /// 
 /// @param[out] ds The datasheet to set according to the data saved in the
 /// file. It has to not be initialized.
@@ -15,12 +15,11 @@
 /// @param[in] path The base path containing the /device_ID folder.
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
-/// @return -1 if the file cannot be open or if its version is not supported,
-/// 0 otherwise.
-int deserialize_network(datasheet* ds, network_topology* nt, char* path, int id);
+void deserialize_network(datasheet* ds, network_topology* nt, char* path, int id);
 
 /// @brief Deserialize the state of the network from a file named
-/// "nanowire_state.ID.dat", where ID is the univocal identifier of the NN.
+/// "nanowire_state.ID.dat", where ID is the univocal identifier of the NN. If
+/// any problem occurs, the system will exit with an error.
 /// 
 /// @param[out] ns The network state to set according to the data saved in the
 /// file. It has to not be initialized.
@@ -28,12 +27,11 @@ int deserialize_network(datasheet* ds, network_topology* nt, char* path, int id)
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
 /// @param[in] step The id of the network state in a specific instant.
-/// @return -1 if the file cannot be open or if its version is not supported,
-/// 0 otherwise.
-int deserialize_state(network_state* ns, char* path, int id, int step);
+void deserialize_state(network_state* ns, char* path, int id, int step);
 
 /// @brief Deserialize the interface to the network from a file named
-/// "interface.ID.dat", where ID is the univocal identifier of the NN.
+/// "interface.ID.dat", where ID is the univocal identifier of the NN. If any
+/// problem occurs, the system will exit with an error.
 /// 
 /// @param[out] it The interface to set according to the data saved in the
 /// file. It has to not be initialized.
@@ -41,8 +39,6 @@ int deserialize_state(network_state* ns, char* path, int id, int step);
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
 /// @param[in] step The id of the network interface in a specific instant.
-/// @return -1 if the file cannot be open or if its version is not supported,
-/// 0 otherwise.
-int deserialize_interface(interface* ns, char* path, int id, int step);
+void deserialize_interface(interface* ns, char* path, int id, int step);
 
 #endif /* DESERIALIZER_H */

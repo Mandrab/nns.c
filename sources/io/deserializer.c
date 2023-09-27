@@ -8,23 +8,13 @@
 
 extern const int VERSION_NUMBER;
 
-int deserialize_network(datasheet* ds, network_topology* nt, char* path, int id)
+// open the file and check the version
+FILE* open_file(char* file_type, char* path, int id, int step);
+
+void deserialize_network(datasheet* ds, network_topology* nt, char* path, int id)
 {
-    char name[100];
-    int version;
-
-    // open the file with the name according to the format
-    snprintf(name, 100, NETWORK_FILE_NAME_FORMAT, path, id);
-    FILE* file = fopen(name, "rb");
-    assert(file != NULL, -1, "Impossible to open the network file\n");
-
-    // load the version of the serialized file
-    fread(&version, sizeof(int), 1, file);
-    if (version != VERSION_NUMBER)
-    {
-        printf("The file version is not supported by this version of the simulator\n");
-        return -1;
-    }
+    // open the file and check the version
+    FILE* file = open_file(NETWORK_FILE_NAME_FORMAT, path, id, -1);
 
     // DATASHEET READING
 
@@ -48,43 +38,37 @@ int deserialize_network(datasheet* ds, network_topology* nt, char* path, int id)
     fread(nt->Js, sizeof(junction), nt->js_count, file);
 
     fclose(file);
-
-    return 0;
 }
 
-int deserialize_state(network_state* ns, char* path, int id, int step)
+void deserialize_state(network_state* ns, char* path, int id, int step)
 {
-    char name[100];
-    int version;
-
-    // open the file with the name according to the format
-    snprintf(name, 100, STATE_FILE_NAME_FORMAT, path, id, step);
-    FILE* file = fopen(name, "rb");
-    assert(file != NULL, -1, "Impossible to open the state file\n");
-
-    // load the version of the serialized file
-    fread(&version, sizeof(int), 1, file);
-    if (version != VERSION_NUMBER)
-    {
-        printf("The file version is not supported by this version of the simulator\n");
-        return -1;
-    }
+    // open the file and check the version
+    FILE* file = open_file(STATE_FILE_NAME_FORMAT, path, id, step);
 
     // load the network size
     fread(&ns->size, sizeof(int), 1, file);
 
-    // load the A matrix
-    ns->A = zeros_matrix(bool, ns->size, ns->size);
-    for (int i = 0; i < ns->size; i++)
-    {
-        fread(ns->A[i], sizeof(bool), ns->size, file);
-    }
+    // load the number of junctions
+    int js_counter;
+    fread(&js_counter, sizeof(int), 1, file);
 
-    // load the Y matrix
+    // create a buffer to contain the junctions index and weight
+    int I[js_counter];
+    double Y[js_counter];
+
+    // load the junctions index and weight
+    fread(I, sizeof(int), js_counter, file);
+    fread(Y, sizeof(double), js_counter, file);
+
+    // initialize and fill the the I matrix
+    ns->A = zeros_matrix(bool, ns->size, ns->size);
     ns->Y = zeros_matrix(double, ns->size, ns->size);
-    for (int i = 0; i < ns->size; i++)
+    for (int i = 0; i < js_counter; i++)
     {
-        fread(ns->Y[i], sizeof(double), ns->size, file);
+        // obtain the linearized index from I
+        int j = I[i];
+        ns->A[j / ns->size][j % ns->size] = true;
+        ns->Y[j / ns->size][j % ns->size] = Y[i];
     }
 
     // load the V array
@@ -92,27 +76,12 @@ int deserialize_state(network_state* ns, char* path, int id, int step)
     fread(ns->V, sizeof(double), ns->size, file);
 
     fclose(file);
-
-    return 0;
 }
 
-int deserialize_interface(interface* it, char* path, int id, int step)
+void deserialize_interface(interface* it, char* path, int id, int step)
 {
-    char name[100];
-    int version;
-
-    // open the file with the name according to the format
-    snprintf(name, 100, INTERFACE_FILE_NAME_FORMAT, path, id, step);
-    FILE* file = fopen(name, "rb");
-    assert(file != NULL, -1, "Impossible to open the interface file\n");
-
-    // load the version of the serialized file
-    fread(&version, sizeof(int), 1, file);
-    if (version != VERSION_NUMBER)
-    {
-        printf("The file version is not supported by this version of the simulator\n");
-        return -1;
-    }
+    // open the file and check the version
+    FILE* file = open_file(INTERFACE_FILE_NAME_FORMAT, path, id, step);
 
     // load the masks size
     fread(&it->mask_size, sizeof(int), 1, file);
@@ -137,6 +106,22 @@ int deserialize_interface(interface* it, char* path, int id, int step)
     fread(it->loads_weight, sizeof(double), it->mask_size, file);
 
     fclose(file);
+}
 
-    return 0;
+FILE* open_file(char* file_type, char* path, int id, int step)
+{
+    char name[100];
+    int version;
+
+    // open the file with the name according to the format and check that it
+    // opened correctly
+    snprintf(name, 100, file_type, path, id, step);
+    FILE* file = fopen(name, "rb");
+    assert(file != NULL, -1, "Impossible to open file: %s for reading operations\n", name);
+
+    // load the version of the serialized file
+    fread(&version, sizeof(int), 1, file);
+    assert(version == VERSION_NUMBER, -1, "The file version is not supported by this version of the simulator\n");
+
+    return file;
 }
