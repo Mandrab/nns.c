@@ -23,7 +23,7 @@ void test_network_io()
     deserialize_network(&loaded_ds, &loaded_nt, ".", 0);
 
     assert(
-        fabs(loaded_ds.wires_count - ds.wires_count) < TOLERANCE, -1,
+        loaded_ds.wires_count == ds.wires_count, -1,
         "The (de)serialization of wires_count is not correct: original = %d, loaded = %d",
         ds.wires_count, loaded_ds.wires_count
     );
@@ -38,12 +38,12 @@ void test_network_io()
         ds.length_std_dev, loaded_ds.length_std_dev
     );
     assert(
-        fabs(loaded_ds.package_size - ds.package_size) < TOLERANCE, -1,
+        loaded_ds.package_size == ds.package_size, -1,
         "The (de)serialization of package_size is not correct: original = %d, loaded = %d",
         ds.package_size, loaded_ds.package_size
     );
     assert(
-        fabs(loaded_ds.generation_seed - ds.generation_seed) < TOLERANCE, -1,
+        loaded_ds.generation_seed == ds.generation_seed, -1,
         "The (de)serialization of generation_seed is not correct: original = %d, loaded = %d",
         ds.generation_seed, loaded_ds.generation_seed
     );
@@ -132,18 +132,18 @@ void test_state_io()
         {
             assert(
                 loaded_ns.A[i][j] == ns.A[i][j], -1,
-                "The (de)serialization of A[%][%d] is not correct: original = %d, loaded = %d",
+                "The (de)serialization of A[%d][%d] is not correct: original = %d, loaded = %d",
                 i, j, ns.A[i][j], loaded_ns.A[i][j]
             );
             assert(
                 fabs(loaded_ns.Y[i][j] - ns.Y[i][j]) < TOLERANCE, -1,
-                "The (de)serialization of Y[%d][%d] is not correct: original = %d, loaded = %d",
+                "The (de)serialization of Y[%d][%d] is not correct: original = %f, loaded = %f",
                 i, j, ns.Y[i][j], loaded_ns.Y[i][j]
             );
         }
         assert(
             fabs(loaded_ns.V[i] - ns.V[i]) < TOLERANCE, -1,
-            "The (de)serialization of V[%d] is not correct: original = %d, loaded = %d",
+            "The (de)serialization of V[%d] is not correct: original = %f, loaded = %f",
             i, ns.V[i], loaded_ns.V[i]
         );
     }
@@ -204,10 +204,10 @@ void test_interface_io()
             "The (de)serialization of loads_mask[%d] is not correct: original = %d, loaded = %d",
             i, it.loads_mask[i], loaded_it.loads_mask[i]
         );
-        assert(fabs(
-            loaded_it.loads_weight[i] - it.loads_weight[i]) < TOLERANCE, -1,
-            "The (de)serialization of loads_mask[%d] is not correct: original = %d, loaded = %d",
-            i, it.loads_mask[i], loaded_it.loads_mask[i]
+        assert(
+            fabs(loaded_it.loads_weight[i] - it.loads_weight[i]) < TOLERANCE, -1,
+            "The (de)serialization of loads_weight[%d] is not correct: original = %f, loaded = %f",
+            i, it.loads_weight[i], loaded_it.loads_weight[i]
         );
     }
 }
