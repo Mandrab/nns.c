@@ -23,48 +23,33 @@ network_topology create_network(const datasheet ds)
 
 network_state construe_circuit(const datasheet ds, const network_topology nt)
 {
-    // obtain the adjacency matrix and create the Y matrix
-    bool** A = construe_adjacency_matrix(ds, nt);
-    double** Y = zeros_matrix(double, ds.wires_count, ds.wires_count);
-
-    // fill the Y matrix according to the adjacency matrix
-    #pragma omp parallel for collapse(2)
-    for (int i = 0; i < ds.wires_count; i++)
-    {
-        for (int j = 0; j < ds.wires_count; j++)
-        {
-            Y[i][j] = A[i][j] * Y_MIN;
-        }
-    }
-
-    // construct the empty voltage vector
+    // construct the index, weight and voltage arrays
+    int* I = vector(int, nt.js_count);
+    double* Y = vector(double, nt.js_count);
     double* V = zeros_vector(double, ds.wires_count);
 
+    // fill the Is array with the junctions position, and
+    // the Ys array with the minimum conductance weight
+    #pragma omp parallel for
+    for (int i = 0; i < nt.js_count; i++)
+    {
+        I[i] = nt.Js[i].first_wire * ds.wires_count + nt.Js[i].second_wire;
+        Y[i] = Y_MIN;
+    }
+
     // return the generated network state
-    return (network_state){ ds.wires_count, A, Y, V };
+    return (network_state){ I, Y, V };
 }
 
-void destroy_stack_topology(network_topology nt)
+void destroy_topology(network_topology nt)
 {
     free(nt.Ws);
     free(nt.Js);
 }
 
-void destroy_heap_topology(network_topology* nt)
+void destroy_state(network_state ns)
 {
-    destroy_stack_topology(*nt);
-    free(nt);
-}
-
-void destroy_stack_state(network_state ns)
-{
-    free_matrix(ns.A, ns.size);
-    free_matrix(ns.Y, ns.size);
-    free(ns.V);
-}
-
-void destroy_heap_state(network_state* ns)
-{
-    destroy_stack_state(*ns);
-    free(ns);
+    free(ns.Is);
+    free(ns.Ys);
+    free(ns.Vs);
 }
