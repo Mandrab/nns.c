@@ -55,8 +55,8 @@ network_state construe_circuit(const datasheet ds, const network_topology nt);
 void destroy_topology(network_topology nt);
 
 /// @brief Destroy a network state memorized in the stack. This function
-/// practically frees A, Y, and V of the network state. The matrixes and arrays
-/// to be freed must have been allocated in the heap with malloc/calloc.
+/// practically frees Is, Ys, and Vs of the network state. The arrays to be
+/// freed must have been allocated in the heap with malloc/calloc.
 /// 
 /// @param[in, out] ns The network state to destroy.
 void destroy_state(network_state ns);
