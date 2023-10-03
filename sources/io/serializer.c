@@ -10,7 +10,12 @@ const int VERSION_NUMBER = 1;
 // create and open a file; if it does not exists, create the folder/path
 FILE* new_file(char* file_type, char* path, int id, int step);
 
-void serialize_network(const datasheet ds, const network_topology nt, char* path, int id)
+void serialize_network(
+    const datasheet ds,
+    const network_topology nt,
+    char* path,
+    int id
+)
 {
     // create and open folder and file of the specific format
     FILE* file = new_file(NETWORK_FILE_NAME_FORMAT, path, id, -1);
@@ -32,39 +37,22 @@ void serialize_network(const datasheet ds, const network_topology nt, char* path
     fclose(file);
 }
 
-void serialize_state(const network_state ns, char* path, int id, int step)
+void serialize_state(
+    const datasheet ds,
+    const network_topology nt,
+    const network_state ns,
+    char* path,
+    int id,
+    int step
+)
 {
     // create and open folder and file of the specific format
     FILE* file = new_file(STATE_FILE_NAME_FORMAT, path, id, step);
 
-    // create a buffer to contain the junction indexes and weight. this cannot
-    // be larger than the size of the matrix, but can be shorter; create a
-    // counter to memorize the number of elements in the buffer
-    int I[ns.size * ns.size];
-    double Y[ns.size * ns.size];
-    int counter = 0;
-
-    // fill the I and Y arrays and count the number of occurrences
-    for (int i = 0; i < ns.size; i++)
-    {
-        for (int j = 0; j < ns.size; j++)
-        {
-            if (ns.A[i][j])
-            {
-                I[counter] = i * ns.size + j;
-                Y[counter] = ns.Y[i][j];
-                counter++;
-            }
-        }
-    }
-
-    // write the network size, the number of junctions, their
-    // index, weight and the voltage value of each nanowire
-    fwrite(&ns.size, sizeof(int), 1, file);
-    fwrite(&counter, sizeof(int), 1, file);
-    fwrite(I, sizeof(int), counter, file);
-    fwrite(Y, sizeof(double), counter, file);
-    fwrite(ns.V, sizeof(double), ns.size, file);
+    // write the junctions position, weight and the nodes voltage
+    fwrite(ns.Is, sizeof(int), nt.js_count, file);
+    fwrite(ns.Ys, sizeof(double), nt.js_count, file);
+    fwrite(ns.Vs, sizeof(double), ds.wires_count, file);
 
     fclose(file);
 }

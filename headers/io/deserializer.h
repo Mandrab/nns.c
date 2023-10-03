@@ -15,19 +15,33 @@
 /// @param[in] path The base path containing the /device_ID folder.
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
-void deserialize_network(datasheet* ds, network_topology* nt, char* path, int id);
+void deserialize_network(
+    datasheet* ds,
+    network_topology* nt,
+    char* path,
+    int id
+);
 
 /// @brief Deserialize the state of the network from a file named
 /// "nanowire_state.ID.dat", where ID is the univocal identifier of the NN. If
 /// any problem occurs, the system will exit with an error.
 /// 
+/// @param[in] ds The datasheet of the nanowire network to deserialize.
+/// @param[in] nt The topology of the nanowire network to deserialize.
 /// @param[out] ns The network state to set according to the data saved in the
 /// file. It has to not be initialized.
 /// @param[in] path The base path containing the /device_ID folder.
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
 /// @param[in] step The id of the network state in a specific instant.
-void deserialize_state(network_state* ns, char* path, int id, int step);
+void deserialize_state(
+    const datasheet ds,
+    const network_topology nt,
+    network_state* ns,
+    char* path,
+    int id,
+    int step
+);
 
 /// @brief Deserialize the interface to the network from a file named
 /// "interface.ID.dat", where ID is the univocal identifier of the NN. If any

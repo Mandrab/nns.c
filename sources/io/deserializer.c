@@ -11,7 +11,12 @@ extern const int VERSION_NUMBER;
 // open the file and check the version
 FILE* open_file(char* file_type, char* path, int id, int step);
 
-void deserialize_network(datasheet* ds, network_topology* nt, char* path, int id)
+void deserialize_network(
+    datasheet* ds,
+    network_topology* nt,
+    char* path,
+    int id
+)
 {
     // open the file and check the version
     FILE* file = open_file(NETWORK_FILE_NAME_FORMAT, path, id, -1);
@@ -40,40 +45,27 @@ void deserialize_network(datasheet* ds, network_topology* nt, char* path, int id
     fclose(file);
 }
 
-void deserialize_state(network_state* ns, char* path, int id, int step)
+void deserialize_state(
+    const datasheet ds,
+    const network_topology nt,
+    network_state* ns,
+    char* path,
+    int id,
+    int step
+)
 {
     // open the file and check the version
     FILE* file = open_file(STATE_FILE_NAME_FORMAT, path, id, step);
 
-    // load the network size
-    fread(&ns->size, sizeof(int), 1, file);
+    // allocate the memory for the network state
+    ns->Is = zeros_vector(int, nt.js_count);
+    ns->Ys = zeros_vector(double, nt.js_count);
+    ns->Vs = zeros_vector(double, ds.wires_count);
 
-    // load the number of junctions
-    int js_counter;
-    fread(&js_counter, sizeof(int), 1, file);
-
-    // create a buffer to contain the junctions index and weight
-    int I[js_counter];
-    double Y[js_counter];
-
-    // load the junctions index and weight
-    fread(I, sizeof(int), js_counter, file);
-    fread(Y, sizeof(double), js_counter, file);
-
-    // initialize and fill the the I matrix
-    ns->A = zeros_matrix(bool, ns->size, ns->size);
-    ns->Y = zeros_matrix(double, ns->size, ns->size);
-    for (int i = 0; i < js_counter; i++)
-    {
-        // obtain the linearized index from I
-        int j = I[i];
-        ns->A[j / ns->size][j % ns->size] = true;
-        ns->Y[j / ns->size][j % ns->size] = Y[i];
-    }
-
-    // load the V array
-    ns->V = zeros_vector(double, ns->size);
-    fread(ns->V, sizeof(double), ns->size, file);
+    // load the Is, Ys, and Vs arrays
+    fread(ns->Is, sizeof(int), nt.js_count, file);
+    fread(ns->Ys, sizeof(double), nt.js_count, file);
+    fread(ns->Vs, sizeof(double), ds.wires_count, file);
 
     fclose(file);
 }
