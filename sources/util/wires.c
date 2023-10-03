@@ -117,7 +117,7 @@ void detect_junctions(
 
     // fill the junctions array
     struct node* to_free;
-    for (int i = 0; i < *js_count; i++)
+    for (int i = *js_count - 1; i >= 0; i--)
     {
         (*js)[i] = (junction)
         {
