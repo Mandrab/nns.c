@@ -9,18 +9,16 @@ typedef struct
     int js_count;           ///< Number of junctions in the connected
                             ///< component.
 
-    int* Ms;                ///< Mappings from the index of the CC wires to the
-                            ///< index of the Nanowire Network state wires. It
-                            ///< is primarily used to reference the correct
-                            ///< nanowire voltage in the `ns.Vs' array.
+    int ws_skip;
+
+    int js_skip;
+
     int* Is;                ///< Linearized index of the junctions (i.e.,
                             ///< junction(i, j) = junction(i * size + j)).
                             ///< Ordered to specify the position of the
                             ///< Ys(i, j) weight. The indexes i, j and the size
                             ///< are relative to the connected component, and
                             ///< not to the parent Nanowire Network state.
-    double* Ys;             ///< Pointer to the sub-array of the network-state
-                            ///< containing the junctions values.
 } connected_component;
 
 /// @brief Compare two connected components according to their size and
