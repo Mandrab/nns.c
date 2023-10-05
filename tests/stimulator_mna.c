@@ -2,6 +2,7 @@
 
 #include "device/network.h"
 #include "stimulator/mna.h"
+#include "tests.h"
 #include "util/errors.h"
 #include "util/tensors.h"
 
@@ -15,18 +16,12 @@
  */
 void test_divider_one()
 {
-    const int size = 3;
+    int nsIs[2] = { 1, 5 };
+    double nsYs[2] = { 1, 1 };
+    double nsVs[3];
 
-    network_state ns = (network_state) {
-        size,
-        matrix(bool, size, size),
-        matrix(double, size, size),
-        vector(double, size)
-    };
-
-    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 0;
-    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 1;
-    ns.Y[2][0] = 0; ns.Y[2][1] = 1; ns.Y[2][2] = 0;
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc = { 3, 2, 0, 0, nsIs };
 
     bool sources[3] = { true, false, false };
     bool grounds[3] = { false, false, true };
@@ -39,19 +34,13 @@ void test_divider_one()
         0, loads, weights
     };
 
-    // define the voltage of the first input
     double vs[3] = { 5 };
 
-    // call the conjugate_gradient function
-    voltage_stimulation(ns, it, vs);
+    voltage_stimulation(ns, cc, it, vs);
 
-    assert(fabs(ns.V[0] - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - source
-    assert(fabs(ns.V[1] - 2.50) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 2.50); // b - voltage divider
-    assert(fabs(ns.V[2] - 0.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 0.00); // c - ground
-
-    free_matrix(ns.A, size);
-    free_matrix(ns.Y, size);
-    free(ns.V);
+    assert(fabs(ns.Vs[0] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00, ns.Vs[0]); // a - source
+    assert(fabs(ns.Vs[1] - 2.50) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 2.50, ns.Vs[1]); // b - voltage divider
+    assert(fabs(ns.Vs[2] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 0.00, ns.Vs[2]); // c - ground
 }
 
 /**
@@ -65,19 +54,12 @@ void test_divider_one()
  */
 void test_divider_two()
 {
-    const int size = 4;
+    int nsIs[3] = { 1, 6, 7 };
+    double nsYs[3] = { 1, 1, 1 };
+    double nsVs[4];
 
-    network_state ns = (network_state) {
-        size,
-        matrix(bool, size, size),
-        matrix(double, size, size),
-        vector(double, size)
-    };
-
-    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 0; ns.Y[0][3] = 0;
-    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 1; ns.Y[1][3] = 1;
-    ns.Y[2][0] = 0; ns.Y[2][1] = 1; ns.Y[2][2] = 0; ns.Y[2][3] = 0;
-    ns.Y[3][0] = 0; ns.Y[3][1] = 1; ns.Y[3][2] = 0; ns.Y[3][3] = 0;
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc = { 4, 3, 0, 0, nsIs };
 
     bool sources[4] = { false, true, false, false };
     bool grounds[4] = { true, false, true, false };
@@ -89,20 +71,14 @@ void test_divider_two()
         0, loads, NULL
     };
 
-    // define the voltage of the first input
     double vs[4] = { 0, 5 };
 
-    // call the conjugate_gradient function
-    voltage_stimulation(ns, it, vs);
+    voltage_stimulation(ns, cc, it, vs);
 
-    assert(fabs(ns.V[0] - 0.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 0.00); // a - ground
-    assert(fabs(ns.V[1] - 5.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00); // b - source
-    assert(fabs(ns.V[2] - 0.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 0.00); // c - ground
-    assert(fabs(ns.V[3] - 5.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[3], 5.00); // d - disconnected
-
-    free_matrix(ns.A, size);
-    free_matrix(ns.Y, size);
-    free(ns.V);
+    assert(fabs(ns.Vs[0] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 0.00, ns.Vs[0]); // a - ground
+    assert(fabs(ns.Vs[1] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 5.00, ns.Vs[1]); // b - source
+    assert(fabs(ns.Vs[2] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 0.00, ns.Vs[2]); // c - ground
+    assert(fabs(ns.Vs[3] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[3]", 5.00, ns.Vs[3]); // d - disconnected
 }
 
 /**
@@ -123,15 +99,6 @@ void test_divider_two()
  */
 void test_parallel()
 {
-    const int size = 4;
-
-    network_state ns = (network_state) {
-        size,
-        matrix(bool, size, size),
-        matrix(double, size, size),
-        vector(double, size)
-    };
-
     // Ax = b -> A:
     //
     //     -------------------------
@@ -140,10 +107,12 @@ void test_parallel()
     //     | 3a           + 4d | c |
     //     |           4c      | d |
     //     -------------------------
-    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 3; ns.Y[0][3] = 0;
-    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 0; ns.Y[1][3] = 0;
-    ns.Y[2][0] = 3; ns.Y[2][1] = 0; ns.Y[2][2] = 0; ns.Y[2][3] = 4;
-    ns.Y[3][0] = 0; ns.Y[3][1] = 0; ns.Y[3][2] = 4; ns.Y[3][3] = 0;
+    int nsIs[3] = { 1, 2, 11 };
+    double nsYs[3] = { 1, 3, 4 };
+    double nsVs[4];
+
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc = { 4, 3, 0, 0, nsIs };
 
     bool sources[4] = { true, false, false, false };
     bool grounds[4] = { false, false, false, true };
@@ -156,20 +125,14 @@ void test_parallel()
         0, loads, weights
     };
 
-    // define the voltage of the first input
     double vs[4] = { 5 };
 
-    // call the conjugate_gradient function
-    voltage_stimulation(ns, it, vs);
+    voltage_stimulation(ns, cc, it, vs);
 
-    assert(fabs(ns.V[0] - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - source
-    assert(fabs(ns.V[1] - 5.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00); // b - disconnected from ground
-    assert(fabs(ns.V[2] - 2.14) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 2.14); // c - voltage divider
-    assert(fabs(ns.V[3] - 0.00) < TOLERANCE, -1, "ns.V[3] == %f but should be %f", ns.V[3], 0.00); // d - ground
-
-    free_matrix(ns.A, size);
-    free_matrix(ns.Y, size);
-    free(ns.V);
+    assert(fabs(ns.Vs[0] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00, ns.Vs[0]); // a - source
+    assert(fabs(ns.Vs[1] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 5.00, ns.Vs[1]); // b - disconnected from ground
+    assert(fabs(ns.Vs[2] - 2.14) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 2.14, ns.Vs[2]); // c - voltage divider
+    assert(fabs(ns.Vs[3] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[3]", 0.00, ns.Vs[3]); // d - ground
 }
 
 /**
@@ -197,51 +160,20 @@ void test_parallel()
  */
 void test_complex()
 {
-    const int size = 12;
-
-    network_state ns = (network_state) {
-        size,
-        matrix(bool, size, size),
-        matrix(double, size, size),
-        vector(double, size)
+    int nsIs[14] = {
+        /* row 0 */ 1, 4, 8, /* row 1 */ 14, /* row 3 */ 44, 47, /* row 4 */ 57,
+        /* row 5 */ 66, 67, 69, /* row 6 */ 81, 82, /* row 7 */ 93, /* row 8 */ 107
     };
+    double nsYs[14];
+    double nsVs[12];
 
-    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 0; ns.Y[0][3] = 0; ns.Y[0][4] = 1; ns.Y[0][5] = 0;
-    ns.Y[0][6] = 0; ns.Y[0][7] = 0; ns.Y[0][8] = 1; ns.Y[0][9] = 0; ns.Y[0][10] = 0; ns.Y[0][11] = 0;
+    for (int i = 0; i < 14; i++)
+    {
+        nsYs[i] = 1;
+    }
 
-    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 1; ns.Y[1][3] = 0; ns.Y[1][4] = 0; ns.Y[1][5] = 0;
-    ns.Y[1][6] = 0; ns.Y[1][7] = 0; ns.Y[1][8] = 0; ns.Y[1][9] = 0; ns.Y[1][10] = 0; ns.Y[1][11] = 0;
-
-    ns.Y[2][0] = 0; ns.Y[2][1] = 1; ns.Y[2][2] = 0; ns.Y[2][3] = 0; ns.Y[2][4] = 0; ns.Y[2][5] = 0;
-    ns.Y[2][6] = 0; ns.Y[2][7] = 0; ns.Y[2][8] = 0; ns.Y[2][9] = 0; ns.Y[2][10] = 0; ns.Y[2][11] = 0;
-
-    ns.Y[3][0] = 0; ns.Y[3][1] = 0; ns.Y[3][2] = 0; ns.Y[3][3] = 0; ns.Y[3][4] = 0; ns.Y[3][5] = 0;
-    ns.Y[3][6] = 0; ns.Y[3][7] = 0; ns.Y[3][8] = 1; ns.Y[3][9] = 0; ns.Y[3][10] = 0; ns.Y[3][11] = 1;
-
-    ns.Y[4][0] = 1; ns.Y[4][1] = 0; ns.Y[4][2] = 0; ns.Y[4][3] = 0; ns.Y[4][4] = 0; ns.Y[4][5] = 0;
-    ns.Y[4][6] = 0; ns.Y[4][7] = 0; ns.Y[4][8] = 0; ns.Y[4][9] = 1; ns.Y[4][10] = 0; ns.Y[4][11] = 0;
-
-    ns.Y[5][0] = 0; ns.Y[5][1] = 0; ns.Y[5][2] = 0; ns.Y[5][3] = 0; ns.Y[5][4] = 0; ns.Y[5][5] = 0;
-    ns.Y[5][6] = 1; ns.Y[5][7] = 1; ns.Y[5][8] = 0; ns.Y[5][9] = 1; ns.Y[5][10] = 0; ns.Y[5][11] = 0;
-
-    ns.Y[6][0] = 0; ns.Y[6][1] = 0; ns.Y[6][2] = 0; ns.Y[6][3] = 0; ns.Y[6][4] = 0; ns.Y[6][5] = 1;
-    ns.Y[6][6] = 0; ns.Y[6][7] = 0; ns.Y[6][8] = 0; ns.Y[6][9] = 1; ns.Y[6][10] = 1; ns.Y[6][11] = 0;
-
-    ns.Y[7][0] = 0; ns.Y[7][1] = 0; ns.Y[7][2] = 0; ns.Y[7][3] = 0; ns.Y[7][4] = 0; ns.Y[7][5] = 1;
-    ns.Y[7][6] = 0; ns.Y[7][7] = 0; ns.Y[7][8] = 0; ns.Y[7][9] = 1; ns.Y[7][10] = 0; ns.Y[7][11] = 0;
-
-    ns.Y[8][0] = 1; ns.Y[8][1] = 0; ns.Y[8][2] = 0; ns.Y[8][3] = 1; ns.Y[8][4] = 0; ns.Y[8][5] = 0;
-    ns.Y[8][6] = 0; ns.Y[8][7] = 0; ns.Y[8][8] = 0; ns.Y[8][9] = 0; ns.Y[8][10] = 0; ns.Y[8][11] = 1;
-
-    ns.Y[9][0] = 0; ns.Y[9][1] = 0; ns.Y[9][2] = 0; ns.Y[9][3] = 0; ns.Y[9][4] = 1; ns.Y[9][5] = 1;
-    ns.Y[9][6] = 1; ns.Y[9][7] = 1; ns.Y[9][8] = 0; ns.Y[9][9] = 0; ns.Y[9][10] = 0; ns.Y[9][11] = 0;
-
-    ns.Y[10][0] = 0; ns.Y[10][1] = 0; ns.Y[10][2] = 0; ns.Y[10][3] = 0; ns.Y[10][4] = 0; ns.Y[10][5] = 0;
-    ns.Y[10][6] = 1; ns.Y[10][7] = 0; ns.Y[10][8] = 0; ns.Y[10][9] = 0; ns.Y[10][10] = 0; ns.Y[10][11] = 0;
-
-    ns.Y[11][0] = 0; ns.Y[11][1] = 0; ns.Y[11][2] = 0; ns.Y[11][3] = 1; ns.Y[11][4] = 0; ns.Y[11][5] = 0;
-    ns.Y[11][6] = 0; ns.Y[11][7] = 0; ns.Y[11][8] = 1; ns.Y[11][9] = 0; ns.Y[11][10] = 0; ns.Y[11][11] = 0;
-
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc = { 12, 14, 0, 0, nsIs };
 
     bool sources[12] = { };
     sources[0] = true;
@@ -256,28 +188,22 @@ void test_complex()
         0, loads, weights
     };
 
-    // define the voltage of the first input
     double vs[12] = { 5 };
 
-    // call the conjugate_gradient function
-    voltage_stimulation(ns, it, vs);
+    voltage_stimulation(ns, cc, it, vs);
 
-    assert(fabs(ns.V[0]  - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00);
-    assert(fabs(ns.V[1]  - 5.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00);
-    assert(fabs(ns.V[2]  - 5.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 2.14);
-    assert(fabs(ns.V[3]  - 5.00) < TOLERANCE, -1, "ns.V[3] == %f but should be %f", ns.V[3], 0.00);
-    assert(fabs(ns.V[4]  - 3.62) < TOLERANCE, -1, "ns.V[4] == %f but should be %f", ns.V[4], 5.00);
-    assert(fabs(ns.V[5]  - 1.90) < TOLERANCE, -1, "ns.V[5] == %f but should be %f", ns.V[5], 5.00);
-    assert(fabs(ns.V[6]  - 1.37) < TOLERANCE, -1, "ns.V[6] == %f but should be %f", ns.V[6], 2.14);
-    assert(fabs(ns.V[7]  - 2.07) < TOLERANCE, -1, "ns.V[7] == %f but should be %f", ns.V[7], 0.00);
-    assert(fabs(ns.V[8]  - 5.00) < TOLERANCE, -1, "ns.V[8] == %f but should be %f", ns.V[8], 5.00);
-    assert(fabs(ns.V[9]  - 2.25) < TOLERANCE, -1, "ns.V[9] == %f but should be %f", ns.V[9], 5.00);
-    assert(fabs(ns.V[10] - 0.00) < TOLERANCE, -1, "ns.V[10] == %f but should be %f", ns.V[10], 2.14);
-    assert(fabs(ns.V[11] - 5.00) < TOLERANCE, -1, "ns.V[11] == %f but should be %f", ns.V[11], 0.00);
-
-    free_matrix(ns.A, size);
-    free_matrix(ns.Y, size);
-    free(ns.V);
+    assert(fabs(ns.Vs[0]  - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00, ns.Vs[0]);
+    assert(fabs(ns.Vs[1]  - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 5.00, ns.Vs[1]);
+    assert(fabs(ns.Vs[2]  - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 2.14, ns.Vs[2]);
+    assert(fabs(ns.Vs[3]  - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[3]", 0.00, ns.Vs[3]);
+    assert(fabs(ns.Vs[4]  - 3.62) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[4]", 5.00, ns.Vs[4]);
+    assert(fabs(ns.Vs[5]  - 1.90) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[5]", 5.00, ns.Vs[5]);
+    assert(fabs(ns.Vs[6]  - 1.37) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[6]", 2.14, ns.Vs[6]);
+    assert(fabs(ns.Vs[7]  - 2.07) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[7]", 0.00, ns.Vs[7]);
+    assert(fabs(ns.Vs[8]  - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[8]", 5.00, ns.Vs[8]);
+    assert(fabs(ns.Vs[9]  - 2.25) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[9]", 5.00, ns.Vs[9]);
+    assert(fabs(ns.Vs[10] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[10]", 2.14, ns.Vs[10]);
+    assert(fabs(ns.Vs[11] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[11]", 0.00, ns.Vs[11]);
 }
 
 /**
@@ -298,18 +224,12 @@ void test_complex()
  */
 void test_load_one()
 {
-    const int size = 3;
+    int nsIs[2] = { 1, 2 };
+    double nsYs[2] = { 1, 4 };
+    double nsVs[3];
 
-    network_state ns = (network_state) {
-        size,
-        matrix(bool, size, size),
-        matrix(double, size, size),
-        vector(double, size)
-    };
-
-    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 4;
-    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 0;
-    ns.Y[2][0] = 4; ns.Y[2][1] = 0; ns.Y[2][2] = 0;
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc = { 3, 2, 0, 0, nsIs };
 
     bool sources[3] = { true, false, false };
     bool grounds[3] = { false, false, false };
@@ -322,19 +242,13 @@ void test_load_one()
         1, loads, weights
     };
 
-    // define the voltage of the first input
     double vs[5] = { 5 };
 
-    // call the conjugate_gradient function
-    voltage_stimulation(ns, it, vs);
+    voltage_stimulation(ns, cc, it, vs);
 
-    assert(fabs(ns.V[0] - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - source
-    assert(fabs(ns.V[1] - 5.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00); // b - disconnected from ground
-    assert(fabs(ns.V[2] - 3.33) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 3.33); // c - voltage divider
-
-    free_matrix(ns.A, size);
-    free_matrix(ns.Y, size);
-    free(ns.V);
+    assert(fabs(ns.Vs[0] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00, ns.Vs[0]); // a - source
+    assert(fabs(ns.Vs[1] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 5.00, ns.Vs[1]); // b - disconnected from ground
+    assert(fabs(ns.Vs[2] - 3.33) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 3.33, ns.Vs[2]); // c - voltage divider
 }
 
 /**
@@ -355,18 +269,12 @@ void test_load_one()
  */
 void test_load_two()
 {
-    const int size = 3;
+    int nsIs[2] = { 1, 2 };
+    double nsYs[2] = { 1, 4 };
+    double nsVs[3];
 
-    network_state ns = (network_state) {
-        size,
-        matrix(bool, size, size),
-        matrix(double, size, size),
-        vector(double, size)
-    };
-
-    ns.Y[0][0] = 0; ns.Y[0][1] = 1; ns.Y[0][2] = 4;
-    ns.Y[1][0] = 1; ns.Y[1][1] = 0; ns.Y[1][2] = 0;
-    ns.Y[2][0] = 4; ns.Y[2][1] = 0; ns.Y[2][2] = 0;
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc = { 3, 2, 0, 0, nsIs };
 
     bool sources[3] = { true, true, false };
     bool grounds[3] = { false, false, false };
@@ -379,19 +287,13 @@ void test_load_two()
         1, loads, weights
     };
 
-    // define the voltage of the first input
     double vs[5] = { 5, 10 };
 
-    // call the conjugate_gradient function
-    voltage_stimulation(ns, it, vs);
+    voltage_stimulation(ns, cc, it, vs);
 
-    assert(fabs(ns.V[0] - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - first source
-    assert(fabs(ns.V[1] - 10.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 10.00); // b - second source
-    assert(fabs(ns.V[2] - 3.33) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 3.33); // c - voltage divider
-
-    free_matrix(ns.A, size);
-    free_matrix(ns.Y, size);
-    free(ns.V);
+    assert(fabs(ns.Vs[0] - 5.00)  < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00,  ns.Vs[0]); // a - first source
+    assert(fabs(ns.Vs[1] - 10.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 10.00, ns.Vs[1]); // b - second source
+    assert(fabs(ns.Vs[2] - 3.33)  < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 3.33,  ns.Vs[2]); // c - voltage divider
 }
 
 /**
@@ -416,15 +318,6 @@ void test_load_two()
  */
 void test_grounded_and_loaded()
 {
-    const int size = 5;
-
-    network_state ns = (network_state) {
-        size,
-        matrix(bool, size, size),
-        matrix(double, size, size),
-        vector(double, size)
-    };
-
     // Ax = b -> A:
     // 
     //     ------------------------------
@@ -434,11 +327,12 @@ void test_grounded_and_loaded()
     //     |           1c      + 2e | d |
     //     |           4c + 2d      | e |
     //     ------------------------------
-    ns.Y[0][0] = 0.0; ns.Y[0][1] = 1.0; ns.Y[0][2] = 2.5; ns.Y[0][3] = 0.0; ns.Y[0][4] = 0.0;
-    ns.Y[1][0] = 1.0; ns.Y[1][1] = 0.0; ns.Y[1][2] = 0.0; ns.Y[1][3] = 0.0; ns.Y[1][4] = 0.0;
-    ns.Y[2][0] = 2.5; ns.Y[2][1] = 0.0; ns.Y[2][2] = 0.0; ns.Y[2][3] = 1.0; ns.Y[2][4] = 4.0;
-    ns.Y[3][0] = 0.0; ns.Y[3][1] = 0.0; ns.Y[3][2] = 1.0; ns.Y[3][3] = 0.0; ns.Y[3][4] = 0.0;
-    ns.Y[4][0] = 0.0; ns.Y[4][1] = 0.0; ns.Y[4][2] = 4.0; ns.Y[4][3] = 0.0; ns.Y[4][4] = 0.0;
+    int nsIs[4] = { 1, 2, 13, 14 };
+    double nsYs[4] = { 1, 2.5, 1, 4 };
+    double nsVs[5];
+
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc = { 5, 4, 0, 0, nsIs };
 
     bool sources[5] = { true, false, false, false, false };
     bool grounds[5] = { false, false, false, false, true };
@@ -451,21 +345,15 @@ void test_grounded_and_loaded()
         1, loads, weights
     };
 
-    // define the voltage of the first input
     double vs[5] = { 5 };
 
-    // call the conjugate_gradient function
-    voltage_stimulation(ns, it, vs);
+    voltage_stimulation(ns, cc, it, vs);
 
-    assert(fabs(ns.V[0] - 5.00) < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0], 5.00); // a - source
-    assert(fabs(ns.V[1] - 5.00) < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1], 5.00); // b - disconnected from ground
-    assert(fabs(ns.V[2] - 1.72) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 1.72); // c - voltage divider
-    assert(fabs(ns.V[3] - 0.57) < TOLERANCE, -1, "ns.V[3] == %f but should be %f", ns.V[3], 0.57); // d - voltage divider
-    assert(fabs(ns.V[4] - 0.00) < TOLERANCE, -1, "ns.V[4] == %f but should be %f", ns.V[4], 0.00); // e - ground
-
-    free_matrix(ns.A, size);
-    free_matrix(ns.Y, size);
-    free(ns.V);
+    assert(fabs(ns.Vs[0] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00, ns.Vs[0]); // a - source
+    assert(fabs(ns.Vs[1] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 5.00, ns.Vs[1]); // b - disconnected from ground
+    assert(fabs(ns.Vs[2] - 1.72) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 1.72, ns.Vs[2]); // c - voltage divider
+    assert(fabs(ns.Vs[3] - 0.57) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[3]", 0.57, ns.Vs[3]); // d - voltage divider
+    assert(fabs(ns.Vs[4] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[4]", 0.00, ns.Vs[4]); // e - ground
 }
 
 /**
@@ -481,19 +369,12 @@ void test_grounded_and_loaded()
  */
 void test_input_currents()
 {
-    const int size = 4;
+    int nsIs[3] = { 1, 6, 7 };
+    double nsYs[3] = { 1, 0.33, 1 };
+    double nsVs[4];
 
-    network_state ns = (network_state) {
-        size,
-        matrix(bool, size, size),
-        matrix(double, size, size),
-        vector(double, size)
-    };
-
-    ns.Y[0][0] = 0; ns.Y[0][1] = 1;    ns.Y[0][2] = 0;    ns.Y[0][3] = 0;
-    ns.Y[1][0] = 1; ns.Y[1][1] = 0;    ns.Y[1][2] = 0.33; ns.Y[1][3] = 1;
-    ns.Y[2][0] = 0; ns.Y[2][1] = 0.33; ns.Y[2][2] = 0;    ns.Y[2][3] = 0;
-    ns.Y[3][0] = 0; ns.Y[3][1] = 1;    ns.Y[3][2] = 0;    ns.Y[3][3] = 0;
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc = { 4, 3, 0, 0, nsIs };
 
     bool sources[4] = { true, false, true, false };
     bool grounds[4] = { false, false, false, true };
@@ -505,23 +386,69 @@ void test_input_currents()
         0, loads, NULL
     };
 
-    // define the voltage of the first input
     double vs[4] = { 5, 0, 10 };
 
-    // call the conjugate_gradient function
-    voltage_stimulation(ns, it, vs);
+    voltage_stimulation(ns, cc, it, vs);
 
-    assert(fabs(ns.V[0] - 5.00)  < TOLERANCE, -1, "ns.V[0] == %f but should be %f", ns.V[0],  5.00); // a - source 5 v
-    assert(fabs(ns.V[1] - 3.57)  < TOLERANCE, -1, "ns.V[1] == %f but should be %f", ns.V[1],  3.57); // b - voltage divider
-    assert(fabs(ns.V[2] - 10.00) < TOLERANCE, -1, "ns.V[2] == %f but should be %f", ns.V[2], 10.00); // c - source 10 v
-    assert(fabs(ns.V[3] - 0.00)  < TOLERANCE, -1, "ns.V[3] == %f but should be %f", ns.V[3],  0.00); // d - ground
+    assert(fabs(ns.Vs[0] - 5.00)  < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]",  5.00, ns.Vs[0]); // a - source 5 v
+    assert(fabs(ns.Vs[1] - 3.57)  < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]",  3.57, ns.Vs[1]); // b - voltage divider
+    assert(fabs(ns.Vs[2] - 10.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 10.00, ns.Vs[2]); // c - source 10 v
+    assert(fabs(ns.Vs[3] - 0.00)  < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[3]",  0.00, ns.Vs[3]); // d - ground
 
     assert(fabs(vs[0] - 1.43) < TOLERANCE, -1, "I_1 == %f but should be %f", vs[0], 1.43);  // in mA
     assert(fabs(vs[2] - 2.14) < TOLERANCE, -1, "I_2 == %f but should be %f", vs[1], 2.14);  // in mA
+}
 
-    free_matrix(ns.A, size);
-    free_matrix(ns.Y, size);
-    free(ns.V);
+/**
+ * Testing the following circuit:
+ * 
+ *      SRC-----R-----R-----GND
+ * 
+ *      SRC-----R-----R-----R-----L-----GND
+ */
+void test_multiple_connected_components()
+{
+    int nsIs[5] = { /* CC 1 */ 2, 18, /* CC 2 */  12, 26, 27 };
+    double nsYs[5] = { 1, 1, 1, 1, 1 };
+    double nsVs[7];
+
+    int cc1Is[2] = { 1, 5 };
+    int cc2Is[3] = { 2, 6, 7 };
+
+    network_state ns = { nsIs, nsYs, nsVs };
+    connected_component cc1 = { 3, 2, 0, 0, cc1Is };
+    connected_component cc2 = { 4, 3, 3, 2, cc2Is };
+
+    bool sources[7] = { true, false, false, true, false, false, false };
+    bool grounds[7] = { false, false, true, false, false, false, false };
+    bool loads[7] = { false, false, false, false, false, false, true };
+    double weights[7] = { 0, 0, 0, 0, 0, 0, 2 }; // TODO 1 / R
+    interface it = (interface) {
+        7,
+        2, sources,
+        1, grounds,
+        1, loads, weights
+    };
+
+    double vs[7] = { 5, 0, 0, 5 };
+
+    voltage_stimulation(ns, cc1, it, vs);
+
+    assert(fabs(ns.Vs[0] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00, ns.Vs[0]); // a - source
+    assert(fabs(ns.Vs[1] - 2.50) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 2.50, ns.Vs[1]); // b - voltage divider
+    assert(fabs(ns.Vs[2] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 0.00, ns.Vs[2]); // c - ground
+
+    voltage_stimulation(ns, cc2, it, vs);
+
+    assert(fabs(ns.Vs[3] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[3]", 5.00, ns.Vs[3]); // a - source
+    assert(fabs(ns.Vs[4] - 2.14) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[4]", 2.14, ns.Vs[4]); // b - voltage divider
+    assert(fabs(ns.Vs[5] - 3.57) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[5]", 3.57, ns.Vs[5]); // b - voltage divider
+    assert(fabs(ns.Vs[6] - 0.71) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[6]", 0.71, ns.Vs[6]); // c - ground
+
+    // check that the voltage stimulation affects only the nodes of a CC
+    assert(fabs(ns.Vs[0] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00, ns.Vs[0]); // a - source
+    assert(fabs(ns.Vs[1] - 2.50) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 2.50, ns.Vs[1]); // b - voltage divider
+    assert(fabs(ns.Vs[2] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 0.00, ns.Vs[2]); // c - ground
 }
 
 int stimulator_mna()
@@ -534,6 +461,7 @@ int stimulator_mna()
     test_load_two();
     test_grounded_and_loaded();
     test_input_currents();
+    test_multiple_connected_components();
 
     return 0;
 }
