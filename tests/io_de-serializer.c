@@ -3,6 +3,7 @@
 #include "io/serializer.h"
 #include "io/deserializer.h"
 #include "util/errors.h"
+#include "tests.h"
 
 #define TOLERANCE 1e-6
 
@@ -15,7 +16,8 @@ void test_network_io()
         200,
         1234
     };
-    const network_topology nt = create_network(ds);
+    int n2c[2000], cc_count;
+    const network_topology nt = create_network(ds, n2c, &cc_count);
 
     serialize_network(ds, nt, ".", 0);
     datasheet loaded_ds;
@@ -113,39 +115,23 @@ void test_state_io()
         200,
         1234
     };
-    const network_topology nt = create_network(ds);
+    int n2c[2000], cc_count;
+    const network_topology nt = create_network(ds, n2c, &cc_count);
     const network_state ns = construe_circuit(ds, nt);
 
-    serialize_state(ns, ".", 0, 0);
+    serialize_state(ds, nt, ns, ".", 0, 0);
     network_state loaded_ns;
-    deserialize_state(&loaded_ns, ".", 0, 0);
+    deserialize_state(ds, nt, &loaded_ns, ".", 0, 0);
 
-    assert(
-        loaded_ns.size == ns.size, -1,
-        "The (de)serialization of size is not correct: original = %d, loaded = %d",
-        ns.size, loaded_ns.size
-    );
-    
-    for (int i = 0; i < ns.size; i++)
+    for (int i = 0; i < ds.wires_count; i++)
     {
-        for (int j = 0; j < ns.size; j++)
-        {
-            assert(
-                loaded_ns.A[i][j] == ns.A[i][j], -1,
-                "The (de)serialization of A[%d][%d] is not correct: original = %d, loaded = %d",
-                i, j, ns.A[i][j], loaded_ns.A[i][j]
-            );
-            assert(
-                fabs(loaded_ns.Y[i][j] - ns.Y[i][j]) < TOLERANCE, -1,
-                "The (de)serialization of Y[%d][%d] is not correct: original = %f, loaded = %f",
-                i, j, ns.Y[i][j], loaded_ns.Y[i][j]
-            );
-        }
-        assert(
-            fabs(loaded_ns.V[i] - ns.V[i]) < TOLERANCE, -1,
-            "The (de)serialization of V[%d] is not correct: original = %f, loaded = %f",
-            i, ns.V[i], loaded_ns.V[i]
-        );
+        assert(ns.Vs[i] == loaded_ns.Vs[i], -1, INT_ERROR, "loaded_ns.Vs[i]", ns.Vs[i], loaded_ns.Vs[i]);
+    }
+
+    for (int i = 0; i < nt.js_count; i++)
+    {
+        assert(ns.Is[i] == loaded_ns.Is[i], -1, INT_ERROR, "loaded_ns.Is[i]", ns.Is[i], loaded_ns.Is[i]);
+        assert(fabs(ns.Ys[i] - loaded_ns.Ys[i]) < TOLERANCE, -1, DOUBLE_ERROR, "loaded_ns.Ys[i]", ns.Ys[i], loaded_ns.Ys[i]);
     }
 }
 
