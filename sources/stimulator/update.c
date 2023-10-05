@@ -10,8 +10,8 @@ void update_conductance(network_state ns, connected_component cc)
     for (int k = 0; k < cc.js_count; k++)
     {
         // get the index of the wires in the nanowire-network state
-        int i = cc.Ms[cc.Is[k] / cc.ws_count];
-        int j = cc.Ms[cc.Is[k] % cc.ws_count];
+        int i = cc.ws_skip + cc.Is[k] / cc.ws_count;
+        int j = cc.ws_skip + cc.Is[k] % cc.ws_count;
 
         // calculate the delta voltage on each junction
         double ΔV = fabs(ns.Vs[i] - ns.Vs[j]);
@@ -22,10 +22,10 @@ void update_conductance(network_state ns, connected_component cc)
         double kpd = kp + kd;
 
         // calculate the conductance of the junction
-        double g = (cc.Ys[k] - Y_MIN) / (Y_MAX - Y_MIN);
+        double g = (ns.Ys[cc.js_skip + k] - Y_MIN) / (Y_MAX - Y_MIN);
         g = kp / kpd * (1 + kd / kp * g * exp(-TAU * kpd));
 
         // calculate and set circuit admittance
-        cc.Ys[k] = Y_MIN + g * (Y_MAX - Y_MIN);
+        ns.Ys[cc.js_skip + k] = Y_MIN + g * (Y_MAX - Y_MIN);
     }
 }
