@@ -1,24 +1,24 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-/// @brief Connected component of the Nanowire Network.
+/// @brief Connected component of the Nanowire Network. It contains all the
+/// information needed to identify the nanowires and junctions in it.
+/// Additionally, it contains the index of the junctions in the CC-specific
+/// adjacency matrix.
 typedef struct
 {
     int ws_count;           ///< Number of nanowires in the connected
                             ///< component.
     int js_count;           ///< Number of junctions in the connected
                             ///< component.
-
-    int ws_skip;
-
-    int js_skip;
-
+    int ws_skip;            ///< Start index of the CC sub-array in the ns
+                            ///< arrays (for nanowires).
+    int js_skip;            ///< Start index of the CC sub-array in the ns
+                            ///< arrays (for junctions).
     int* Is;                ///< Linearized index of the junctions (i.e.,
-                            ///< junction(i, j) = junction(i * size + j)).
-                            ///< Ordered to specify the position of the
-                            ///< Ys(i, j) weight. The indexes i, j and the size
-                            ///< are relative to the connected component, and
-                            ///< not to the parent Nanowire Network state.
+                            ///< junction(i, j) = junction(i * size + j)) in
+                            ///< the CC-specific adjacency matrix. Ordered to
+                            ///< specify the position of the Ys(i, j) weights.
 } connected_component;
 
 /// @brief Compare two connected components according to their size and
