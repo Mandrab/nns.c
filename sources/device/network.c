@@ -1,24 +1,31 @@
 #include <stdlib.h>
 
 #include "device/network.h"
+#include "util/components.h"
 #include "util/tensors.h"
 #include "util/wires.h"
 #include "config.h"
 
-network_topology create_network(const datasheet ds)
+network_topology create_network(const datasheet ds, int n2c[], int* ccs_count)
 {
+    network_topology nt;
+
     // set the random seed for the device generation
     srand(ds.generation_seed);
 
     // generate the network wires distribution
-    wire* wires = drop_wires(ds);
+    nt.Ws = drop_wires(ds);
 
     // detect junctions position
-    int junctions_count;
-    junction* junctions;
-    detect_junctions(ds, wires, &junctions, &junctions_count);
+    detect_junctions(ds, nt.Ws, &nt.Js, &nt.js_count);
 
-    return (network_topology){ wires, junctions_count, junctions };
+    // map each node index with the index of its parent connected_component
+    *ccs_count = map_components(ds, nt, n2c);
+
+    // sort according to connected components
+    group_nanowires(ds, nt, n2c, *ccs_count);
+
+    return nt;
 }
 
 network_state construe_circuit(const datasheet ds, const network_topology nt)
