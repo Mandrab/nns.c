@@ -18,96 +18,100 @@ int main()
 
     printf("Creating the Nanowire Network\n");
 
+    // create an array to map each node index with
+    // the index of its parent connected_component
+    // create a counter to count the number of CCs
+    int n2c[ds.wires_count], ccs_count;
+
     // generate the NN topology
-    const network_topology nt = create_network(ds);
+    const network_topology nt = create_network(ds, n2c, &ccs_count);
 
     printf("Construing the Nanowire Network equivalent electrical circuit\n");
 
     // interpret the NN as an electrical circuit
     const network_state ns = construe_circuit(ds, nt);
 
+    printf("Splitting the Nanowire Network in connected components\n");
+
+    // separate the nanowire network in connected components
+    connected_component* ccs = split_components(ds, nt, ns, n2c, ccs_count);
+
     printf("Finding and selecting the largest connected component of the Nanowire Network\n");
 
-    // separate the network into connected component networks
-    // and get the largest connected component state
-    int nss_count;
-    network_state* nss = connected_components(ns, &nss_count);
-    network_state lns = largest_component(nss, nss_count);
-
-    printf("Keeping the largest connected component (%d nodes) and dereferencing the others\n", lns.size);
-
-    // free the unused connected components
-    for (int i = 0; i < nss_count; i++)
+    // select the largest connected component among all
+    connected_component lcc = ccs[0];
+    for (int i = 0; i < ccs_count; i++)
     {
-        if (nss[i].A != lns.A)
+        if (ccs[i].ws_count > lcc.ws_count)
         {
-            // nss is an array of nt, therefore we cannot free one of its elements, just its content
-            destroy_stack_state(nss[i]);
+            lcc = ccs[i];
         }
     }
+
+    printf("Selected a connected component composed of %d nanowires over a total of %d\n", lcc.ws_count, ds.wires_count);
 
     printf("Creating an interface to stimulate the nanowire network.\n");
 
     // creating the interface to stimulate the device
-    bool sources[lns.size] = { };
-    sources[0] = true;
-    bool grounds[lns.size] = { };
-    grounds[lns.size - 1] = true;
-    bool loads[lns.size] = { };
+    bool sources[ds.wires_count] = { };
+    sources[lcc.ws_skip] = true;
+    bool grounds[ds.wires_count] = { };
+    grounds[lcc.ws_skip + lcc.ws_count - 1] = true;
+    bool loads[ds.wires_count] = { };
 
     interface it = {
-        lns.size,
+        ds.wires_count,
         1, sources,
         1, grounds,
         0, loads, NULL,
     };
-    double v[lns.size];
+    double v[ds.wires_count];
 
     printf("Performing the voltage stimulation and weight update of the nanowire network\n");
 
     // let the system stabilize
     for (int i = 0; i < 1000; i++)
     {
-        update_conductance(lns);
+        update_conductance(ns, lcc);
     }
 
     // update and stimulate the nanowire network
     printf("Conductance variation: ");
     for (int i = 0; i < 100; i++)
     {
-        update_conductance(lns);
+        update_conductance(ns, lcc);
 
-        v[0] = 5.00;
+        v[lcc.ws_skip] = 5.00;
 
-        voltage_stimulation(lns, it, v);
+        voltage_stimulation(ns, lcc, it, v);
 
-        printf("%f ", fabs(v[0] / 5.0));
+        printf("%f ", fabs(v[lcc.ws_skip] / 5.0));
     }
 
     // stop stimulating the nanowire network
     for (int i = 0; i < 100; i++)
     {
-        update_conductance(lns);
+        update_conductance(ns, lcc);
 
-        v[0] = 0.0;
+        v[lcc.ws_skip] = 0.0;
 
-        voltage_stimulation(lns, it, v);
+        voltage_stimulation(ns, lcc, it, v);
 
-        printf("%f ", fabs(v[0] / 5.0));
+        printf("%f ", fabs(v[lcc.ws_skip] / 5.0));
     }
     printf("\n");
 
     printf("Freeing all the allocated memory\n");
 
     // free the network topology and state
-    destroy_stack_topology(nt);
-    destroy_stack_state(ns);
-
-    // nss is an array of nt, therefore we cannot free one of its elements, just its content
-    destroy_stack_state(lns);
-
-    // lets free the array of nns
-    free(nss);
+    destroy_topology(nt);
+    destroy_state(ns);
+    
+    // free the connected components data
+    for (int i = 0; i < ccs_count; i++)
+    {
+        free(ccs[i].Is);
+    }
 
     printf("Terminating the simulation\n");
 
