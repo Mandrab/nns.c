@@ -1,5 +1,6 @@
 # create the testing file and list of tests
 create_test_sourcelist(test_files run_all.c
+    device_network.c
     io_de-serializer.c
     stimulator_mna.c
     util_components.c
