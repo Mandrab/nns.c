@@ -2,6 +2,7 @@
 #define SERIALIZER_H
 
 #include "device/network.h"
+#include "device/component.h"
 #include "interface/interface.h"
 
 /// @brief Serialize the static characteristics of the Nanowire Network to a
@@ -39,6 +40,25 @@ void serialize_state(
     const network_state ns,
     char* path,
     int id,
+    int step
+);
+
+/// @brief Serialize a connected component of a nanowire network to a file.
+/// NN_ID is the univocal identifier of the NN. Any other file named the same
+/// will be overwritten. If any problem occurs, the system will exit with an
+/// error.
+/// 
+/// @param[in] cc The connected component to serialize.
+/// @param[in] path The base path in which put the /device_ID folder.
+/// @param[in] nn_id The univocal id of the network that will determine its
+/// file name.
+/// @param[in] cc_id The index of the connected component.
+/// @param[in] step The id of the connected component in a specific instant.
+void serialize_component(
+    const connected_component cc,
+    char* path,
+    int nn_id,
+    int cc_id,
     int step
 );
 
