@@ -106,7 +106,8 @@ int main()
     // free the network topology and state
     destroy_topology(nt);
     destroy_state(ns);
-    
+    destroy_interface(it);
+
     // free the connected components data
     for (int i = 0; i < ccs_count; i++)
     {
