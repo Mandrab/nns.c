@@ -10,7 +10,7 @@ void voltage_stimulation(
     network_state ns,
     connected_component cc,
     const interface it,
-    double* io
+    double io[]
 )
 {
     // count the total number of sources, grounds, and loads

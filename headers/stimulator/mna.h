@@ -2,6 +2,7 @@
 #define MNA_h
 
 #include "device/network.h"
+#include "device/component.h"
 #include "interface/interface.h"
 
 /// @brief Perform the voltage stimulation of the Nanowire Network by
@@ -21,14 +22,21 @@
 /// - LU decomposition -> costs n^3
 /// - Gauss-Jordan elimination -> costs n^3
 /// 
-/// @param[in, out] nw The Nanowire Network equivalent electrical circuit
+/// @param[in, out] ns The Nanowire Network equivalent electrical circuit
 /// on which performing the MNA.
+/// @param[in, out] cc The connected component of `ns` to stimulate. Only the
+/// voltage value of the nodes belonging to this CC will be modified.
 /// @param[in] it The interface of the Nanowire Network with the external
 /// world, including sources, grounds and loads.
 /// @param[in, out] io An array with an entry for each wire. As input
 /// parameter it contains the voltage applied to a source, as output it
 /// contains the current drawn from that node. The value of non-source wires
 /// is not set and should be ignored both as input and output.
-void voltage_stimulation(network_state nw, const interface it, double* io);
+void voltage_stimulation(
+    network_state ns,
+    connected_component cc,
+    const interface it,
+    double io[]
+);
 
 #endif /* MNA_H */
