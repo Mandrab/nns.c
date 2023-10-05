@@ -2,35 +2,74 @@
 #define COMPONENTS_H
 
 #include "device/network.h"
+#include "device/component.h"
 
-/// @brief Given an adjacency matrix, return a vector containing for each node
-/// the index of the parent connected component.
+/// @brief Given a network topology and its corresponding datasheet, returns an
+/// array containing for each node the index of the parent connected component.
 /// 
-/// @param[in] adj The adjacency matrix to explore.
-/// @param[in] size The size of the adjacency matrix.
-/// @return An array of length 'size' containing for each entry the index of
-/// the parent connected component.
-const int* map_components(bool** adj, int size);
+/// @param[in] ds The datasheet describing the Nanowire Network.
+/// @param[in] nt The topology of the Nanowire Network.
+/// @param[out] cc_count An integer to be set equal to the number of connected
+/// components in the NN.
+/// @return An array of length 'ds.wires_count' containing for each entry the
+/// index of the parent connected component.
+int map_components(const datasheet ds, const network_topology nt, int* mapping);
 
-/// @brief Differentiate the connected groups of wires as independent networks.
-/// 
-/// @param[in] ns The original, potentially disconnected, Nanowire Network.
-/// @param[out] nss_count Will be set to the number of connected components
-/// discovered.
-/// @return The array of discovered connected components and corresponding
-/// networks.
-network_state* connected_components(const network_state ns, int* nss_count);
+void group_nanowires(const datasheet ds, network_topology nt, int* mapping, int cc_count);
 
-/// @brief Given an array of connected components, select the largest. The
-/// selection returns a copy of the largest component network state. The
-/// pointers contained in the network state still points to the same
-/// data-structures (i.e., A, Y, and V). Therefore, by modifying the A, Y, and
-/// V of the return of this function, also the original elements stored in the
-/// nss array will be modified.
-/// 
-/// @param[in] nss The array of connected components networks.
-/// @param[in] count The number of connected components.
-/// @return The pointer to the largest connected component.
-network_state largest_component(const network_state* nss, int count);
+connected_component* split_components(
+    const datasheet ds,
+    const network_topology nt,
+    const network_state ns,
+    int* n2c,
+    int cc_count
+);
+
+
+// /// @brief Separate the Nanowire Network state in connected components (i.e.,
+// /// connected groups of nanowires) to be used for the voltage stimulation. The
+// /// Ys array in each CC references a sub-section of the array in `ns'. For this
+// /// motivation Ys in the `ns' should be considered as ordered according to the
+// /// connected component. As the function does not explicitly order the array, a
+// /// non-stimulated Nanowire Network is expected as input, i.e., with all its
+// /// elements set to Y_MIN.
+// /// E.g. (the values in the `nn state' are purely imaginary):
+// ///     nn state = [
+// ///         0, 0, 0, 1, 0
+// ///         0, 2, 0, 0, 0
+// ///         0, 0, 3, 0, 0
+// ///         4, 0, 0, 0, 0
+// ///         0, 0, 0, 0, 5
+// ///     ]
+// ///     CC mapping =    [0,  0,  1,  0,  2]
+// ///
+// ///     initial ns Is = [3,  6,  12,  15, 24]
+// ///     final ns Is =   [3,  6,  15,  12, 24]
+// /// 
+// ///     initial ns Ys = [1,  2,  3,  4,  5]
+// ///     final ns Ys =   [1,  2,  4,  3,  5]
+// /// 
+// ///     CC 0 Is =       [2,  4, 6]
+// ///     CC 1 Is =       [0]
+// ///     CC 2 Is =       [0]
+// /// 
+// ///     CC 0 Ys =       [1,  2,  4]
+// ///     CC 1 Ys =       [3]
+// ///     CC 2 Ys =       [5]
+// /// 
+// /// @param[in] ds The datasheet describing the Nanowire Network.
+// /// @param[in] nt The topology of the Nanowire Network.
+// /// @param[in, out] ns The potentially disconnected Nanowire Network state. The
+// /// Is indexes will be ordered according to the connected component index.
+// /// @param[out] nss_count An output integer to be set to the number of
+// /// connected components discovered.
+// /// @return The array of discovered connected components referencing the state
+// /// of the Nanowire Network.
+// connected_component* connected_components(
+//     const datasheet ds,
+//     const network_topology nt,
+//     network_state ns,
+//     int* nss_count
+// );
 
 #endif /* COMPONENTS_H */

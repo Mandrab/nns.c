@@ -1,156 +1,191 @@
+#include <string.h>
+
 #include "device/network.h"
 #include "util/components.h"
 #include "util/tensors.h"
 
-const int* map_components(bool** adj, int size)
+int map_components(const datasheet ds, const network_topology nt, int* mapping)
 {
-    // create a mapping from node to connected component
-    int* mapping = zeros_vector(int, size);
+    // create a union-find data structure to discover the connected components
+    // rank contains the depth of a tree, sets contains the parent of a node
+    int rank[ds.wires_count] = { };
+    int sets[ds.wires_count];
 
-    // create vectors to mark the nodes as visited
-    // or discovered as adjacent but not yet visited
-    bool visited[size] = { };
-    bool discovered[size] = { };
-
-    // iterate all the nodes to discover their adjacency
-    for (int i = 0, cc_count = 0; i < size; i++)
+    // initialize the sets array by creating a connected component
+    // for each nanowire; e.g.: nanowire_0 \in CC_0 .. nanowire_n \in CC_n
+    for (int i = 0; i < ds.wires_count; i++)
     {
-        // if the node is already visited, continue to the next one
-        if (visited[i])
+        sets[i] = i;
+    }
+
+    // iterate the junctions and merge the connected components
+    for (int k = 0; k < nt.js_count; k++)
+    {
+        // get a pair of connected nanowires
+        int i = nt.Js[k].first_wire;
+        int j = nt.Js[k].second_wire;
+
+        // find the root of the parent connected component of i
+        while (i != sets[i])
+        {
+            i = sets[i];
+        }
+
+        // find the root of the parent connected component of j
+        while (j != sets[j])
+        {
+            j = sets[j];
+        }
+
+        // if the two connected components are already joined, continue
+        if (i == j)
         {
             continue;
         }
 
-        // create a stack to store the non-visited neighbors and add the origin
-        int stack[size];
-        int top = 0;
-        stack[top] = i;
-
-        // iterate while the stack is not empty
-        while (top >= 0)
+        // joint the two connected components according to their rank
+        // i.e., to the depth of their tree
+        if (rank[i] < rank[j])
         {
-            // remove an element from the stack and mark it as visited
-            int node = stack[top--];
-            visited[node] = true;
-            mapping[node] = cc_count;
-
-            // check all the nodes to find the nodes neighbors
-            for (int j = 0; j < size; j++)
-            {
-                // if the node is adjacent and not yet discovered add it to the stack
-                if (adj[node][j] && ! discovered[j])
-                {
-                    stack[++top] = j;
-                    discovered[j] = true;
-                }
-            }
+            sets[i] = j;
         }
-
-        // increment the counter of the connected components
-        cc_count++;
+        else
+        if (rank[i] > rank[j])
+        {
+            sets[j] = i;
+        }
+        // if the two trees are of the same length, increase it and join them
+        else
+        {
+            sets[j] = i;
+            rank[i]++;
+        }
     }
 
-    return mapping;
+    // substitute the parent of a node with the root of the connected component
+    for (int i = 0; i < ds.wires_count; i++)
+    {
+        mapping[i] = i;
+        while (mapping[i] != sets[mapping[i]])
+        {
+            mapping[i] = sets[mapping[i]];
+        }
+    }
+
+    // count the unique connected components by counting their roots and
+    // memorize their index to perform a renaming in range [0, cc_count]
+    int remap[ds.wires_count];
+    int cc_count = 0;
+    for (int i = 0; i < ds.wires_count; i++)
+    {
+        if (i == sets[i])
+        {
+            remap[i] = cc_count++;
+        }
+    }
+
+    // rename the connected components starting from 0
+    for (int i = 0; i < ds.wires_count; i++)
+    {
+        mapping[i] = remap[mapping[i]];
+    }
+
+    return cc_count;
 }
 
-network_state* connected_components(const network_state ns, int* nss_count)
+void group_nanowires(const datasheet ds, network_topology nt, int* n2c, int cc_count)
 {
-    // map the node indexes with the CC indexes
-    const int* mapping = map_components(ns.A, ns.size);
-
-    // set the variable to save the number of CCs (assume at least one exists)
-    *nss_count = 1;
-
-    // find the number of CCs
-    for (int i = 0; i < ns.size; i++)
+    // count the number of nanowires in each connected component
+    int counter[cc_count] = { };
+    for (int i = 0; i < ds.wires_count; i++)
     {
-        // if a CC has higher index, update the count
-        if (mapping[i] >= *nss_count)
-        {
-            // the CCs index starts from 0, so the number is max + 1
-            *nss_count = mapping[i] + 1;
-        }
+        counter[n2c[i]]++;
     }
 
-    // create counters to store the number of nodes in each cc
-    int nss_nodes[*nss_count] = { };
-
-    // calculate the number of nodes in each CC
-    for (int i = 0; i < ns.size; i++)
+    // calculate the number of nanowires preceding each CC
+    int start_index[cc_count] = { };
+    for (int i = 1; i < cc_count; i++)
     {
-        // increment the counter of the CC containing i
-        nss_nodes[mapping[i]]++;
+        start_index[i] = start_index[i - 1] + counter[i - 1];
     }
 
-    // create a vector of network states, one for each component
-    network_state* nss = vector(network_state, *nss_count);
+    // create an array to contain the sorted wires of the network topology
+    wire Ws[ds.wires_count];
+    memcpy(Ws, nt.Ws, ds.wires_count * sizeof(wire));
 
-    // create a network state for each CC
-    for (int i = 0; i < *nss_count; i++)
+    // create an array to contain the old node to CC mapping
+    int old_n2c[ds.wires_count];
+    memcpy(old_n2c, n2c, ds.wires_count * sizeof(int));
+
+    // re-map the nanowires index by grouping them according to their CC
+    // and set copy the wire information from the old to the new array
+    int mapping[ds.wires_count];
+    for (int i = 0; i < ds.wires_count; i++)
     {
-        // create a zero initialized network state
-        nss[i].size = nss_nodes[i];
-        nss[i].A = zeros_matrix(bool, nss_nodes[i], nss_nodes[i]);
-        nss[i].Y = zeros_matrix(double, nss_nodes[i], nss_nodes[i]);
-        nss[i].V = zeros_vector(double, nss_nodes[i]);
+        mapping[i] = start_index[old_n2c[i]]++;
+        nt.Ws[mapping[i]] = Ws[i];
+        n2c[mapping[i]] = old_n2c[i];
     }
 
-    // create counters to memorize how many nodes belonging to each CC were visited
-    int x_indexes[*nss_count] = { };
-    int y_indexes[*nss_count] = { };
-
-    // iterate each node of the network to set it into the corresponding network state
-    for (int i = 0; i < ns.size; i++)
+    // rename the junctions wires and sort them
+    for (int i = 0; i < nt.js_count; i++)
     {
-        // retrieve the index of the CC containing i
-        int ci = mapping[i];
-
-        // get the number of elements memorized in the x axis and increment the counter
-        int cix = x_indexes[ci]++;
-
-        // reset the counter of the y axis
-        y_indexes[ci] = 0;
-
-        // iterate all possible neighbors
-        for (int j = 0; j < ns.size; j++)
-        {
-            // if the two nodes do not belong to the same component, continue
-            if (ci != mapping[j])
-            {
-                continue;
-            }
-
-            // get the number of elements memorized in the y axis and increment the counter
-            int ciy = y_indexes[ci]++;
-
-            // set the matrixes in the network state with the correct informations
-            nss[ci].A[cix][ciy] = ns.A[i][j];
-            nss[ci].Y[cix][ciy] = ns.Y[i][j];
-        }
-
-        // set the voltages vector with the correct informations
-        nss[ci].V[cix] = ns.V[i];
+        nt.Js[i].first_wire = mapping[nt.Js[i].first_wire];
+        nt.Js[i].second_wire = mapping[nt.Js[i].second_wire];
     }
-
-    // free the mapping array
-    free(mapping);
-
-    return nss;
+    qsort(nt.Js, nt.js_count, sizeof(junction), jcmp);
 }
 
-network_state largest_component(const network_state* nss, int nss_count)
+connected_component* split_components(
+    const datasheet ds,
+    const network_topology nt,
+    const network_state ns,
+    int* n2c,
+    int cc_count
+)
 {
-    int largest_cc_index = 0;
+    // create an empty array of connected components
+    connected_component* ccs = zeros_vector(connected_component, cc_count);
 
-    // find the index of the largest connected component
-    for (int i = 0, max = 0; i < nss_count; i++)
+    // increment the number of nodes in the CC containing the nanowire
+    for (int i = 0; i < ds.wires_count; i++)
     {
-        if (nss[i].size > max)
+        ccs[n2c[i]].ws_count++;
+    }
+
+    // increment the number of edges in the CC containing the junction
+    for (int i = 0; i < nt.js_count; i++)
+    {
+        ccs[n2c[nt.Js[i].first_wire]].js_count++;
+    }
+
+    // initialize Is only if the CC contains edges (i.e., |nodes| > 1)
+    for (int i = 0; i < cc_count; i++)
+    {
+        if (ccs[i].js_count > 0)
         {
-            largest_cc_index = i;
-            max = nss[i].size;
+            ccs[i].Is = vector(int, ccs[i].js_count);
         }
     }
 
-    return nss[largest_cc_index];
+    // calculate the number of nanowires preceding each CC
+    for (int i = 1; i < cc_count; i++)
+    {
+        ccs[i].ws_skip = ccs[i - 1].ws_skip + ccs[i - 1].ws_count;
+        ccs[i].js_skip = ccs[i - 1].js_skip + ccs[i - 1].js_count;
+    }
+
+    int counters[cc_count] = { };
+    for (int k = 0; k < nt.js_count; k++)
+    {
+        int cci = n2c[nt.Js[k].first_wire];
+        int i = nt.Js[k].first_wire - ccs[cci].ws_skip;
+        int j = nt.Js[k].second_wire - ccs[cci].ws_skip;
+
+        // calculate and set the junction position in the linearized
+        // adjacency matrix of the connected component
+        ccs[cci].Is[counters[cci]++] = i * ccs[cci].ws_count + j;
+    }
+
+    return ccs;
 }
