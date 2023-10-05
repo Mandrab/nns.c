@@ -4,10 +4,10 @@
 #include "util/components.h"
 #include "util/tensors.h"
 
-int map_components(const datasheet ds, const network_topology nt, int* mapping)
+int map_components(const datasheet ds, const network_topology nt, int n2c[])
 {
-    // create a union-find data structure to discover the connected components
-    // rank contains the depth of a tree, sets contains the parent of a node
+    // create a union-find data structure to discover the connected components;
+    // rank contains the depth of a tree; sets contains the parent of a node
     int rank[ds.wires_count] = { };
     int sets[ds.wires_count];
 
@@ -65,10 +65,10 @@ int map_components(const datasheet ds, const network_topology nt, int* mapping)
     // substitute the parent of a node with the root of the connected component
     for (int i = 0; i < ds.wires_count; i++)
     {
-        mapping[i] = i;
-        while (mapping[i] != sets[mapping[i]])
+        n2c[i] = i;
+        while (n2c[i] != sets[n2c[i]])
         {
-            mapping[i] = sets[mapping[i]];
+            n2c[i] = sets[n2c[i]];
         }
     }
 
@@ -87,13 +87,18 @@ int map_components(const datasheet ds, const network_topology nt, int* mapping)
     // rename the connected components starting from 0
     for (int i = 0; i < ds.wires_count; i++)
     {
-        mapping[i] = remap[mapping[i]];
+        n2c[i] = remap[n2c[i]];
     }
 
     return cc_count;
 }
 
-void group_nanowires(const datasheet ds, network_topology nt, int* n2c, int cc_count)
+void group_nanowires(
+    const datasheet ds,
+    network_topology nt,
+    int n2c[],
+    int cc_count
+)
 {
     // count the number of nanowires in each connected component
     int counter[cc_count] = { };
@@ -102,7 +107,8 @@ void group_nanowires(const datasheet ds, network_topology nt, int* n2c, int cc_c
         counter[n2c[i]]++;
     }
 
-    // calculate the number of nanowires preceding each CC
+    // calculate the number of nanowires preceding each CC, i.e.,
+    // count how many nanowires belong to a CC with lower index
     int start_index[cc_count] = { };
     for (int i = 1; i < cc_count; i++)
     {
@@ -117,8 +123,8 @@ void group_nanowires(const datasheet ds, network_topology nt, int* n2c, int cc_c
     int old_n2c[ds.wires_count];
     memcpy(old_n2c, n2c, ds.wires_count * sizeof(int));
 
-    // re-map the nanowires index by grouping them according to their CC
-    // and set copy the wire information from the old to the new array
+    // re-map the nanowires index by grouping them according to their
+    // CC and copy the wire information from the old to the new array
     int mapping[ds.wires_count];
     for (int i = 0; i < ds.wires_count; i++)
     {
@@ -140,7 +146,7 @@ connected_component* split_components(
     const datasheet ds,
     const network_topology nt,
     const network_state ns,
-    int* n2c,
+    int n2c[],
     int cc_count
 )
 {
