@@ -135,6 +135,24 @@ void test_state_io()
     }
 }
 
+void test_component_io()
+{
+    int Is[2] = { 5, 6 };
+    connected_component cc = { 1, 2, 3, 4, Is };
+    connected_component loaded_cc;
+
+    serialize_component(cc, ".", 0, 1, 2);
+    deserialize_component(&loaded_cc, ".", 0, 1, 2);
+
+    assert(loaded_cc.ws_count == 1, -1, INT_ERROR, 1, loaded_cc.ws_count);
+    assert(loaded_cc.js_count == 2, -1, INT_ERROR, 2, loaded_cc.js_count);
+    assert(loaded_cc.ws_skip == 3, -1, INT_ERROR, 3, loaded_cc.ws_skip);
+    assert(loaded_cc.js_skip == 4, -1, INT_ERROR, 4, loaded_cc.js_skip);
+
+    assert(loaded_cc.Is[0] == 5, -1, INT_ERROR, 5, loaded_cc.Is[0]);
+    assert(loaded_cc.Is[1] == 6, -1, INT_ERROR, 6, loaded_cc.Is[0]);
+}
+
 void test_interface_io()
 {
     bool S[5] = { false, true,  false, true,  false };
@@ -202,6 +220,7 @@ int io_de_serializer()
 {
     test_network_io();
     test_state_io();
+    test_component_io();
     test_interface_io();
 
     return 0;
