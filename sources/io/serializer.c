@@ -51,8 +51,7 @@ void serialize_state(
     // create and open folder and file of the specific format
     FILE* file = new_ns_it_file(STATE_FILE_NAME_FORMAT, path, id, step);
 
-    // write the junctions position, weight and the nodes voltage
-    fwrite(ns.Is, sizeof(int), nt.js_count, file);
+    // write the junctions weight and the nodes voltage
     fwrite(ns.Ys, sizeof(double), nt.js_count, file);
     fwrite(ns.Vs, sizeof(double), ds.wires_count, file);
 

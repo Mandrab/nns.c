@@ -60,12 +60,10 @@ void deserialize_state(
     FILE* file = open_ns_it_file(STATE_FILE_NAME_FORMAT, path, id, step);
 
     // allocate the memory for the network state
-    ns->Is = zeros_vector(int, nt.js_count);
     ns->Ys = zeros_vector(double, nt.js_count);
     ns->Vs = zeros_vector(double, ds.wires_count);
 
-    // load the Is, Ys, and Vs arrays
-    fread(ns->Is, sizeof(int), nt.js_count, file);
+    // load the Ys and Vs arrays
     fread(ns->Ys, sizeof(double), nt.js_count, file);
     fread(ns->Vs, sizeof(double), ds.wires_count, file);
 
