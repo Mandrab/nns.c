@@ -2,6 +2,7 @@
 #define DESERIALIZER_H
 
 #include "device/network.h"
+#include "device/component.h"
 #include "interface/interface.h"
 
 /// @brief Deserialize the static characteristics of the network from a file
@@ -43,6 +44,24 @@ void deserialize_state(
     int step
 );
 
+/// @brief Deserialize a network connected component. NN_ID is the univocal
+/// identifier of the NN. If any problem occurs, the system will exit with an
+/// error.
+/// 
+/// @param cc The connected component to deserialize.
+/// @param path The base path containing the /device_ID folder.
+/// @param nn_id  The univocal id of the network that will determine its file
+/// name.
+/// @param cc_id The index of the connected component.
+/// @param step The id of the network state in a specific instant.
+void deserialize_component(
+    connected_component* cc,
+    char* path,
+    int nn_id,
+    int cc_id,
+    int step
+);
+
 /// @brief Deserialize the interface to the network from a file named
 /// "interface.ID.dat", where ID is the univocal identifier of the NN. If any
 /// problem occurs, the system will exit with an error.
@@ -53,6 +72,6 @@ void deserialize_state(
 /// @param[in] id The univocal id of the network that will determine its file
 /// name.
 /// @param[in] step The id of the network interface in a specific instant.
-void deserialize_interface(interface* ns, char* path, int id, int step);
+void deserialize_interface(interface* it, char* path, int id, int step);
 
 #endif /* DESERIALIZER_H */
