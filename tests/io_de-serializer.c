@@ -144,6 +144,16 @@ void test_component_io()
     serialize_component(cc, ".", 0, 1, 2);
     deserialize_component(&loaded_cc, ".", 0, 1, 2);
 
+    // check that the original cc is not modified by the function
+    assert(cc.ws_count == 1, -1, INT_ERROR, 1, cc.ws_count);
+    assert(cc.js_count == 2, -1, INT_ERROR, 2, cc.js_count);
+    assert(cc.ws_skip == 3, -1, INT_ERROR, 3, cc.ws_skip);
+    assert(cc.js_skip == 4, -1, INT_ERROR, 4, cc.js_skip);
+
+    assert(cc.Is[0] == 5, -1, INT_ERROR, 5, cc.Is[0]);
+    assert(cc.Is[1] == 6, -1, INT_ERROR, 6, cc.Is[0]);
+
+    // check that the loading is performed correctly
     assert(loaded_cc.ws_count == 1, -1, INT_ERROR, 1, loaded_cc.ws_count);
     assert(loaded_cc.js_count == 2, -1, INT_ERROR, 2, loaded_cc.js_count);
     assert(loaded_cc.ws_skip == 3, -1, INT_ERROR, 3, loaded_cc.ws_skip);
