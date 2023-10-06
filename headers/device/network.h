@@ -26,14 +26,10 @@ typedef struct
 } network_topology;
 
 /// @brief Electrical state of the Nanowire Network. It contains the varying
-/// values of the junctions, their position in the linearized adjacency matrix,
-/// and the voltage distribution in the network nanowires.
+/// values of the junctions and the voltage distribution in the network
+/// nanowires.
 typedef struct
 {
-    int*        Is;         ///< Linearized index of the junctions (i.e.,
-                            ///< junction(i, j) = junction(i * size + j)).
-                            ///< Ordered to specify the position of the
-                            ///< Ys(i, j) weight.
     double*     Ys;         ///< Admittances of the equivalent electrical
                             ///< circuit. Ordered according to the index of the
                             ///< parent connected component and to the index of
@@ -72,7 +68,7 @@ network_state construe_circuit(const datasheet ds, const network_topology nt);
 void destroy_topology(network_topology nt);
 
 /// @brief Destroy a network state memorized in the stack. This function
-/// practically frees Is, Ys, and Vs of the network state. The arrays to be
+/// practically frees Ys and Vs arrays of the network state. The arrays to be
 /// freed must have been allocated in the heap with malloc/calloc.
 /// 
 /// @param[in, out] ns The network state to destroy.
