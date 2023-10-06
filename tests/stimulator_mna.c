@@ -16,12 +16,12 @@
  */
 void test_divider_one()
 {
-    int nsIs[2] = { 1, 5 };
     double nsYs[2] = { 1, 1 };
     double nsVs[3];
+    int ccIs[2] = { 1, 5 };
 
-    network_state ns = { nsIs, nsYs, nsVs };
-    connected_component cc = { 3, 2, 0, 0, nsIs };
+    network_state ns = { nsYs, nsVs };
+    connected_component cc = { 3, 2, 0, 0, ccIs };
 
     bool sources[3] = { true, false, false };
     bool grounds[3] = { false, false, true };
@@ -54,12 +54,12 @@ void test_divider_one()
  */
 void test_divider_two()
 {
-    int nsIs[3] = { 1, 6, 7 };
     double nsYs[3] = { 1, 1, 1 };
     double nsVs[4];
+    int ccIs[3] = { 1, 6, 7 };
 
-    network_state ns = { nsIs, nsYs, nsVs };
-    connected_component cc = { 4, 3, 0, 0, nsIs };
+    network_state ns = { nsYs, nsVs };
+    connected_component cc = { 4, 3, 0, 0, ccIs };
 
     bool sources[4] = { false, true, false, false };
     bool grounds[4] = { true, false, true, false };
@@ -107,12 +107,12 @@ void test_parallel()
     //     | 3a           + 4d | c |
     //     |           4c      | d |
     //     -------------------------
-    int nsIs[3] = { 1, 2, 11 };
     double nsYs[3] = { 1, 3, 4 };
     double nsVs[4];
+    int ccIs[3] = { 1, 2, 11 };
 
-    network_state ns = { nsIs, nsYs, nsVs };
-    connected_component cc = { 4, 3, 0, 0, nsIs };
+    network_state ns = { nsYs, nsVs };
+    connected_component cc = { 4, 3, 0, 0, ccIs };
 
     bool sources[4] = { true, false, false, false };
     bool grounds[4] = { false, false, false, true };
@@ -160,20 +160,20 @@ void test_parallel()
  */
 void test_complex()
 {
-    int nsIs[14] = {
+    double nsYs[14];
+    double nsVs[12];
+    int ccIs[14] = {
         /* row 0 */ 1, 4, 8, /* row 1 */ 14, /* row 3 */ 44, 47, /* row 4 */ 57,
         /* row 5 */ 66, 67, 69, /* row 6 */ 81, 82, /* row 7 */ 93, /* row 8 */ 107
     };
-    double nsYs[14];
-    double nsVs[12];
 
     for (int i = 0; i < 14; i++)
     {
         nsYs[i] = 1;
     }
 
-    network_state ns = { nsIs, nsYs, nsVs };
-    connected_component cc = { 12, 14, 0, 0, nsIs };
+    network_state ns = { nsYs, nsVs };
+    connected_component cc = { 12, 14, 0, 0, ccIs };
 
     bool sources[12] = { };
     sources[0] = true;
@@ -224,12 +224,12 @@ void test_complex()
  */
 void test_load_one()
 {
-    int nsIs[2] = { 1, 2 };
     double nsYs[2] = { 1, 4 };
     double nsVs[3];
+    int ccIs[2] = { 1, 2 };
 
-    network_state ns = { nsIs, nsYs, nsVs };
-    connected_component cc = { 3, 2, 0, 0, nsIs };
+    network_state ns = { nsYs, nsVs };
+    connected_component cc = { 3, 2, 0, 0, ccIs };
 
     bool sources[3] = { true, false, false };
     bool grounds[3] = { false, false, false };
@@ -269,12 +269,12 @@ void test_load_one()
  */
 void test_load_two()
 {
-    int nsIs[2] = { 1, 2 };
     double nsYs[2] = { 1, 4 };
     double nsVs[3];
+    int ccIs[2] = { 1, 2 };
 
-    network_state ns = { nsIs, nsYs, nsVs };
-    connected_component cc = { 3, 2, 0, 0, nsIs };
+    network_state ns = { nsYs, nsVs };
+    connected_component cc = { 3, 2, 0, 0, ccIs };
 
     bool sources[3] = { true, true, false };
     bool grounds[3] = { false, false, false };
@@ -327,12 +327,12 @@ void test_grounded_and_loaded()
     //     |           1c      + 2e | d |
     //     |           4c + 2d      | e |
     //     ------------------------------
-    int nsIs[4] = { 1, 2, 13, 14 };
     double nsYs[4] = { 1, 2.5, 1, 4 };
     double nsVs[5];
+    int ccIs[4] = { 1, 2, 13, 14 };
 
-    network_state ns = { nsIs, nsYs, nsVs };
-    connected_component cc = { 5, 4, 0, 0, nsIs };
+    network_state ns = { nsYs, nsVs };
+    connected_component cc = { 5, 4, 0, 0, ccIs };
 
     bool sources[5] = { true, false, false, false, false };
     bool grounds[5] = { false, false, false, false, true };
@@ -369,12 +369,12 @@ void test_grounded_and_loaded()
  */
 void test_input_currents()
 {
-    int nsIs[3] = { 1, 6, 7 };
     double nsYs[3] = { 1, 0.33, 1 };
     double nsVs[4];
+    int ccIs[3] = { 1, 6, 7 };
 
-    network_state ns = { nsIs, nsYs, nsVs };
-    connected_component cc = { 4, 3, 0, 0, nsIs };
+    network_state ns = { nsYs, nsVs };
+    connected_component cc = { 4, 3, 0, 0, ccIs };
 
     bool sources[4] = { true, false, true, false };
     bool grounds[4] = { false, false, false, true };
@@ -408,14 +408,14 @@ void test_input_currents()
  */
 void test_multiple_connected_components()
 {
-    int nsIs[5] = { /* CC 1 */ 2, 18, /* CC 2 */  12, 26, 27 };
     double nsYs[5] = { 1, 1, 1, 1, 1 };
     double nsVs[7];
+    // ns.Is = /* CC 1 */ 2, 18, /* CC 2 */  12, 26, 27
 
     int cc1Is[2] = { 1, 5 };
     int cc2Is[3] = { 2, 6, 7 };
 
-    network_state ns = { nsIs, nsYs, nsVs };
+    network_state ns = { nsYs, nsVs };
     connected_component cc1 = { 3, 2, 0, 0, cc1Is };
     connected_component cc2 = { 4, 3, 3, 2, cc2Is };
 

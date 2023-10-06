@@ -90,13 +90,12 @@ void test_split_single_component()
         (junction) { 0, 1, (point) { -1, -1 } },
         (junction) { 0, 2, (point) { -1, -1 } }
     };
-    int Is[2] = { 1, 2 };
     double Ys[2] = { 0.1, 0.2 };
     double Vs[3] = { 0.01, 0.02, 0.03 };
 
     datasheet ds = { 3 };
     network_topology nt = { NULL, 2, js };
-    network_state ns = { Is, Ys, Vs };
+    network_state ns = { Ys, Vs };
     int n2c[3] = { 0, 0, 0 };
 
     connected_component cc = split_components(ds, nt, ns, n2c, 1)[0];
@@ -125,13 +124,12 @@ void test_split_multiple_components()
         (junction) { 0, 2, (point) { -1, -1 } },
         (junction) { 4, 5, (point) { -1, -1 } }
     };
-    int Is[3] = { 1, 2, 3 };
     double Ys[3] = { 0.1, 0.2, 0.3 };
     double Vs[6] = { 0.01, 0.02, 0.03, 0.04, 0.05, 0.06 };
 
     datasheet ds = { 6 };
     network_topology nt = { NULL, 3, js };
-    network_state ns = { Is, Ys, Vs };
+    network_state ns = { Ys, Vs };
     int n2c[6] = { 0, 0, 1, 0, 2, 2 };
 
     connected_component* ccs = split_components(ds, nt, ns, n2c, 3);

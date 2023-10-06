@@ -130,7 +130,6 @@ void test_state_io()
 
     for (int i = 0; i < nt.js_count; i++)
     {
-        assert(ns.Is[i] == loaded_ns.Is[i], -1, INT_ERROR, "loaded_ns.Is[i]", ns.Is[i], loaded_ns.Is[i]);
         assert(fabs(ns.Ys[i] - loaded_ns.Ys[i]) < TOLERANCE, -1, DOUBLE_ERROR, "loaded_ns.Ys[i]", ns.Ys[i], loaded_ns.Ys[i]);
     }
 }

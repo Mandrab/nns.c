@@ -14,9 +14,6 @@ void test_construe_circuit()
 
     network_state ns = construe_circuit(ds, nt);
 
-    assert(ns.Is[0] == 1, -1, INT_ERROR, "ns.Is[0]", 1, ns.Is[0]);
-    assert(ns.Is[1] == 5, -1, INT_ERROR, "ns.Is[1]", 5, ns.Is[1]);
-
     assert(ns.Ys[0] == Y_MIN, -1, INT_ERROR, "ns.Ys[0]", Y_MIN, ns.Ys[0]);
     assert(ns.Ys[1] == Y_MIN, -1, INT_ERROR, "ns.Ys[1]", Y_MIN, ns.Ys[1]);
 
