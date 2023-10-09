@@ -26,6 +26,18 @@ $ cd tests && ctest; cd ..
 $ time ./examples/basic.elf
 ```
 
+## Design
+
+The main components of the simulator are:
+1. Datasheet: Represents the static information of the Nanowire Network, such as the number of nanowires, their length, etc.
+2. Network topology: Contains the physical distribution of the nanowires and their junctions.
+3. Network state: Contains the dynamic (or instantaneous) state of the Nanowire Network, represented as the equivalent electrical circuit.
+4. Connected component: Represents a connected group of nanowires inside the Nanowire Network, and contains the information to address them in the `network state'.
+
+An example of their relationship is shown in the following diagram:
+
+![Structural design of the simulator data](structure.drawio.png)
+
 ## Troubleshoot
 - [IMPORTANT] A segmentation fault may happen if too large networks are simulated. To solve this problem it is simply needed to increase the memory that the program can allocate. See: `ulimit -s 65535`.
 - The Valgrind test [does not work correctly](https://medium.com/@auraham/pseudo-memory-leaks-when-using-openmp-11a383cc4cf9) when used with OpenMP. Therefore, to perform the test is necessary to compile the library without OpenMP and with a sequential implementation of BLAS.
