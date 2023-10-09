@@ -5,6 +5,7 @@ create_test_sourcelist(test_files run_all.c
     stimulator_mna.c
     util_components.c
     util_distributions.c
+    util_measures.c
 )
 
 # add the testing executable
