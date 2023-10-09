@@ -2,16 +2,28 @@
 #define MEASURES_H
 
 #include "device/network.h"
+#include "device/component.h"
 
-/// @brief Calculate the resistance distance between two points of
-/// the Nanowire Network.
+/// @brief Calculate the resistance distance between two points of a Nanowire
+/// Network Connected Component.
 /// 
-/// @param[in] ns The Nanowire Network circuital state on which
+/// @param[in] ds The datasheet of the Nanowire Network.
+/// @param[in] ns The Nanowire Network circuital state on which perform the
+/// measure.
+/// @param[in] cc The Connected Component of the Nanowire Network on which
 /// perform the measure.
-/// @param[in] a The first point to consider for the calculation.
-/// @param[in] b The second point to consider for the calculation.
-/// @return The resistance of the Nanowire Network equivalent
-/// circuit between the two points.
-double resistive_distance(const network_state ns, int a, int b);
+/// @param[in] a The index of the first nanowire to consider for the
+/// calculation (relative to the Connected Component).
+/// @param[in] b The index of the second nanowire to consider for the
+/// calculation (relative to the Connected Component).
+/// @return The resistance of the Nanowire Network equivalent circuit between
+/// the two points.
+double resistive_distance(
+    const datasheet ds,
+    const network_state ns,
+    const connected_component cc,
+    int a,
+    int b
+);
 
 #endif /* MEASURES_H */
