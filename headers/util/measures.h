@@ -17,7 +17,8 @@
 /// @param[in] b The index of the second nanowire to consider for the
 /// calculation (relative to the Connected Component).
 /// @return The resistance of the Nanowire Network equivalent circuit between
-/// the two points.
+/// the two points. -1 if an error occurs (e.g. if the two nanowires are not
+/// connected).
 double resistive_distance(
     const datasheet ds,
     const network_state ns,

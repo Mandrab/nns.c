@@ -47,7 +47,7 @@ double resistive_distance(
         S, U, &cc.ws_count, VT,
         &cc.ws_count, work, &lwork, &info, cc.ws_count, cc.ws_count
     );
-    assert(info == 0, info, "SVD computation failed!\n");
+    requires(info == 0, -1, "SVD computation failed! INFO = %d\n", info);
 
     // the calculation of the the point-to-point resistance involves
     // the computation of the Moore-Penrose pseudo-inverse, however
