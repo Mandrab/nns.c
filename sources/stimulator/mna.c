@@ -6,7 +6,7 @@
 #include "stimulator/mna.h"
 #include "util/errors.h"
 
-void voltage_stimulation(
+int voltage_stimulation(
     network_state ns,
     connected_component cc,
     const interface it,
@@ -121,7 +121,7 @@ void voltage_stimulation(
     int b_size = 1, info;
 
     dsysv_rook_(&L, &size, &b_size, A, &size, pivots, b, &size, work, &size, &info, size);
-    assert(info == 0, info, "The MNA system cannot be solved!");
+    requires(info == 0, -1, "The MNA system cannot be solved! INFO = %d\n", info);
 
     // set the voltages in the ns.Vs array and the input currents in the io array
     // according to the MNA calculation
@@ -145,4 +145,6 @@ void voltage_stimulation(
             ns.Vs[nsi] = b[i - skips[i]];
         }
     }
+
+    return 0;
 }

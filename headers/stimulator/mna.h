@@ -32,7 +32,9 @@
 /// parameter it contains the voltage applied to a source, as output it
 /// contains the current drawn from that node. The value of non-source wires
 /// is not set and should be ignored both as input and output.
-void voltage_stimulation(
+/// @return 0 if the computation successfully terminates, -1 if an error occurs
+/// (e.g. if the sources/grounds/loads nanowires are not connected).
+int voltage_stimulation(
     network_state ns,
     connected_component cc,
     const interface it,
