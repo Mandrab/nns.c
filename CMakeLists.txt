@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(nns VERSION 0.1.1)
+project(nns VERSION 0.2.0)
 
 # to access to standard installation directory variables (CMAKE_INSTALL_xDIR).
 include(GNUInstallDirs)
@@ -40,8 +40,13 @@ find_package(BLAS REQUIRED)
 # find LAPACKE (C-LAPACK) library
 find_package(LAPACK REQUIRED)
 
+# find Umfpack library
+find_package(SuiteSparse_config REQUIRED)
+find_package(AMD)
+find_package(UMFPACK REQUIRED)
+
 # link the math and LAPACK libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE m LAPACK::LAPACK)
+target_link_libraries(${PROJECT_NAME} PRIVATE m LAPACK::LAPACK SuiteSparse::UMFPACK)
 
 # if available, link openMP library
 find_package(OpenMP)
