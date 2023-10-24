@@ -7,8 +7,10 @@ include(GNUInstallDirs)
 # indicate that the documentation build is an option (ON by default)
 option(BUILD_DOC "Build documentation" ON)
 
-# set the C standard version
-set(CMAKE_C_STANDARD 99)
+# set the C++/C standard versions
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD_REQUIRED TRUE)
 
 # if not specified, set Release compilation
 if(NOT CMAKE_BUILD_TYPE)
