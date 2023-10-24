@@ -8,50 +8,42 @@
 
 int voltage_stimulation(
     network_state ns,
-    connected_component cc,
+    const connected_component cc,
     const interface it,
     double io[]
 )
 {
-
-    // count the total number of sources, grounds, and loads
+    // count the total number of sources connected to the CC
     int sources_count = 0;
-    int loads_count = 0;
-    int grounds_count = 0;
+    #pragma omp parallel for reduction(+ : sources_count)
+    for (int i = cc.ws_skip; i < cc.ws_skip + cc.ws_count; i++)
+    {
+        sources_count += it.sources_mask[i];
+    }
+
+    // re-map a source index from the old matrix to the new one (right-most
+    // side), and a node index from the old matrix to the new one
+    int s2n[cc.ws_count];
+    int n2n[cc.ws_count];
 
     for (int i = 0; i < cc.ws_count; i++)
     {
-        sources_count += it.sources_mask[cc.ws_skip + i];
-        grounds_count += it.grounds_mask[cc.ws_skip + i];
-        loads_count += it.loads_mask[cc.ws_skip + i];
+        // re-map nodes index according to the number of grounds preceding it
+        n2n[i] = i ? 1 + n2n[i - 1] - it.grounds_mask[cc.ws_skip + i - 1] : 0;
     }
 
-    // int grounded_junctions = 0;
-    // for (int k = 0; k < cc.js_count; k++)
-    // {
-    //     int i = cc.Is[k] / cc.ws_count;
-    //     int j = cc.Is[k] % cc.ws_count;
+    // calculate the size of the MNA matrix considering the number of nodes
+    // contained (n2n[-1] + 1), the possible grounding of the last node
+    // (it.ground_mask[...]), and the number of sources
+    int size = n2n[cc.ws_count - 1] + 1 - it.grounds_mask[cc.ws_skip + cc.ws_count - 1] + sources_count;
 
-    //     grounded_junctions += it.grounds_mask[cc.ws_skip + i]
-    //         + it.grounds_mask[cc.ws_skip + j];
-    // }
-
-    // calculate size of MNA matrix
-    int size = cc.ws_count + sources_count - grounds_count;
-    int size_csr = 0;// 2 * cc.js_count + 2 * sources_count + cc.ws_count - grounded_junctions;
-
-    // count and memorize the number of grounds and sources preceding a node
-
-    int skips[cc.ws_count] = { };
-    int index[cc.ws_count] = { };
-    int n2n[cc.ws_count] = { };
-
-    for (int i = 1; i < cc.ws_count; i++)
+    // if i is a source, create a mapping to the right-most side of the matrix
+    for (int i = 0, j = 0; i < cc.ws_count; i++)
     {
-        // count the grounds and sources according to the preceding
-        skips[i] = skips[i - 1] + it.grounds_mask[cc.ws_skip + i - 1];
-        index[i] = index[i - 1] + it.sources_mask[cc.ws_skip + i - 1];
-        n2n[i] = i - skips[i];
+        if (it.sources_mask[cc.ws_skip + i])
+        {
+            s2n[i] = size - sources_count + j++;
+        }
     }
 
     // create data structures to perform the analysis
@@ -71,15 +63,13 @@ int voltage_stimulation(
         {
             // sum the outgoing conductances on the diagonal
             // linearization of A[n2n[i]][n2n[i]]
-            if (A[n2n[i] * size + n2n[i]] < 0.001)
-                size_csr++;
             A[n2n[i] * size + n2n[i]] += ns.Ys[cc.js_skip + k];
         }
 
         if (! is_j_ground)
         {
-            if (A[n2n[j] * size + n2n[j]] < 0.001)
-                size_csr++;
+            // sum the outgoing conductances on the diagonal
+            // linearization of A[n2n[j]][n2n[j]]
             A[n2n[j] * size + n2n[j]] += ns.Ys[cc.js_skip + k];
         }
 
@@ -90,9 +80,7 @@ int voltage_stimulation(
             // Since LAPACK only considers the upper / lower triangular matrix,
             // setting just one of the two is enough
             A[n2n[i] * size + n2n[j]] = - ns.Ys[cc.js_skip + k];
-            size_csr++;
             A[n2n[j] * size + n2n[i]] = - ns.Ys[cc.js_skip + k];
-            size_csr++;
         }
     }
 
@@ -107,25 +95,29 @@ int voltage_stimulation(
             // A[i][size - it.sources_count + index[i]]
             // Since LAPACK only considers the upper / lower triangular matrix,
             // setting just one of the two is enough
-            A[(n2n[i] + 1) * size - sources_count + index[i]] = 1;
-            size_csr++;
-            A[(size - sources_count + index[i]) * size + n2n[i]] = 1;
-            size_csr++;
+            A[(n2n[i] + 1) * s2n[i]] = 1;
+            A[s2n[i] * size + n2n[i]] = 1;
 
             // if 'i' is a source, set its voltage value in b
-            b[size - sources_count + index[i]] = io[cc.ws_skip + i];
+            b[s2n[i]] = io[cc.ws_skip + i];
         }
 
         // add the loads conductance to the diagonal of A
         if (it.loads_mask[cc.ws_skip + i])
         {
-            if (A[n2n[i] * size + n2n[i]] < 0.001)
-                size_csr++;
             // linearization of A[n2n[i]][n2n[i]]
             A[n2n[i] * size + n2n[i]] += it.loads_weight[cc.ws_skip + i];
         }
     }
 
+    // maximum possible size of the Ax/i arrays; it includes possible junctions
+    // connected with the grounds (also if they shouldn't be count is not a
+    // problem because the visit of Ai and Ax depends on Ap)
+    int size_csr = 2 * cc.js_count + 2 * sources_count + cc.ws_count;
+
+    // create the data structures to contain the sparse matrix in compressed
+    // form: Ap is the pointer to the start of the next row, Ai is the column
+    // of each entry Ax is the value of the junction
     // https://users.encs.concordia.ca/~krzyzak/R%20Code-Communications%20in%20Statistics%20and%20Simulation%202014/Zubeh%F6r/SuiteSparse/UMFPACK/Doc/QuickStart.pdf
     // https://people.sc.fsu.edu/~jburkardt/data/cc/cc.html
     int Ap[size + 1], Ai[size_csr];
@@ -172,7 +164,7 @@ int voltage_stimulation(
         if (it.sources_mask[nsi])
         {
             ns.Vs[nsi] = io[nsi];
-            io[nsi] = - x[size - sources_count + index[i]];
+            io[nsi] = - x[s2n[i]];
         }
         else
         if (it.grounds_mask[nsi])
