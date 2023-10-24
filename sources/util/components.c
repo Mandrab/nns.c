@@ -145,7 +145,6 @@ void group_nanowires(
 connected_component* split_components(
     const datasheet ds,
     const network_topology nt,
-    const network_state ns,
     int n2c[],
     int cc_count
 )

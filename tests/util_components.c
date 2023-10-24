@@ -98,7 +98,7 @@ void test_split_single_component()
     network_state ns = { Ys, Vs };
     int n2c[3] = { 0, 0, 0 };
 
-    connected_component cc = split_components(ds, nt, ns, n2c, 1)[0];
+    connected_component cc = split_components(ds, nt, n2c, 1)[0];
 
     assert(cc.ws_count == 3, -1, INT_ERROR, "cc.ws_count", 3, cc.ws_count);
     assert(cc.js_count == 2, -1, INT_ERROR, "cc.js_count", 2, cc.js_count);
@@ -132,7 +132,7 @@ void test_split_multiple_components()
     network_state ns = { Ys, Vs };
     int n2c[6] = { 0, 0, 1, 0, 2, 2 };
 
-    connected_component* ccs = split_components(ds, nt, ns, n2c, 3);
+    connected_component* ccs = split_components(ds, nt, n2c, 3);
 
     assert(ccs[0].ws_count == 3, -1, INT_ERROR, "ccs[0].ws_count", 3, ccs[0].ws_count);
     assert(ccs[1].ws_count == 1, -1, INT_ERROR, "ccs[1].ws_count", 1, ccs[1].ws_count);
