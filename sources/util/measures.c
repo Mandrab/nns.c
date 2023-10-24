@@ -5,7 +5,6 @@
 #include "util/measures.h"
 
 double resistive_distance(
-    const datasheet ds,
     const network_state ns,
     const connected_component cc,
     int a,

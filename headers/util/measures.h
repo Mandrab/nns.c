@@ -7,7 +7,6 @@
 /// @brief Calculate the resistance distance between two points of a Nanowire
 /// Network Connected Component.
 /// 
-/// @param[in] ds The datasheet of the Nanowire Network.
 /// @param[in] ns The Nanowire Network circuital state on which perform the
 /// measure.
 /// @param[in] cc The Connected Component of the Nanowire Network on which
@@ -20,7 +19,6 @@
 /// the two points. -1 if an error occurs (e.g. if the two nanowires are not
 /// connected).
 double resistive_distance(
-    const datasheet ds,
     const network_state ns,
     const connected_component cc,
     int a,

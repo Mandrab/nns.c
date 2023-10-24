@@ -167,7 +167,7 @@ void test_resistive_distance()
         char str[100];
         snprintf(str, 100, "R_%d,%d", a, b);
 
-        double result = resistive_distance(ds, ns, cc, a, b);
+        double result = resistive_distance(ns, cc, a, b);
         assert(fabs(result - r) < TOLERANCE, -1, DOUBLE_ERROR, str, r, result);
     }
 }
