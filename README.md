@@ -39,5 +39,7 @@ An example of their relationship is shown in the following diagram:
 ![Structural design of the simulator data](structure.drawio.png)
 
 ## Troubleshoot
+- If running `cmake .` you get something such as `Could NOT find BLAS (missing: BLAS_LIBRARIES)`, ensure that BLAS is installed in you system and add something such as `-DBLAS_LIBRARIES=/usr/lib64/libblas.so` to the call.
+- If running `cmake .` you get something such as `Could NOT find LAPACK (missing: LAPACK_LIBRARIES)`, ensure that LAPACK is installed in you system and add something such as `-DLAPACK_LIBRARIES=/usr/lib32/liblapack.so` to the call.
 - [IMPORTANT] A segmentation fault may happen if too large networks are simulated. To solve this problem it is simply needed to increase the memory that the program can allocate. See: `ulimit -s 65535`.
 - The Valgrind test [does not work correctly](https://medium.com/@auraham/pseudo-memory-leaks-when-using-openmp-11a383cc4cf9) when used with OpenMP. Therefore, to perform the test is necessary to compile the library without OpenMP and with a sequential implementation of BLAS.
