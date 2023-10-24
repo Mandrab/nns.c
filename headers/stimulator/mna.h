@@ -23,9 +23,9 @@
 /// - Gauss-Jordan elimination -> costs n^3
 /// 
 /// @param[in, out] ns The Nanowire Network equivalent electrical circuit
-/// on which performing the MNA.
-/// @param[in, out] cc The connected component of `ns` to stimulate. Only the
-/// voltage value of the nodes belonging to this CC will be modified.
+/// on which performing the MNA. Only the voltage value of the nodes belonging
+/// to the passed CC will be modified.
+/// @param[in] cc The connected component of `ns` to stimulate.
 /// @param[in] it The interface of the Nanowire Network with the external
 /// world, including sources, grounds and loads.
 /// @param[in, out] io An array with an entry for each wire. As input
@@ -36,7 +36,7 @@
 /// (e.g. if the sources/grounds/loads nanowires are not connected).
 int voltage_stimulation(
     network_state ns,
-    connected_component cc,
+    const connected_component cc,
     const interface it,
     double io[]
 );
