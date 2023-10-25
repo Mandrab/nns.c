@@ -11,14 +11,13 @@
 /// and treating it as a static device. The voltage distribution is
 /// stored in the vector V of the \p ns parameter.
 /// 
-/// @note This function uses the LAPACK functions to perform efficient
+/// @note This function uses the UMFPACK functions to perform efficient
 /// calculations. Previously, some algorithms for systems solution were
 /// studied with the aim to find the most efficient one. The considered
 /// factorization methods are the following:
 /// - backward substitution -> not applicable as the elements
 ///   on the bottom right of the diagonal are != 0
-/// - cholesky -> not applicable as the matrix is
-///   not positive-defined
+/// - cholesky -> not applicable as the matrix is not positive-defined
 /// - LU decomposition -> costs n^3
 /// - Gauss-Jordan elimination -> costs n^3
 /// 
