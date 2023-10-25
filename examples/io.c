@@ -61,7 +61,7 @@ int main()
     printf("Splitting the Nanowire Network in connected components\n");
 
     // separate the nanowire network in connected components
-    connected_component* ccs = split_components(ds, nt, ns, n2c, ccs_count);
+    connected_component* ccs = split_components(ds, nt, n2c, ccs_count);
 
     printf("Finding and selecting the largest connected component of the Nanowire Network\n");
 

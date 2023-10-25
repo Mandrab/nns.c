@@ -53,7 +53,6 @@ void group_nanowires(
 /// 
 /// @param[in] ds The datasheet describing the Nanowire Network.
 /// @param[in] nt The topology of the Nanowire Network.
-/// @param[in] ns The dynamic electrical state of the Nanowire Network.
 /// @param[in] n2c An array of length 'ds.wires_count' containing for each
 /// entry the index of the parent connected component.
 /// @param[in] cc_count The number of connected components discovered in the
@@ -62,7 +61,6 @@ void group_nanowires(
 connected_component* split_components(
     const datasheet ds,
     const network_topology nt,
-    const network_state ns,
     int n2c[],
     int cc_count
 );

@@ -7,6 +7,8 @@
 *.log
 *.nns
 *.o
+*.out
+*.rpt
 *.so
 tests/run_all.c
 cmake_install.cmake

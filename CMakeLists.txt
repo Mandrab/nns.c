@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.0)
-project(nns VERSION 0.2.0)
+cmake_minimum_required(VERSION 3.5)
+project(nns VERSION 0.3.0)
 
 # to access to standard installation directory variables (CMAKE_INSTALL_xDIR).
 include(GNUInstallDirs)
@@ -7,8 +7,10 @@ include(GNUInstallDirs)
 # indicate that the documentation build is an option (ON by default)
 option(BUILD_DOC "Build documentation" ON)
 
-# set the C standard version
-set(CMAKE_C_STANDARD 99)
+# set the C++/C standard versions
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD_REQUIRED TRUE)
 
 # if not specified, set Release compilation
 if(NOT CMAKE_BUILD_TYPE)
@@ -40,8 +42,13 @@ find_package(BLAS REQUIRED)
 # find LAPACKE (C-LAPACK) library
 find_package(LAPACK REQUIRED)
 
+# find Umfpack library
+find_package(SuiteSparse_config REQUIRED)
+find_package(AMD)
+find_package(UMFPACK REQUIRED)
+
 # link the math and LAPACK libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE m LAPACK::LAPACK)
+target_link_libraries(${PROJECT_NAME} PRIVATE m LAPACK::LAPACK SuiteSparse::UMFPACK)
 
 # if available, link openMP library
 find_package(OpenMP)
