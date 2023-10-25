@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(nns VERSION 0.2.0)
+project(nns VERSION 0.3.0)
 
 # to access to standard installation directory variables (CMAKE_INSTALL_xDIR).
 include(GNUInstallDirs)
