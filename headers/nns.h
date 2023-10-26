@@ -7,6 +7,7 @@
 #include "device/wire.h"
 
 #include "interface/interface.h"
+#include "interface/mea.h"
 
 #include "io/deserializer.h"
 #include "io/serializer.h"
