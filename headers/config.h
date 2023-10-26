@@ -16,6 +16,11 @@
 #define KP 0.0001
 #define KD 0.5
 
+/* INTERFACE INFORMATION */
+
+#define MEA_ELECTRODES 16
+#define MAX_DISTANCE 225     // 15 µm ^ 2 (simplifies calculation)
+
 /* IO INFORMATION */
 
 #define DIRECTORY_FORMAT            "%s/device_%d"
