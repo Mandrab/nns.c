@@ -170,6 +170,7 @@ int main()
         free(ccs[i].Is);
         free(loaded_ccs[i].Is);
     }
+    free(ccs);
 
     printf("Terminating the simulation\n");
 
