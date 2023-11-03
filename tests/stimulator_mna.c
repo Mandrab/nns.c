@@ -417,6 +417,11 @@ void test_multiple_connected_components()
     assert(fabs(ns.Vs[1] - 2.50) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 2.50, ns.Vs[1]); // b - voltage divider
     assert(fabs(ns.Vs[2] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 0.00, ns.Vs[2]); // c - ground
 
+    // check that the voltage stimulation affects only the nodes of a CC
+    assert(vs[1] == 5.00, -1, DOUBLE_ERROR, "vs[1]", 5.00, vs[1]);
+
+    vs[0] = 5;
+
     voltage_stimulation(ns, cc2, it, vs);
 
     assert(fabs(ns.Vs[3] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[3]", 5.00, ns.Vs[3]); // a - source
@@ -425,6 +430,8 @@ void test_multiple_connected_components()
     assert(fabs(ns.Vs[6] - 0.71) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[6]", 0.71, ns.Vs[6]); // c - ground
 
     // check that the voltage stimulation affects only the nodes of a CC
+    assert(vs[0] == 5.00, -1, DOUBLE_ERROR, "vs[0]", 5.00, vs[0]);
+
     assert(fabs(ns.Vs[0] - 5.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[0]", 5.00, ns.Vs[0]); // a - source
     assert(fabs(ns.Vs[1] - 2.50) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[1]", 2.50, ns.Vs[1]); // b - voltage divider
     assert(fabs(ns.Vs[2] - 0.00) < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[2]", 0.00, ns.Vs[2]); // c - ground
