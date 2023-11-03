@@ -33,15 +33,15 @@ typedef struct
 void test_mea_connection()
 {
     wire Ws[5] = {
-        (wire) { 67.0,  68.0 },
-        (wire) { 65.0,  65.0 },     // electrode 0
-        (wire) { 65.0,  189.0 },    // electrode 1
-        (wire) { 437.0, 438.0 },    // electrode 16
-        (wire) { 500.0, 500.0 },
+        (wire) { { 67.0,  68.0 },  { 0, 0 }, { 0, 0 }, 0 },
+        (wire) { { 65.0,  65.0 },  { 0, 0 }, { 0, 0 }, 0 },    // electrode 0
+        (wire) { { 65.0,  189.0 }, { 0, 0 }, { 0, 0 }, 0 },    // electrode 1
+        (wire) { { 437.0, 438.0 }, { 0, 0 }, { 0, 0 }, 0 },    // electrode 16
+        (wire) { { 500.0, 500.0 }, { 0, 0 }, { 0, 0 }, 0 },
     };
 
     const datasheet ds = { .wires_count = 5, .package_size = 500 };
-    const network_topology nt = { Ws };
+    const network_topology nt = { Ws, 0, NULL };
 
     const MEA mea = connect_MEA(ds, nt);
 

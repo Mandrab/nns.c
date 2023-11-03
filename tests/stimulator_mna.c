@@ -23,18 +23,15 @@ void test_divider_one()
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 3, 2, 0, 0, ccIs };
 
-    bool sources[3] = { true, false, false };
-    bool grounds[3] = { false, false, true };
-    bool loads[3] = { false, false, false };
-    double weights[3] = { 0.0 };
+    int sources[1] = { 0 };
+    int grounds[1] = { 2 };
     interface it = (interface) {
-        3,
         1, sources,
         1, grounds,
-        0, loads, weights
+        0, NULL, NULL
     };
 
-    double vs[3] = { 5 };
+    double vs[1] = { 5 };
 
     voltage_stimulation(ns, cc, it, vs);
 
@@ -61,17 +58,15 @@ void test_divider_two()
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 4, 3, 0, 0, ccIs };
 
-    bool sources[4] = { false, true, false, false };
-    bool grounds[4] = { true, false, true, false };
-    bool loads[4] = { false, false, false, false };
+    int sources[1] = { 1 };
+    int grounds[2] = { 0, 2 };
     interface it = (interface) {
-        4,
         1, sources,
         2, grounds,
-        0, loads, NULL
+        0, NULL, NULL
     };
 
-    double vs[4] = { 0, 5 };
+    double vs[1] = { 5 };
 
     voltage_stimulation(ns, cc, it, vs);
 
@@ -114,18 +109,15 @@ void test_parallel()
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 4, 3, 0, 0, ccIs };
 
-    bool sources[4] = { true, false, false, false };
-    bool grounds[4] = { false, false, false, true };
-    bool loads[4] = { false, false, false, false };
-    double weights[4] = { 0.0 };
+    int sources[4] = { 0 };
+    int grounds[4] = { 3 };
     interface it = (interface) {
-        4,
         1, sources,
         1, grounds,
-        0, loads, weights
+        0, NULL, NULL
     };
 
-    double vs[4] = { 5 };
+    double vs[1] = { 5 };
 
     voltage_stimulation(ns, cc, it, vs);
 
@@ -175,20 +167,15 @@ void test_complex()
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 12, 14, 0, 0, ccIs };
 
-    bool sources[12] = { };
-    sources[0] = true;
-    bool grounds[12] = { };
-    grounds[10] = true;
-    bool loads[12] = { };
-    double weights[12] = { 0.0 };
+    int sources[1] = { 0 };
+    int grounds[1] = { 10 };
     interface it = (interface) {
-        12,
         1, sources,
         1, grounds,
-        0, loads, weights
+        0, NULL, NULL
     };
 
-    double vs[12] = { 5 };
+    double vs[1] = { 5 };
 
     voltage_stimulation(ns, cc, it, vs);
 
@@ -231,18 +218,16 @@ void test_load_one()
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 3, 2, 0, 0, ccIs };
 
-    bool sources[3] = { true, false, false };
-    bool grounds[3] = { false, false, false };
-    bool loads[3] = { false, false, true };
-    double weights[3] = { .0, .0, 2.0 };
+    int sources[1] = { 0 };
+    int loads[1] = { 2 };
+    double weights[1] = { 2.0 };
     interface it = (interface) {
-        3,
         1, sources,
-        0, grounds,
+        0, NULL,
         1, loads, weights
     };
 
-    double vs[5] = { 5 };
+    double vs[1] = { 5 };
 
     voltage_stimulation(ns, cc, it, vs);
 
@@ -276,18 +261,16 @@ void test_load_two()
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 3, 2, 0, 0, ccIs };
 
-    bool sources[3] = { true, true, false };
-    bool grounds[3] = { false, false, false };
-    bool loads[3] = { false, false, true };
-    double weights[3] = { .0, .0, 2.0 };
+    int sources[2] = { 0, 1 };
+    int loads[1] = { 2 };
+    double weights[1] = { 2.0 };
     interface it = (interface) {
-        3,
-        1, sources,
-        0, grounds,
+        2, sources,
+        0, NULL,
         1, loads, weights
     };
 
-    double vs[5] = { 5, 10 };
+    double vs[2] = { 5, 10 };
 
     voltage_stimulation(ns, cc, it, vs);
 
@@ -334,18 +317,17 @@ void test_grounded_and_loaded()
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 5, 4, 0, 0, ccIs };
 
-    bool sources[5] = { true, false, false, false, false };
-    bool grounds[5] = { false, false, false, false, true };
-    bool loads[5] = { false, false, false, true, false };
-    double weights[5] = { .0, .0, .0, 2.0, .0 };
+    int sources[1] = { 0 };
+    int grounds[1] = { 4 };
+    int loads[1] = { 3 };
+    double weights[1] = { 2.0 };
     interface it = (interface) {
-        5,
         1, sources,
         1, grounds,
         1, loads, weights
     };
 
-    double vs[5] = { 5 };
+    double vs[1] = { 5 };
 
     voltage_stimulation(ns, cc, it, vs);
 
@@ -376,17 +358,15 @@ void test_input_currents()
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 4, 3, 0, 0, ccIs };
 
-    bool sources[4] = { true, false, true, false };
-    bool grounds[4] = { false, false, false, true };
-    bool loads[4] = { false, false, false, false };
+    int sources[2] = { 0, 2 };
+    int grounds[1] = { 3 };
     interface it = (interface) {
-        4,
         2, sources,
         1, grounds,
-        0, loads, NULL
+        0, NULL, NULL
     };
 
-    double vs[4] = { 5, 0, 10 };
+    double vs[2] = { 5, 10 };
 
     voltage_stimulation(ns, cc, it, vs);
 
@@ -396,7 +376,7 @@ void test_input_currents()
     assert(fabs(ns.Vs[3] - 0.00)  < TOLERANCE, -1, DOUBLE_ERROR, "ns.Vs[3]",  0.00, ns.Vs[3]); // d - ground
 
     assert(fabs(vs[0] - 1.43) < TOLERANCE, -1, "I_1 == %f but should be %f", vs[0], 1.43);  // in mA
-    assert(fabs(vs[2] - 2.14) < TOLERANCE, -1, "I_2 == %f but should be %f", vs[1], 2.14);  // in mA
+    assert(fabs(vs[1] - 2.14) < TOLERANCE, -1, "I_2 == %f but should be %f", vs[1], 2.14);  // in mA
 }
 
 /**
@@ -419,18 +399,17 @@ void test_multiple_connected_components()
     connected_component cc1 = { 3, 2, 0, 0, cc1Is };
     connected_component cc2 = { 4, 3, 3, 2, cc2Is };
 
-    bool sources[7] = { true, false, false, true, false, false, false };
-    bool grounds[7] = { false, false, true, false, false, false, false };
-    bool loads[7] = { false, false, false, false, false, false, true };
-    double weights[7] = { 0, 0, 0, 0, 0, 0, 2 }; // TODO 1 / R
+    int sources[2] = { 0, 3 };
+    int grounds[1] = { 2 };
+    int loads[1] = { 6 };
+    double weights[1] = { 2 }; // TODO 1 / R
     interface it = (interface) {
-        7,
         2, sources,
         1, grounds,
         1, loads, weights
     };
 
-    double vs[7] = { 5, 0, 0, 5 };
+    double vs[2] = { 5, 5 };
 
     voltage_stimulation(ns, cc1, it, vs);
 
