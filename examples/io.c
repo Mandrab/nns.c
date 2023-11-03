@@ -99,20 +99,15 @@ int main()
     printf("Creating an interface to stimulate the nanowire network.\n");
 
     // creating the interface to stimulate the device
-    bool sources[ds.wires_count] = { };
-    sources[lcc.ws_skip] = true;
-    bool grounds[ds.wires_count] = { };
-    grounds[lcc.ws_skip + lcc.ws_count - 1] = true;
-    bool loads[ds.wires_count] = { };
-    loads[(lcc.ws_skip + lcc.ws_count - 1) / 2] = true;
-    double weight[ds.wires_count] = { };
-    weight[(lcc.ws_skip + lcc.ws_count - 1) / 2] = 0.5;
+    int sources[1]   = { lcc.ws_skip };
+    int grounds[1]   = { lcc.ws_skip + lcc.ws_count - 1 };
+    int loads[1]     = { grounds[0] / 2 };
+    double weight[1] = { 0.5 };
 
     interface it = {
-        ds.wires_count,
         1, sources,
         1, grounds,
-        0, loads, weight,
+        1, loads, weight,
     };
 
     printf("Serializing the network interface\n");
@@ -130,15 +125,15 @@ int main()
 
     printf("Performing the voltage stimulation and weight update of the nanowire network\n");
 
-    double v[ds.wires_count];
+    double ios[1];
 
     for (int i = 0; i < 100; i++)
     {
         update_conductance(ns, lcc);
 
-        v[lcc.ws_skip] = i / 20.0;
+        ios[0] = i / 20.0;
 
-        voltage_stimulation(ns, lcc, it, v);
+        voltage_stimulation(ns, lcc, it, ios);
 
         // serialize the state of the network state
         serialize_state(ds, nt, ns, ".", 0, i);

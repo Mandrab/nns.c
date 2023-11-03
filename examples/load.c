@@ -53,21 +53,16 @@ int main()
     printf("Creating an interface to stimulate the nanowire network.\n");
 
     // creating the interface to stimulate the device
-    bool sources[ds.wires_count] = { };
-    sources[lcc.ws_skip] = true;
-    bool grounds[ds.wires_count] = { };
-    bool loads[ds.wires_count] = { };
-    loads[lcc.ws_skip + lcc.ws_count - 1] = true;
-    double loads_weight[ds.wires_count] = { };
-    loads_weight[lcc.ws_skip + lcc.ws_count - 1] = 0.001;
+    int sources[1]    = { lcc.ws_skip };
+    int loads[1]      = { lcc.ws_skip + lcc.ws_count - 1 };
+    double weights[1] = { 0.001 };
 
     interface it = {
-        ds.wires_count,
         1, sources,
-        0, grounds,
-        1, loads, loads_weight,
+        0, NULL,
+        1, loads, weights,
     };
-    double v[ds.wires_count];
+    double ios[1];
 
     printf("Performing the voltage stimulation and weight update of the nanowire network\n");
 
@@ -83,11 +78,11 @@ int main()
     {
         update_conductance(ns, lcc);
 
-        v[lcc.ws_skip] = 5.00;
+        ios[0] = 5.00;
 
-        voltage_stimulation(ns, lcc, it, v);
+        voltage_stimulation(ns, lcc, it, ios);
 
-        printf("%f ", fabs(v[lcc.ws_skip] / 5.0));
+        printf("%f ", fabs(ios[0] / 5.0));
     }
 
     // stop stimulating the nanowire network
@@ -95,11 +90,11 @@ int main()
     {
         update_conductance(ns, lcc);
 
-        v[lcc.ws_skip] = 0.0;
+        ios[0] = 0.0;
 
-        voltage_stimulation(ns, lcc, it, v);
+        voltage_stimulation(ns, lcc, it, ios);
 
-        printf("%f ", fabs(v[lcc.ws_skip] / 5.0));
+        printf("%f ", fabs(ios[0] / 5.0));
     }
     printf("\n");
 

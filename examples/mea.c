@@ -50,28 +50,24 @@ int main()
 
     printf("Selected a connected component composed of %d nanowires over a total of %d\n", lcc.ws_count, ds.wires_count);
 
-    printf("Connect a Micro-Electrode Array (MEA) to the Nanowire Network\n");
+    printf("Connect a Micro-Electrode Array (MEA) to stimulate the Nanowire Network\n");
 
+    // connect a MEA to the NN and identify the connection points with the nanowires
     MEA mea = connect_MEA(ds, nt);
+
+    // set some electrodes as source, ground, and load
+    mea.ct[0] = SOURCE;
+    mea.ct[5] = LOAD;
+    mea.ct[9] = GROUND;
+    mea.ws[5] = 0.5;
 
     printf("Creating an interface to stimulate the nanowire network.\n");
 
-    // creating the interface to stimulate the device
-    bool sources[ds.wires_count] = { };
-    sources[mea.e2n[0]] = true;
-    bool grounds[ds.wires_count] = { };
-    grounds[mea.e2n[9]] = true;
-    bool loads[ds.wires_count] = { };
-
-    interface it = {
-        ds.wires_count,
-        1, sources,
-        1, grounds,
-        0, loads, NULL,
-    };
-    double v[ds.wires_count];
+    interface it = mea2interface(mea);
 
     printf("Performing the voltage stimulation and weight update of the nanowire network\n");
+
+    double ios[1];
 
     // let the system stabilize
     for (int i = 0; i < 1000; i++)
@@ -85,11 +81,11 @@ int main()
     {
         update_conductance(ns, lcc);
 
-        v[mea.e2n[0]] = 5.00;
+        ios[0] = 5.00;
 
-        voltage_stimulation(ns, lcc, it, v);
+        voltage_stimulation(ns, lcc, it, ios);
 
-        printf("%f ", fabs(v[mea.e2n[0]] / 5.0));
+        printf("%f ", fabs(ios[0] / 5.0));
     }
 
     // stop stimulating the nanowire network
@@ -97,11 +93,11 @@ int main()
     {
         update_conductance(ns, lcc);
 
-        v[mea.e2n[0]] = 0.0;
+        ios[0] = 0.0;
 
-        voltage_stimulation(ns, lcc, it, v);
+        voltage_stimulation_mea(ns, lcc, mea, ios);
 
-        printf("%f ", fabs(v[mea.e2n[0]] / 5.0));
+        printf("%f ", fabs(ios[0] / 5.0));
     }
     printf("\n");
 
@@ -110,6 +106,9 @@ int main()
     // free the network topology and state
     destroy_topology(nt);
     destroy_state(ns);
+
+    // destroy the created interface
+    destroy_interface(it);
 
     // free the connected components data
     for (int i = 0; i < ccs_count; i++)
