@@ -17,12 +17,43 @@ int voltage_stimulation(
     double io[]
 )
 {
-    // count the total number of sources connected to the CC
+    // describe the nanowire connection type (default none), and create an
+    // array containing the weight of a possible load connected to a nanowire
+    connection_t nct[cc.ws_count] = { };
+    double ws[cc.ws_count];
+
+    // count the total number of sources connected to the CC, and mark the
+    // nanowire as a source for a faster access
     int sources_count = 0;
-    #pragma omp parallel for reduction(+ : sources_count)
-    for (int i = cc.ws_skip; i < cc.ws_skip + cc.ws_count; i++)
+    for (int i = 0; i < it.sources_count; i++)
     {
-        sources_count += it.sources_mask[i];
+        int nwi = it.sources_index[i] - cc.ws_skip;
+        if (0 <= nwi && nwi < cc.ws_count)
+        {
+            nct[nwi] = SOURCE;
+            sources_count++;
+        }
+    }
+
+    // mark the nanowire as a ground for a faster access
+    for (int i = 0; i < it.grounds_count; i++)
+    {
+        int nwi = it.grounds_index[i] - cc.ws_skip;
+        if (0 <= nwi && nwi < cc.ws_count)
+        {
+            nct[nwi] = GROUND;
+        }
+    }
+
+    // mark the nanowire as a load for a faster access and save its weight
+    for (int i = 0; i < it.loads_count; i++)
+    {
+        int nwi = it.loads_index[i] - cc.ws_skip;
+        if (0 <= nwi && nwi < cc.ws_count)
+        {
+            nct[nwi] = LOAD;
+            ws[nwi] = it.loads_weight[i];
+        }
     }
 
     // re-map the index of a source marker from the old matrix to the new one
@@ -33,18 +64,18 @@ int voltage_stimulation(
     for (int i = 0; i < cc.ws_count; i++)
     {
         // re-map nodes index according to the number of grounds preceding it
-        n2n[i] = i ? 1 + n2n[i - 1] - it.grounds_mask[cc.ws_skip + i - 1] : 0;
+        n2n[i] = i ? 1 + n2n[i - 1] - (nct[i - 1] == GROUND) : 0;
     }
 
     // calculate the size of the MNA matrix considering the number of nodes
     // contained (n2n[-1] + 1), the possible grounding of the last node
     // (it.ground_mask[...]), and the number of sources
-    int size = n2n[cc.ws_count - 1] + 1 - it.grounds_mask[cc.ws_skip + cc.ws_count - 1] + sources_count;
+    int size = n2n[cc.ws_count - 1] + 1 - (nct[cc.ws_count - 1] == GROUND) + sources_count;
 
     // if i is a source, create a mapping to the right-most side of the matrix
     for (int i = 0, j = 0; i < cc.ws_count; i++)
     {
-        if (it.sources_mask[cc.ws_skip + i])
+        if (nct[i] == SOURCE)
         {
             s2n[i] = size - sources_count + j++;
         }
@@ -66,8 +97,8 @@ int voltage_stimulation(
 
         ds[i] = ds[i] < 0 ? lp[i] : ds[i];
 
-        lp[i] += ! it.grounds_mask[cc.ws_skip + j];
-        lp[j] += ! it.grounds_mask[cc.ws_skip + i];
+        lp[i] += nct[j] != GROUND;
+        lp[j] += nct[i] != GROUND;
     }
 
     // set the index of the diagonals not set in the previous cycle (it is
@@ -87,13 +118,13 @@ int voltage_stimulation(
     for (int i = 0; i < cc.ws_count; i++)
     {
         // the Ap array does not include grounds, so skip them
-        if (it.grounds_mask[cc.ws_skip + i])
+        if (nct[i] == GROUND)
         {
             continue;
         }
 
         // sum the diagonal and the possible source marker for the node
-        lp[i] += 1 + it.sources_mask[cc.ws_skip + i];
+        lp[i] += nct[i] == SOURCE ? 2 : 1;
 
         // set the starting point of the row in Ai/Ax and increase
         // the last element of Ap (needed for the CSR matrix form)
@@ -123,7 +154,7 @@ int voltage_stimulation(
             // get the index of the incident nanowire 'j'
             int j = cc.Is[k] % cc.ws_count;
 
-            if (! it.grounds_mask[cc.ws_skip + i])
+            if (nct[i] != GROUND)
             {
                 // sum in the 'i' diagonal the value of the junction conductance
                 Ai[Ap[n2n[i]] + ds[i]] = n2n[i];
@@ -137,7 +168,7 @@ int voltage_stimulation(
                 }
 
                 // save the negated junction value and increase the me counter
-                if (! it.grounds_mask[cc.ws_skip + j])
+                if (nct[j] != GROUND)
                 {
                     Ai[Ap[n2n[i]] + me[i]] = n2n[j];
                     Ax[Ap[n2n[i]] + me[i]] = - ns.Ys[cc.js_skip + k];
@@ -145,7 +176,7 @@ int voltage_stimulation(
                 }
             }
 
-            if (! it.grounds_mask[cc.ws_skip + j])
+            if (nct[j] != GROUND)
             {
                 // sum in the 'i' diagonal the value of the junction conductance
                 Ai[Ap[n2n[j]] + ds[j]] = n2n[j];
@@ -159,7 +190,7 @@ int voltage_stimulation(
                 }
 
                 // save the negated junction value and increase the me counter
-                if (! it.grounds_mask[cc.ws_skip + i])
+                if (nct[i] != GROUND)
                 {
                     Ai[Ap[n2n[j]] + me[j]] = n2n[i];
                     Ax[Ap[n2n[j]] + me[j]] = - ns.Ys[cc.js_skip + k];
@@ -171,7 +202,7 @@ int voltage_stimulation(
             k++;
         }
 
-        if (it.sources_mask[cc.ws_skip + i])
+        if (nct[i] == SOURCE)
         {
             // set the source marker in the rightmost part of the matrix
             Ai[Ap[n2n[i]] + lp[i] - 1] = s2n[i];
@@ -182,21 +213,22 @@ int voltage_stimulation(
             Ax[Ap[s2n[i]]] = 1;
         }
 
-        if (it.loads_mask[cc.ws_skip + i])
+        if (nct[i] == LOAD)
         {
             // add the load weight to the row diagonal
-            Ax[Ap[n2n[i]] + ds[i]] += it.loads_weight[cc.ws_skip + i];
+            Ax[Ap[n2n[i]] + ds[i]] += ws[i];
         }
     }
 
     // create the b array to contain the solution of the equation
     // system, and set it according to the values in the io array
     double b[size] = { };
-    for (int i = 0; i < cc.ws_count; i++)
+    for (int i = 0; i < it.sources_count; i++)
     {
-        if (it.sources_mask[cc.ws_skip + i])
+        int nwi = it.sources_index[i] - cc.ws_skip;
+        if (0 <= nwi && nwi < cc.ws_count)
         {
-            b[s2n[i]] = io[cc.ws_skip + i];
+            b[s2n[nwi]] = io[i];
         }
     }
 
@@ -206,16 +238,16 @@ int voltage_stimulation(
     // perform a column pre-ordering to reduce fill-in and a symbolic factorization
     void* Symbolic;
     umfpack_di_symbolic(size, size, Ap, Ai, Ax, &Symbolic, NULL, info);
-    requires(info[UMFPACK_STATUS] == UMFPACK_OK, -1, "Columns contain row indices in increasing order / with duplicates! The MNA system cannot be solved! INFO = %d\n", info[UMFPACK_STATUS]);
+    requires(info[UMFPACK_STATUS] == UMFPACK_OK, -1, "Columns contain row indices in increasing order / with duplicates! The MNA system cannot be solved! INFO = %f\n", info[UMFPACK_STATUS]);
 
     // perform the numerical factorization, PAQ=LU, PRAQ=LU, or P(R\A)Q=LU
     void* Numeric;
     umfpack_di_numeric(Ap, Ai, Ax, Symbolic, &Numeric, NULL, info);
-    requires(info[UMFPACK_STATUS] == UMFPACK_OK, -1, "Numeric factorization was unsuccessful! The MNA system cannot be solved! INFO = %d\n", info[UMFPACK_STATUS]);
+    requires(info[UMFPACK_STATUS] == UMFPACK_OK, -1, "Numeric factorization was unsuccessful! The MNA system cannot be solved! INFO = %f\n", info[UMFPACK_STATUS]);
 
     // solve a linear system for the solution X
     umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, x, b, Numeric, NULL, info);
-    requires(info[UMFPACK_STATUS] == UMFPACK_OK, -1, "The MNA system cannot be solved! INFO = %d\n", info[UMFPACK_STATUS]);
+    requires(info[UMFPACK_STATUS] == UMFPACK_OK, -1, "The MNA system cannot be solved! INFO = %f\n", info[UMFPACK_STATUS]);
 
     // deallocate the Symbolic and Numeric objects
     umfpack_di_free_symbolic(&Symbolic);
@@ -223,18 +255,18 @@ int voltage_stimulation(
 
     // set the voltages in the ns.Vs array and the input currents
     // in the io array according to the MNA calculation
-    #pragma opm parallel for
+    #pragma omp parallel for
     for (int i = 0; i < cc.ws_count; i++)
     {
         int nsi = cc.ws_skip + i;
 
-        if (it.sources_mask[nsi])
+        if (nct[i] == SOURCE)
         {
-            ns.Vs[nsi] = io[nsi];
-            io[nsi] = - x[s2n[i]];
+            // the values will be set in a later cycle
+            continue;
         }
         else
-        if (it.grounds_mask[nsi])
+        if (nct[i] == GROUND)
         {
             ns.Vs[nsi] = 0;
         }
@@ -244,5 +276,31 @@ int voltage_stimulation(
         }
     }
 
+    // set the value of the source nodes in the voltage array,
+    // and the intensity of the drawn current in the io array
+    for (int i = 0; i < it.sources_count; i++)
+    {
+        ns.Vs[it.sources_index[i]] = io[i];
+
+        int nwi = it.sources_index[i] - cc.ws_skip;
+        if (0 <= nwi && nwi < cc.ws_count)
+        {
+            io[i] = - x[s2n[nwi]];
+        }
+    }
+
     return 0;
+}
+
+int voltage_stimulation_mea(
+    network_state ns,
+    const connected_component cc,
+    const MEA mea,
+    double io[]
+)
+{
+    interface it = mea2interface(mea);
+    int result = voltage_stimulation(ns, cc, it, io);
+    destroy_interface(it);
+    return result;
 }
