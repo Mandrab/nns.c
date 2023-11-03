@@ -24,17 +24,17 @@ void serialize_network(
 
     // DATASHEET WRITING
 
-    fwrite(&ds.wires_count, sizeof(int), 1, file);
-    fwrite(&ds.length_mean, sizeof(double), 1, file);
-    fwrite(&ds.length_std_dev, sizeof(double), 1, file);
-    fwrite(&ds.package_size, sizeof(int), 1, file);
-    fwrite(&ds.generation_seed, sizeof(int), 1, file);
+    fwrite(&ds.wires_count,     sizeof(int),    1, file);
+    fwrite(&ds.length_mean,     sizeof(double), 1, file);
+    fwrite(&ds.length_std_dev,  sizeof(double), 1, file);
+    fwrite(&ds.package_size,    sizeof(int),    1, file);
+    fwrite(&ds.generation_seed, sizeof(int),    1, file);
 
     // TOPOLOGY WRITING
 
-    fwrite(&nt.js_count, sizeof(int), 1, file);
-    fwrite(nt.Ws, sizeof(wire), ds.wires_count, file);
-    fwrite(nt.Js, sizeof(junction), nt.js_count, file);
+    fwrite(&nt.js_count, sizeof(int),      1,              file);
+    fwrite(nt.Ws,        sizeof(wire),     ds.wires_count, file);
+    fwrite(nt.Js,        sizeof(junction), nt.js_count,    file);
 
     fclose(file);
 }
@@ -52,7 +52,7 @@ void serialize_state(
     FILE* file = new_ns_it_file(STATE_FILE_NAME_FORMAT, path, id, step);
 
     // write the junctions weight and the nodes voltage
-    fwrite(ns.Ys, sizeof(double), nt.js_count, file);
+    fwrite(ns.Ys, sizeof(double), nt.js_count,    file);
     fwrite(ns.Vs, sizeof(double), ds.wires_count, file);
 
     fclose(file);
@@ -69,7 +69,7 @@ void serialize_component(
     // create and open folder and file of the specific format
     FILE* file = new_cc_file(COMPONENT_FILE_NAME_FORMAT, path, nn_id, cc_id, step);
 
-    fwrite(&cc, sizeof(int), 4, file);
+    fwrite(&cc,   sizeof(int), 4,           file);
     fwrite(cc.Is, sizeof(int), cc.js_count, file);
 
     fclose(file);
@@ -80,18 +80,15 @@ void serialize_interface(const interface it, char* path, int id, int step)
     // create and open folder and file of the specific format
     FILE* file = new_ns_it_file(INTERFACE_FILE_NAME_FORMAT, path, id, step);
 
-    // write the masks size
-    fwrite(&it.mask_size, sizeof(int), 1, file);
-
     // write the sources, grounds and loads count and mask; write also the
     // loads weights
-    fwrite(&it.sources_count, sizeof(int), 1, file);
-    fwrite(it.sources_mask, sizeof(bool), it.mask_size, file);
-    fwrite(&it.grounds_count, sizeof(int), 1, file);
-    fwrite(it.grounds_mask, sizeof(bool), it.mask_size, file);
-    fwrite(&it.loads_count, sizeof(int), 1, file);
-    fwrite(it.loads_mask, sizeof(bool), it.mask_size, file);
-    fwrite(it.loads_weight, sizeof(double), it.mask_size, file);
+    fwrite(&it.sources_count, sizeof(int),    1,                file);
+    fwrite(it.sources_index,  sizeof(int),    it.sources_count, file);
+    fwrite(&it.grounds_count, sizeof(int),    1,                file);
+    fwrite(it.grounds_index,  sizeof(int),    it.grounds_count, file);
+    fwrite(&it.loads_count,   sizeof(int),    1,                file);
+    fwrite(it.loads_index,    sizeof(int),    it.loads_count,   file);
+    fwrite(it.loads_weight,   sizeof(double), it.loads_count,   file);
 
     fclose(file);
 }

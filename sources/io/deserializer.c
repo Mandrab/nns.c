@@ -93,27 +93,22 @@ void deserialize_interface(interface* it, char* path, int id, int step)
     // open the file and check the version
     FILE* file = open_ns_it_file(INTERFACE_FILE_NAME_FORMAT, path, id, step);
 
-    // load the masks size
-    fread(&it->mask_size, sizeof(int), 1, file);
-
-    // create the data-structures to contain the information
-    it->sources_mask = vector(bool, it->mask_size);
-    it->grounds_mask = vector(bool, it->mask_size);
-    it->loads_mask = vector(bool, it->mask_size);
-    it->loads_weight = vector(double, it->mask_size);
-
     // load the sources count and mask
     fread(&it->sources_count, sizeof(int), 1, file);
-    fread(it->sources_mask, sizeof(bool), it->mask_size, file);
+    it->sources_index = vector(int, it->sources_count);
+    fread(it->sources_index, sizeof(int), it->sources_count, file);
 
     // load the grounds count and mask
     fread(&it->grounds_count, sizeof(int), 1, file);
-    fread(it->grounds_mask, sizeof(bool), it->mask_size, file);
+    it->grounds_index = vector(int, it->grounds_count);
+    fread(it->grounds_index, sizeof(int), it->grounds_count, file);
 
     // load the loads count, mask and weight
     fread(&it->loads_count, sizeof(int), 1, file);
-    fread(it->loads_mask, sizeof(bool), it->mask_size, file);
-    fread(it->loads_weight, sizeof(double), it->mask_size, file);
+    it->loads_index = vector(int, it->loads_count);
+    it->loads_weight = vector(double, it->loads_count);
+    fread(it->loads_index, sizeof(int), it->loads_count, file);
+    fread(it->loads_weight, sizeof(double), it->loads_count, file);
 
     fclose(file);
 }
