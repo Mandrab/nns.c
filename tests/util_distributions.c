@@ -85,7 +85,7 @@ void test_random_distribution_shape()
         }
         assert(
             test, -1, "The distribution is not normal: #%d = %d, #%d = %d",
-            i, discrete_samples[i], i + 1, discrete_samples[i + 1], i, i + 1
+            i, discrete_samples[i], i + 1, discrete_samples[i + 1]
         );
     }
 }

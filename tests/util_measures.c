@@ -11,7 +11,7 @@ typedef struct
 {
     int input_node;
     int output_node;
-    int resistance;
+    double resistance;
 } ior_t;
 
 /**
@@ -41,7 +41,6 @@ void test_resistive_distance()
         nsYs[i] = 0.001;
     }
 
-    datasheet ds = { 10 };
     network_state ns = { nsYs, nsVs };
     connected_component cc = { 10, 10, 0, 0, ccIs };
 
@@ -162,7 +161,7 @@ void test_resistive_distance()
     {
         int a = iors[i].input_node;
         int b = iors[i].output_node;
-        int r = iors[i].resistance;
+        double r = iors[i].resistance;
 
         char str[100];
         snprintf(str, 100, "R_%d,%d", a, b);

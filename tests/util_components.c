@@ -13,7 +13,7 @@ const point p = { -1, -1 };
 
 void test_map_single_component()
 {
-    datasheet ds = { 3 };
+    datasheet ds = { 3, 0, 0, 0, 0 };
     junction js[2] = {
         (junction) { 0, 1, p },
         (junction) { 0, 2, p }
@@ -32,7 +32,7 @@ void test_map_single_component()
 
 void test_map_multiple_components()
 {
-    datasheet ds = { 4 };
+    datasheet ds = { 4, 0, 0, 0, 0 };
     junction js[1] = { (junction) { 1, 3, p } };
     network_topology nt = { NULL, 1, js };
 
@@ -49,7 +49,7 @@ void test_map_multiple_components()
 
 void test_group_nanowires()
 {
-    datasheet ds = { 5 };
+    datasheet ds = { 5, 0, 0, 0, 0 };
     wire ws[5] = {
         (wire) { p, p, p, 1 },
         (wire) { p, p, p, 2 },
@@ -93,7 +93,7 @@ void test_split_single_component()
     double Ys[2] = { 0.1, 0.2 };
     double Vs[3] = { 0.01, 0.02, 0.03 };
 
-    datasheet ds = { 3 };
+    datasheet ds = { 3, 0, 0, 0, 0 };
     network_topology nt = { NULL, 2, js };
     network_state ns = { Ys, Vs };
     int n2c[3] = { 0, 0, 0 };
@@ -124,12 +124,9 @@ void test_split_multiple_components()
         (junction) { 0, 2, (point) { -1, -1 } },
         (junction) { 4, 5, (point) { -1, -1 } }
     };
-    double Ys[3] = { 0.1, 0.2, 0.3 };
-    double Vs[6] = { 0.01, 0.02, 0.03, 0.04, 0.05, 0.06 };
 
-    datasheet ds = { 6 };
+    datasheet ds = { 6, 0, 0, 0, 0 };
     network_topology nt = { NULL, 3, js };
-    network_state ns = { Ys, Vs };
     int n2c[6] = { 0, 0, 1, 0, 2, 2 };
 
     connected_component* ccs = split_components(ds, nt, n2c, 3);
@@ -152,7 +149,7 @@ void test_split_multiple_components()
 
     assert(ccs[0].Is[0] == 1, -1, INT_ERROR, "ccs[0].Is[0]", 1, ccs[0].Is[0]);
     assert(ccs[0].Is[1] == 2, -1, INT_ERROR, "ccs[0].Is[1]", 2, ccs[0].Is[1]);
-    assert(ccs[1].Is == NULL, -1, INT_ERROR, "ccs[1].Is", NULL, ccs[1].Is);
+    assert(ccs[1].Is == NULL, -1, POINTER_ERROR, "ccs[1].Is", NULL, ccs[1].Is);
     assert(ccs[2].Is[0] == 1, -1, INT_ERROR, "ccs[2].Is[0]", 1, ccs[2].Is[0]);
 }
 
