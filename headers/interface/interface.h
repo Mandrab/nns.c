@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+#include "interface/connection.h"
+
 /// @brief Interface between the nanowire-network device and external systems.
 /// 
 /// @details Example of the possible use of the interface.
@@ -22,17 +24,16 @@
 /// ```
 typedef struct
 {
-    int     mask_size;      ///< The size of the nodes masks.
-
     int     sources_count;  ///< Number of sources connected to the device.
-    bool*   sources_mask;   ///< Mask of the source nodes (TRUE = source).
+    int*    sources_index;  ///< Index of the input nanowires.
 
     int     grounds_count;  ///< Number of grounds connected to the device.
-    bool*   grounds_mask;   ///< Mask of the grounded nodes (TRUE = grounded).
+    int*    grounds_index;  ///< Index of the output nanowires.
 
     int     loads_count;    ///< Number of loads connected to the device.
-    bool*   loads_mask;     ///< Mask of the loaded nodes (TRUE = loaded).
-    double* loads_weight;   ///< Weight of the optional load connected to the node (in siemens).
+    int*    loads_index;    ///< Index of the output nanowires.
+    double* loads_weight;   ///< Weight of the optional load connected to a
+                            ///< nanowire (in siemens).
 } interface;
 
 /// @brief Create a deep copy of an interface.
