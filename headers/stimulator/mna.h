@@ -4,6 +4,7 @@
 #include "device/network.h"
 #include "device/component.h"
 #include "interface/interface.h"
+#include "interface/mea.h"
 
 /// @brief Perform the voltage stimulation of the Nanowire Network by
 /// using the Modified Nodal Analysis algorithm. It does not update the
@@ -27,16 +28,36 @@
 /// @param[in] cc The connected component of `ns` to stimulate.
 /// @param[in] it The interface of the Nanowire Network with the external
 /// world, including sources, grounds and loads.
-/// @param[in, out] io An array with an entry for each wire. As input
+/// @param[in, out] io An array with an entry for each source. As input
 /// parameter it contains the voltage applied to a source, as output it
-/// contains the current drawn from that node. The value of non-source wires
-/// is not set and should be ignored both as input and output.
+/// contains the current drawn from that node.
 /// @return 0 if the computation successfully terminates, -1 if an error occurs
 /// (e.g. if the sources/grounds/loads nanowires are not connected).
 int voltage_stimulation(
     network_state ns,
     const connected_component cc,
     const interface it,
+    double io[]
+);
+
+/// @brief Perform the voltage stimulation of a Nanowire Network connected with
+/// a MEA. See ::voltage_stimulation for more details.
+/// 
+/// @param[in, out] ns The Nanowire Network equivalent electrical circuit
+/// on which performing the MNA. Only the voltage value of the nodes belonging
+/// to the passed CC will be modified.
+/// @param[in] cc The connected component of `ns` to stimulate.
+/// @param[in] mea The mea-interface of the Nanowire Network with the external
+/// world, including sources, grounds and loads.
+/// @param[in, out] io An array with an entry for each source. As input
+/// parameter it contains the voltage applied to a source, as output it
+/// contains the current drawn from that node.
+/// @return 0 if the computation successfully terminates, -1 if an error occurs
+/// (e.g. if the sources/grounds/loads nanowires are not connected).
+int voltage_stimulation_mea(
+    network_state ns,
+    const connected_component cc,
+    const MEA mea,
     double io[]
 );
 
