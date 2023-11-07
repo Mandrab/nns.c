@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+#include "interface/connection.h"
 #include "io/serializer.h"
 #include "util/errors.h"
 #include "config.h"
@@ -87,6 +88,20 @@ void serialize_interface(const interface it, char* path, int id, int step)
     fwrite(&it.loads_count,   sizeof(int),    1,                file);
     fwrite(it.loads_index,    sizeof(int),    it.loads_count,   file);
     fwrite(it.loads_weight,   sizeof(double), it.loads_count,   file);
+
+    fclose(file);
+}
+
+void serialize_mea(const MEA mea, char* path, int id, int step)
+{
+    // create and open folder and file of the specific format
+    FILE* file = new_file(MEA_FILE_NAME_FORMAT, path, id, step);
+
+    // write the mea arrays to file
+    fwrite(mea.Ps,  sizeof(point),          MEA_ELECTRODES, file);
+    fwrite(mea.e2n, sizeof(int),            MEA_ELECTRODES, file);
+    fwrite(mea.ct,  sizeof(connection_t),   MEA_ELECTRODES, file);
+    fwrite(mea.ws,  sizeof(double),         MEA_ELECTRODES, file);
 
     fclose(file);
 }
