@@ -4,6 +4,7 @@
 #include "device/network.h"
 #include "device/component.h"
 #include "interface/interface.h"
+#include "interface/mea.h"
 
 /// @brief Deserialize the static characteristics of the network from a file
 /// named "nanowire_network.ID.dat", where ID is the univocal identifier of the
@@ -61,8 +62,9 @@ void deserialize_component(
 );
 
 /// @brief Deserialize the interface to the network from a file named
-/// "interface.ID.dat", where ID is the univocal identifier of the NN. If any
-/// problem occurs, the program will exit with an error.
+/// "it_STEP.dat", where ID is the univocal identifier of the NN and STEP is
+/// the instant in which the interface was saved. If any problem occurs, the
+/// program will exit with an error.
 /// 
 /// @param[out] it The interface to set according to the data saved in the
 /// file. It has to not be initialized.
@@ -71,5 +73,18 @@ void deserialize_component(
 /// name.
 /// @param[in] step The id of the network interface in a specific instant.
 void deserialize_interface(interface* it, char* path, int id, int step);
+
+/// @brief Deserialize the MEA of the network from a file named "mea_STEP.nns"
+/// where ID is the univocal identifier of the NN and STEP is the instant in
+/// which the MEA was saved. If any problem occurs, the program will exit with
+/// an error.
+/// 
+/// @param[out] it The interface to set according to the data saved in the
+/// file. It has to not be initialized.
+/// @param[in] path The base path containing the /device_ID folder.
+/// @param[in] id The univocal id of the network that will determine its file
+/// name.
+/// @param[in] step The id of the network MEA in a specific instant.
+void deserialize_mea(MEA* mea, char* path, int id, int step);
 
 #endif /* DESERIALIZER_H */

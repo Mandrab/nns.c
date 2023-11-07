@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "interface/connection.h"
 #include "io/deserializer.h"
 #include "util/errors.h"
 #include "util/tensors.h"
@@ -107,6 +108,20 @@ void deserialize_interface(interface* it, char* path, int id, int step)
     it->loads_weight = vector(double, it->loads_count);
     fread(it->loads_index, sizeof(int), it->loads_count, file);
     fread(it->loads_weight, sizeof(double), it->loads_count, file);
+
+    fclose(file);
+}
+
+void deserialize_mea(MEA* mea, char* path, int id, int step)
+{
+    // open the file and check the version
+    FILE* file = open_file(MEA_FILE_NAME_FORMAT, path, id, step);
+
+    // load the electrodes position, mapping, type, and weight
+    fread(mea->Ps,  sizeof(point),          MEA_ELECTRODES, file);
+    fread(mea->e2n, sizeof(int),            MEA_ELECTRODES, file);
+    fread(mea->ct,  sizeof(connection_t),   MEA_ELECTRODES, file);
+    fread(mea->ws,  sizeof(double),         MEA_ELECTRODES, file);
 
     fclose(file);
 }
