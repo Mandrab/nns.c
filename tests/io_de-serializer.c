@@ -140,8 +140,8 @@ void test_component_io()
     connected_component cc = { 1, 2, 3, 4, Is };
     connected_component loaded_cc;
 
-    serialize_component(cc, ".", 0, 1, 2);
-    deserialize_component(&loaded_cc, ".", 0, 1, 2);
+    serialize_component(cc, ".", 0, 1);
+    deserialize_component(&loaded_cc, ".", 0, 1);
 
     // check that the original cc is not modified by the function
     assert(cc.ws_count == 1, -1, INT_ERROR, "cc.ws_count", 1, cc.ws_count);
