@@ -82,7 +82,7 @@ int main()
     // serialize the connected components
     for (int i = 0; i < ccs_count; i++)
     {
-        serialize_component(ccs[i], ".", 0, i, -1);
+        serialize_component(ccs[i], ".", 0, i);
     }
 
     printf("Deserializing the connected components\n");
@@ -93,7 +93,7 @@ int main()
     // deserialize the connected components
     for (int i = 0; i < ccs_count; i++)
     {
-        deserialize_component(&loaded_ccs[i], ".", 0, i, -1);
+        deserialize_component(&loaded_ccs[i], ".", 0, i);
     }
 
     printf("Creating an interface to stimulate the nanowire network.\n");
