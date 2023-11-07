@@ -27,6 +27,7 @@
 #define NETWORK_FILE_NAME_FORMAT    "%s/device_%d/nn.nns"
 #define STATE_FILE_NAME_FORMAT      "%s/device_%d/ns_%d.nns"
 #define INTERFACE_FILE_NAME_FORMAT  "%s/device_%d/it_%d.nns"
+#define MEA_FILE_NAME_FORMAT        "%s/device_%d/mea_%d.nns"
 #define COMPONENT_FILE_NAME_FORMAT  "%s/device_%d/cc_%d.nns"
 
 #endif /* CONFIG_H */
