@@ -220,12 +220,39 @@ void test_interface_io()
     }
 }
 
+void test_mea_io()
+{
+    point π1 = { 0.1, 0.2 };
+    point π2 = { 1.0, 2.0 };
+
+    const MEA mea = {
+        { π1, π2, π2, π1, π1, π1, π2, π2, π1, π2, π1, π2, π2, π2, π1, π2 },
+        { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6 },
+        { 0, 0, 0, 2, 1, 0, 0, 0, 3, 0, 3, 1, 2, 0, 0, 1 },
+        { .1, .2, .3, .4, .5, .6, .7, .8, .9, .0, .1, .2, .3, .4, .5, .6 },
+    };
+
+    serialize_mea(mea, ".", 0, 0);
+    MEA loaded_mea;
+    deserialize_mea(&loaded_mea, ".", 0, 0);
+
+    for (int i = 0; i < MEA_ELECTRODES; i++)
+    {
+        assert(mea.Ps[i].x == loaded_mea.Ps[i].x, -1, DOUBLE_ERROR, "Ps[i].x", mea.Ps[i].x, loaded_mea.Ps[i].x);
+        assert(mea.Ps[i].y == loaded_mea.Ps[i].y, -1, DOUBLE_ERROR, "Ps[i].y", mea.Ps[i].y, loaded_mea.Ps[i].y);
+        assert(mea.e2n[i] == loaded_mea.e2n[i], -1, INT_ERROR, "mea.e2n[i]", mea.e2n[i], loaded_mea.e2n[i]);
+        assert(mea.ct[i] == loaded_mea.ct[i], -1, INT_ERROR, "mea.ct[i]", mea.ct[i], loaded_mea.ct[i]);
+        assert((mea.ws[i] - loaded_mea.ws[i]) < TOLERANCE, -1, DOUBLE_ERROR, "mea.ws[i]", mea.ws[i], loaded_mea.ws[i]);
+    }
+}
+
 int io_de_serializer()
 {
     test_network_io();
     test_state_io();
     test_component_io();
     test_interface_io();
+    test_mea_io();
 
     return 0;
 }
