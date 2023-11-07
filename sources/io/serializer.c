@@ -7,10 +7,9 @@
 
 const int VERSION_NUMBER = 1;
 
-// create and open a file; if it does not exists, create the folder/path
-FILE* new_nn_file(char* file_type, char* path, int nn_id);
-FILE* new_ns_it_file(char* file_type, char* path, int nn_id, int step);
-FILE* new_cc_file(char* file_type, char* path, int nn_id, int cc_id, int step);
+// create and open a file with index `e_id' in a folder with index `nn_id'; if
+// the folder/file do not exist, create the folder/path/file
+FILE* new_file(char* file_type, char* path, int nn_id, int e_id);
 
 void serialize_network(
     const datasheet ds,
@@ -20,7 +19,7 @@ void serialize_network(
 )
 {
     // create and open folder and file of the specific format
-    FILE* file = new_nn_file(NETWORK_FILE_NAME_FORMAT, path, id);
+    FILE* file = new_file(NETWORK_FILE_NAME_FORMAT, path, id, -1);
 
     // DATASHEET WRITING
 
@@ -49,7 +48,7 @@ void serialize_state(
 )
 {
     // create and open folder and file of the specific format
-    FILE* file = new_ns_it_file(STATE_FILE_NAME_FORMAT, path, id, step);
+    FILE* file = new_file(STATE_FILE_NAME_FORMAT, path, id, step);
 
     // write the junctions weight and the nodes voltage
     fwrite(ns.Ys, sizeof(double), nt.js_count,    file);
@@ -62,12 +61,11 @@ void serialize_component(
     const connected_component cc,
     char* path,
     int nn_id,
-    int cc_id,
-    int step
+    int cc_id
 )
 {
     // create and open folder and file of the specific format
-    FILE* file = new_cc_file(COMPONENT_FILE_NAME_FORMAT, path, nn_id, cc_id, step);
+    FILE* file = new_file(COMPONENT_FILE_NAME_FORMAT, path, nn_id, cc_id);
 
     fwrite(&cc,   sizeof(int), 4,           file);
     fwrite(cc.Is, sizeof(int), cc.js_count, file);
@@ -78,7 +76,7 @@ void serialize_component(
 void serialize_interface(const interface it, char* path, int id, int step)
 {
     // create and open folder and file of the specific format
-    FILE* file = new_ns_it_file(INTERFACE_FILE_NAME_FORMAT, path, id, step);
+    FILE* file = new_file(INTERFACE_FILE_NAME_FORMAT, path, id, step);
 
     // write the sources, grounds and loads count and mask; write also the
     // loads weights
@@ -93,17 +91,7 @@ void serialize_interface(const interface it, char* path, int id, int step)
     fclose(file);
 }
 
-FILE* new_nn_file(char* file_type, char* path, int nn_id)
-{
-    return new_cc_file(file_type, path, nn_id, -1, -1);
-}
-
-FILE* new_ns_it_file(char* file_type, char* path, int nn_id, int step)
-{
-    return new_cc_file(file_type, path, nn_id, step, -1);
-}
-
-FILE* new_cc_file(char* file_type, char* path, int nn_id, int cc_id, int step)
+FILE* new_file(char* file_type, char* path, int nn_id, int e_id)
 {
     char name[100];
 
@@ -112,7 +100,7 @@ FILE* new_cc_file(char* file_type, char* path, int nn_id, int cc_id, int step)
     mkdir(name, 0700);
 
     // create the name of the file according to the format
-    snprintf(name, 100, file_type, path, nn_id, cc_id, step);
+    snprintf(name, 100, file_type, path, nn_id, e_id);
 
     // open the file and check that it correctly opened
     FILE* file = fopen(name, "wb");

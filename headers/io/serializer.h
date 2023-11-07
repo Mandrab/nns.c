@@ -8,7 +8,7 @@
 /// @brief Serialize the static characteristics of the Nanowire Network to a
 /// file named "nanowire_network.ID.dat", where ID is the univocal identifier
 /// of the NN. Any other file named the same will be overwritten. If any
-/// problem occurs, the system will exit with an error.
+/// problem occurs, the program will exit with an error.
 /// 
 /// @param[in] ds The datasheet to serialize.
 /// @param[in] nt The network topology to serialize.
@@ -25,7 +25,7 @@ void serialize_network(
 /// @brief Serialize the network state (a.k.a. electrical equivalent circuit)
 /// to a file named "nanowire_state.ID.dat", where ID is the univocal
 /// identifier of the NN. Any other file named the same will be overwritten.
-/// If any problem occurs, the system will exit with an error.
+/// If any problem occurs, the program will exit with an error.
 /// 
 /// @param[in] ds The datasheet of the nanowire network to serialize.
 /// @param[in] nt The topology of the nanowire network to serialize.
@@ -45,7 +45,7 @@ void serialize_state(
 
 /// @brief Serialize a connected component of a nanowire network to a file.
 /// NN_ID is the univocal identifier of the NN. Any other file named the same
-/// will be overwritten. If any problem occurs, the system will exit with an
+/// will be overwritten. If any problem occurs, the program will exit with an
 /// error.
 /// 
 /// @param[in] cc The connected component to serialize.
@@ -53,18 +53,16 @@ void serialize_state(
 /// @param[in] nn_id The univocal id of the network that will determine its
 /// file name.
 /// @param[in] cc_id The index of the connected component.
-/// @param[in] step The id of the connected component in a specific instant.
 void serialize_component(
     const connected_component cc,
     char* path,
     int nn_id,
-    int cc_id,
-    int step
+    int cc_id
 );
 
 /// @brief Serialize the network interface to a file named "interface.ID.dat",
 /// where ID is the univocal identifier of the NN. Any other file named the
-/// same will be overwritten. If any problem occurs, the system will exit with
+/// same will be overwritten. If any problem occurs, the program will exit with
 /// an error.
 /// 
 /// @param[in] it The interface to serialize.

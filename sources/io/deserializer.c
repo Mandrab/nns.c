@@ -8,10 +8,9 @@
 
 extern const int VERSION_NUMBER;
 
-// open the file and check the version
-FILE* open_nn_file(char* file_type, char* path, int nn_id);
-FILE* open_ns_it_file(char* file_type, char* path, int nn_id, int step);
-FILE* open_cc_file(char* file_type, char* path, int nn_id, int cc_id, int step);
+// open the file with index `e_id' in a folder with index `nn_id' and check the
+// version
+FILE* open_file(char* file_type, char* path, int nn_id, int e_id);
 
 void deserialize_network(
     datasheet* ds,
@@ -21,7 +20,7 @@ void deserialize_network(
 )
 {
     // open the file and check the version
-    FILE* file = open_nn_file(NETWORK_FILE_NAME_FORMAT, path, id);
+    FILE* file = open_file(NETWORK_FILE_NAME_FORMAT, path, id, -1);
 
     // DATASHEET READING
 
@@ -57,7 +56,7 @@ void deserialize_state(
 )
 {
     // open the file and check the version
-    FILE* file = open_ns_it_file(STATE_FILE_NAME_FORMAT, path, id, step);
+    FILE* file = open_file(STATE_FILE_NAME_FORMAT, path, id, step);
 
     // allocate the memory for the network state
     ns->Ys = zeros_vector(double, nt.js_count);
@@ -74,12 +73,11 @@ void deserialize_component(
     connected_component* cc,
     char* path,
     int nn_id,
-    int cc_id,
-    int step
+    int cc_id
 )
 {
     // open the file and check the version
-    FILE* file = open_cc_file(COMPONENT_FILE_NAME_FORMAT, path, nn_id, cc_id, step);
+    FILE* file = open_file(COMPONENT_FILE_NAME_FORMAT, path, nn_id, cc_id);
 
     fread(cc, sizeof(int), 4, file);
     cc->Is = vector(int, cc->js_count);
@@ -91,7 +89,7 @@ void deserialize_component(
 void deserialize_interface(interface* it, char* path, int id, int step)
 {
     // open the file and check the version
-    FILE* file = open_ns_it_file(INTERFACE_FILE_NAME_FORMAT, path, id, step);
+    FILE* file = open_file(INTERFACE_FILE_NAME_FORMAT, path, id, step);
 
     // load the sources count and mask
     fread(&it->sources_count, sizeof(int), 1, file);
@@ -113,24 +111,14 @@ void deserialize_interface(interface* it, char* path, int id, int step)
     fclose(file);
 }
 
-FILE* open_nn_file(char* file_type, char* path, int nn_id)
-{
-    return open_cc_file(file_type, path, nn_id, -1, -1);
-}
-
-FILE* open_ns_it_file(char* file_type, char* path, int nn_id, int step)
-{
-    return open_cc_file(file_type, path, nn_id, step, -1);
-}
-
-FILE* open_cc_file(char* file_type, char* path, int nn_id, int cc_id, int step)
+FILE* open_file(char* file_type, char* path, int nn_id, int e_id)
 {
     char name[100];
     int version;
 
     // open the file with the name according to the format and check that it
     // opened correctly
-    snprintf(name, 100, file_type, path, nn_id, cc_id, step);
+    snprintf(name, 100, file_type, path, nn_id, e_id);
     FILE* file = fopen(name, "rb");
     assert(file != NULL, -1, "Impossible to open file: %s for reading operations\n", name);
 

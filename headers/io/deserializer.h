@@ -7,7 +7,7 @@
 
 /// @brief Deserialize the static characteristics of the network from a file
 /// named "nanowire_network.ID.dat", where ID is the univocal identifier of the
-/// NN. If any problem occurs, the system will exit with an error.
+/// NN. If any problem occurs, the program will exit with an error.
 /// 
 /// @param[out] ds The datasheet to set according to the data saved in the
 /// file. It has to not be initialized.
@@ -25,7 +25,7 @@ void deserialize_network(
 
 /// @brief Deserialize the state of the network from a file named
 /// "nanowire_state.ID.dat", where ID is the univocal identifier of the NN. If
-/// any problem occurs, the system will exit with an error.
+/// any problem occurs, the program will exit with an error.
 /// 
 /// @param[in] ds The datasheet of the nanowire network to deserialize.
 /// @param[in] nt The topology of the nanowire network to deserialize.
@@ -45,26 +45,24 @@ void deserialize_state(
 );
 
 /// @brief Deserialize a network connected component. NN_ID is the univocal
-/// identifier of the NN. If any problem occurs, the system will exit with an
+/// identifier of the NN. If any problem occurs, the program will exit with an
 /// error.
 /// 
 /// @param cc The connected component to deserialize.
 /// @param path The base path containing the /device_ID folder.
-/// @param nn_id  The univocal id of the network that will determine its file
+/// @param nn_id  The univocal id of the network that will determine its folder
 /// name.
 /// @param cc_id The index of the connected component.
-/// @param step The id of the network state in a specific instant.
 void deserialize_component(
     connected_component* cc,
     char* path,
     int nn_id,
-    int cc_id,
-    int step
+    int cc_id
 );
 
 /// @brief Deserialize the interface to the network from a file named
 /// "interface.ID.dat", where ID is the univocal identifier of the NN. If any
-/// problem occurs, the system will exit with an error.
+/// problem occurs, the program will exit with an error.
 /// 
 /// @param[out] it The interface to set according to the data saved in the
 /// file. It has to not be initialized.
