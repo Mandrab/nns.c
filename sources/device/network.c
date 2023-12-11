@@ -45,6 +45,14 @@ network_state construe_circuit(const datasheet ds, const network_topology nt)
     return (network_state){ Y, V };
 }
 
+int ntcmp(const void* e1, const void* e2)
+{
+    network_topology a = *((network_topology*)e1);
+    network_topology b = *((network_topology*)e2);
+
+    return a.js_count - b.js_count;
+}
+
 void destroy_topology(network_topology nt)
 {
     free(nt.Ws);

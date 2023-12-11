@@ -59,6 +59,14 @@ network_topology create_network(const datasheet ds, int n2c[], int* ccs_count);
 /// @return The electrical representation of the Nanowire Network.
 network_state construe_circuit(const datasheet ds, const network_topology nt);
 
+/// @brief Compare two network topologies according to the number of junctions.
+/// 
+/// @param[in] e1 Pointer to the first element to compare.
+/// @param[in] e2 Pointer to the second element to compare.
+/// @return 0 if the topologies contain the same amount of junctions; > 0 if e1
+/// has more junctions than e2; < 0 otherwise.
+int ntcmp(const void* e1, const void* e2);
+
 /// @brief Destroy a network topology memorized in the stack. This function
 /// practically frees the wires and junctions arrays of the network topology.
 /// The arrays to be freed must have been allocated in the heap with
