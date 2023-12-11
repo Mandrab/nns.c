@@ -2,6 +2,7 @@
 create_test_sourcelist(test_files run_all.c
     device_datasheet.c
     device_network.c
+    device_wire.c
     interface_mea.c
     io_de-serializer.c
     stimulator_mna.c
