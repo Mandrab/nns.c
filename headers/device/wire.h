@@ -13,4 +13,12 @@ typedef struct
     double  length;       ///< Total length of the wire.
 } wire;
 
+/// @brief Compares two nanowires according to their length.
+/// 
+/// @param[in] e1 Pointer to the first element to compare.
+/// @param[in] e2 Pointer to the second element to compare.
+/// @return 0 if the nanowires have the same length; < 0 if e1 is shorter than
+/// e2; > 0 otherwise.
+int wcmp(const void* e1, const void* e2);
+
 #endif /* WIRE_H */
