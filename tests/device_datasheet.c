@@ -3,7 +3,7 @@
 #include "device/datasheet.h"
 #include "util/errors.h"
 
-void test_comparison()
+void test_datasheet_comparison()
 {
     datasheet ds_a = { 3, 0, 0, 2, 1 };
     datasheet ds_b = { 3, 0, 0, 2, 1 };
@@ -50,7 +50,7 @@ void test_comparison()
 
 int device_datasheet()
 {
-    test_comparison();
+    test_datasheet_comparison();
 
     return 0;
 }
