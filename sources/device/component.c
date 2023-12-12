@@ -16,7 +16,7 @@ int cccmp(const void* e1, const void* e2)
     return a.ws_count - b.ws_count;
 }
 
-connected_component copy_component(connected_component cc)
+connected_component copy_component(const connected_component cc)
 {
     connected_component copy = (connected_component)
     {
