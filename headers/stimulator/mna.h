@@ -1,5 +1,5 @@
 #ifndef MNA_H
-#define MNA_h
+#define MNA_H
 
 #include "device/network.h"
 #include "device/component.h"
