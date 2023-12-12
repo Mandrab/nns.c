@@ -11,3 +11,8 @@ int cccmp(const void* e1, const void* e2)
     }
     return a.ws_count - b.ws_count;
 }
+
+void destroy_component(connected_component cc)
+{
+    free(cc.Is);
+}

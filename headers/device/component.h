@@ -31,4 +31,10 @@ typedef struct
 /// e2; < 0 otherwise.
 int cccmp(const void* e1, const void* e2);
 
+/// @brief Destroy a connected component by freeing its pointers (i.e., Is).
+/// The array to be freed must have been allocated in the heap.
+/// 
+/// @param[in, out] cc The connected component to destroy.
+void destroy_component(connected_component cc);
+
 #endif /* COMPONENT_H */
