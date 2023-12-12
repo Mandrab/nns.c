@@ -31,6 +31,12 @@ typedef struct
 /// e2; < 0 otherwise.
 int cccmp(const void* e1, const void* e2);
 
+/// @brief Create a deep copy of a connected component.
+/// 
+/// @param[in] it The connected component to copy.
+/// @return The deep copy of the connected component.
+connected_component copy_component(connected_component cc);
+
 /// @brief Destroy a connected component by freeing its pointers (i.e., Is).
 /// The array to be freed must have been allocated in the heap.
 /// 
