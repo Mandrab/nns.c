@@ -24,7 +24,7 @@ int itcmp(const void* e1, const void* e2)
     return result;
 }
 
-interface copy(const interface it)
+interface copy_interface(const interface it)
 {
     interface copy = (interface)
     {

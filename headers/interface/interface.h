@@ -49,7 +49,7 @@ int itcmp(const void* e1, const void* e2);
 /// 
 /// @param[in] it The interface to copy.
 /// @return The deep copy of the interface.
-interface copy(const interface it);
+interface copy_interface(const interface it);
 
 /// @brief Destroy an interface memorized in the stack. This function
 /// practically frees the masks and weights of the interface. The arrays to be
