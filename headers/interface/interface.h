@@ -36,6 +36,15 @@ typedef struct
                             ///< nanowire (in siemens).
 } interface;
 
+/// @brief Compare two network interfaces according to the number of sources,
+/// grounds, and loads.
+/// 
+/// @param[in] e1 Pointer to the first element to compare.
+/// @param[in] e2 Pointer to the second element to compare.
+/// @return 0 if the datasheets contain the same data; > 0 if e1 has, in order,
+/// more sources, grounds, or loads than e2; < 0 otherwise.
+int itcmp(const void* e1, const void* e2);
+
 /// @brief Create a deep copy of an interface.
 /// 
 /// @param[in] it The interface to copy.

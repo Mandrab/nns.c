@@ -4,6 +4,26 @@
 #include "interface/interface.h"
 #include "util/tensors.h"
 
+int itcmp(const void* e1, const void* e2)
+{
+    interface a = *((interface*)e1);
+    interface b = *((interface*)e2);
+
+    int result = a.sources_count - b.sources_count;
+
+    if (result == 0)
+    {
+        result = a.grounds_count - b.grounds_count;
+    }
+
+    if (result == 0)
+    {
+        result = a.loads_count - b.loads_count;
+    }
+
+    return result;
+}
+
 interface copy(const interface it)
 {
     interface copy = (interface)
