@@ -67,6 +67,25 @@ network_state construe_circuit(const datasheet ds, const network_topology nt);
 /// has more junctions than e2; < 0 otherwise.
 int ntcmp(const void* e1, const void* e2);
 
+/// @brief Create a deep copy of a network topology.
+/// 
+/// @param[in] ds The datasheet describing the network.
+/// @param[in] nt The network topology to copy.
+/// @return The deep copy of the network topology.
+network_topology copy_topology(const datasheet ds, const network_topology nt);
+
+/// @brief Create a deep copy of a network state.
+/// 
+/// @param[in] ds The datasheet describing the network.
+/// @param[in] nt The topology of the network.
+/// @param[in] ns The network state to copy.
+/// @return The deep copy of the network state.
+network_state copy_state(
+    const datasheet ds,
+    const network_topology nt,
+    const network_state ns
+);
+
 /// @brief Destroy a network topology memorized in the stack. This function
 /// practically frees the wires and junctions arrays of the network topology.
 /// The arrays to be freed must have been allocated in the heap with

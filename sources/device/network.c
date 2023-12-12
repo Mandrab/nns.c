@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "device/network.h"
 #include "util/components.h"
@@ -51,6 +52,41 @@ int ntcmp(const void* e1, const void* e2)
     network_topology b = *((network_topology*)e2);
 
     return a.js_count - b.js_count;
+}
+
+network_topology copy_topology(const datasheet ds, const network_topology nt)
+{
+    network_topology copy = (network_topology)
+    {
+        vector(wire, ds.wires_count),
+        nt.js_count,
+        vector(junction, nt.js_count)
+    };
+
+    // copy the Ws and Js arrays in the new data structure
+    memcpy(copy.Ws, nt.Ws, sizeof(wire) * ds.wires_count);
+    memcpy(copy.Js, nt.Js, sizeof(junction) * nt.js_count);
+
+    return copy;
+}
+
+network_state copy_state(
+    const datasheet ds,
+    const network_topology nt,
+    const network_state ns
+)
+{
+    network_state copy = (network_state)
+    {
+        vector(double, nt.js_count),
+        vector(double, ds.wires_count)
+    };
+
+    // copy the Ys and Vs arrays in the new data structure
+    memcpy(copy.Ys, ns.Ys, sizeof(double) * nt.js_count);
+    memcpy(copy.Vs, ns.Vs, sizeof(double) * ds.wires_count);
+
+    return copy;
 }
 
 void destroy_topology(network_topology nt)
