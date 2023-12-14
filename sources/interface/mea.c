@@ -92,6 +92,7 @@ interface mea2interface(const MEA mea)
                 it.loads_weight[l++]  = mea.ws[i];
                 break;
             default:
+                break;
         }
     }
 
