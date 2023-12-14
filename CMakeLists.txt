@@ -34,6 +34,7 @@ file(GLOB_RECURSE SOURCES sources/*.c)
 
 # add the include directories (i.e., containing .h files)
 include_directories(headers)
+include_directories(/usr/local/opt/lapack/include)
 
 # create the library
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
