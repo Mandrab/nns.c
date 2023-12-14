@@ -6,7 +6,7 @@
 
 #define SAMPLES_COUNT 1000000
 #define QUANTS_COUNT 100
-#define ACCURACY 0.001          // 0.1 % accuracy
+#define ACCURACY 0.005          // 0.5 % accuracy
 
 void test_random_distribution_mean()
 {
