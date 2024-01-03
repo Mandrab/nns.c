@@ -11,8 +11,8 @@ void test_network_io()
 {
     const datasheet ds = {
         2000,
-        14.0,
-        14.0 * 0.35,
+        40.0,
+        40.0 * 0.35,
         200,
         1234
     };
@@ -110,8 +110,8 @@ void test_state_io()
 {
     const datasheet ds = {
         2000,
-        14.0,
-        14.0 * 0.35,
+        40.0,
+        40.0 * 0.35,
         200,
         1234
     };

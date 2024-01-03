@@ -10,8 +10,8 @@ int main()
     // define the NN datasheet, i.e., its technical information
     const datasheet ds = {
         2000,
-        14.0,
         40.0,
+        14.0,
         500,
         1234
     };
