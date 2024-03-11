@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.4.1-beta] — 2024-03-11
+
+### Added
+### Changed
+- LAPACK function call in order to work with older versions of the library
+### Fixed
+- Parameters in examples
+
+
+
 ## [v0.4.0-beta] — 2023-12-14
 
 ### Added
