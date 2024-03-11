@@ -1,4 +1,4 @@
-#include <lapacke.h>
+#include <lapack.h>
 #include <math.h>
 
 #include "util/errors.h"
@@ -40,11 +40,11 @@ double resistive_distance(
     // decompose Γ by using SVD
     const char jobs = 'A';
     int info, lwork = 5 * cc.ws_count;
-    dgesvd_(
+    LAPACK_dgesvd(
         &jobs, &jobs,
         &cc.ws_count, &cc.ws_count, Γ, &cc.ws_count,
         S, U, &cc.ws_count, VT,
-        &cc.ws_count, work, &lwork, &info, cc.ws_count, cc.ws_count
+        &cc.ws_count, work, &lwork, &info
     );
     requires(info == 0, -1, "SVD computation failed! INFO = %d\n", info);
 
