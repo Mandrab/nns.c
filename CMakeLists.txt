@@ -39,6 +39,9 @@ include_directories(/usr/local/opt/lapack/include)
 # create the library
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
+# find GNU Scientific Library
+find_package(GSL REQUIRED)
+
 # find OpenBLAS library
 set(BLA_VENDOR OpenBLAS)
 find_package(BLAS REQUIRED)
@@ -51,8 +54,8 @@ find_package(SuiteSparse_config REQUIRED)
 find_package(AMD)
 find_package(UMFPACK REQUIRED)
 
-# link the math and LAPACK libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE m LAPACK::LAPACK SuiteSparse::UMFPACK)
+# link: math, gsl, LAPACK, and UMFPACK libraries
+target_link_libraries(${PROJECT_NAME} PRIVATE m gsl LAPACK::LAPACK SuiteSparse::UMFPACK)
 
 # if available, link openMP library
 find_package(OpenMP)

@@ -1,3 +1,4 @@
+#include <gsl/gsl_rng.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -14,6 +15,9 @@ struct node {
 
 wire* drop_wires(const datasheet ds)
 {
+    // set the rng and its seed for the device generation
+    gsl_rng* rng = gsl_rng_alloc(gsl_rng_random64_bsd);
+
     // create the array of wires to fill
     wire* ws = vector(wire, ds.wires_count);
 
@@ -25,13 +29,13 @@ wire* drop_wires(const datasheet ds)
         // generate the (positive) length of the wire
         do
         {
-            length = normal_random(ds.length_mean, ds.length_std_dev);
+            length = normal_random(rng, ds.length_mean, ds.length_std_dev);
         } while (length <= 0);
 
         // generate the centroids of the ws
-        double xc = (double) rand() / RAND_MAX * ds.package_size;
-        double yc = (double) rand() / RAND_MAX * ds.package_size;
-        double theta = (double) rand() / RAND_MAX * M_PI;
+        double xc = (double) gsl_rng_uniform(rng) / RAND_MAX * ds.package_size;
+        double yc = (double) gsl_rng_uniform(rng) / RAND_MAX * ds.package_size;
+        double theta = (double) gsl_rng_uniform(rng) / RAND_MAX * M_PI;
 
         // save the information into the data-structure
         ws[i] = (wire)
@@ -48,6 +52,9 @@ wire* drop_wires(const datasheet ds)
             length          // length
         };
     }
+
+    // free the random number generator
+    gsl_rng_free(rng);
 
     return ws;
 }

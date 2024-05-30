@@ -11,9 +11,6 @@ network_topology create_network(const datasheet ds, int n2c[], int* ccs_count)
 {
     network_topology nt;
 
-    // set the random seed for the device generation
-    srand(ds.generation_seed);
-
     // generate the network wires distribution
     nt.Ws = drop_wires(ds);
 
