@@ -2,13 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.4.2-beta] — 2024-05-30
+
+### Added
+### Changed
+### Fixed
+- Reproducible network generation across different Unix distributions.
+
+
+
 ## [v0.4.1-beta] — 2024-03-11
 
 ### Added
 ### Changed
-- LAPACK function call in order to work with older versions of the library
+- LAPACK function call in order to work with older versions of the library.
 ### Fixed
-- Parameters in examples
+- Parameters in examples.
 
 
 
