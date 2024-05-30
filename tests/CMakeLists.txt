@@ -16,10 +16,10 @@ create_test_sourcelist(test_files run_all.c
 add_executable(run_all.elf ${test_files})
 
 # link the nns library to the tests
-target_link_libraries(run_all.elf PRIVATE nns)
+target_link_libraries(run_all.elf PRIVATE nns gsl)
 
 # remove the test driver source file
-remove(test_files run_all.c)
+list(REMOVE_AT test_files 0)
 
 # add all the ADD_TEST for each test
 foreach(test ${test_files})
