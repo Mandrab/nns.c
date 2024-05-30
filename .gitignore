@@ -10,6 +10,7 @@
 *.out
 *.rpt
 *.so
+*.tcl
 tests/run_all.c
 cmake_install.cmake
 CMakeCache.txt
