@@ -35,6 +35,7 @@ A MEA limits instead the choice to nanowires positioned near to physical electro
 ![Nanowire network connection logic](connection.drawio.png)
 
 ## Requirements
+- GNU Scientific Library for reproducible random number generation
 - LAPACK with the C interface LAPACKE
 - OpenBLAS for the parallelization of the LAPACK routines
 - OpenMP for the parallelization of some simulator routines
@@ -82,6 +83,7 @@ Installing the dependencies:
 ```
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 $ brew install cmake
+$ brew install gsl
 $ brew install openblas
 $ brew install suitesparse
 $ brew install lapack
@@ -149,4 +151,4 @@ $ valgrind --leak-check=yes --log-file=valgrind.rpt [EXECUTABLE NAME].elf
 
 ## Credits
 
-- Noemi Valentini helped troubleshooting the CMake automation in macOS
+- [Noemi Valentini](https://github.com/noemival97) helped troubleshooting the CMake automation in macOS, and pointed out the lack of a known RNG producing the same results across different distributions.
