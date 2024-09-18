@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.0] — 2024-09-18
+
+### Added
+- Software license
+### Changed
+### Fixed
+
+
+
 ## [v0.4.2-beta] — 2024-05-30
 
 ### Added
