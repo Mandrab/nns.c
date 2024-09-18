@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Update cache
-      run: apt-get update
     - name: Install doxygen
       run: apt-get install -y doxygen
     - name: Generate documentation
