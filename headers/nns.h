@@ -1,3 +1,9 @@
+/**
+ * @file nns.h
+ * 
+ * @brief Groups all the library structures and functions in a single file to
+ * be imported.
+ */
 #ifndef NNS_H
 #define NNS_H
 

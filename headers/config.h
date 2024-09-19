@@ -1,3 +1,8 @@
+/**
+ * @file config.h
+ * 
+ * @brief Defines constants of the simulator. Not supposed to be modified.
+ */
 #ifndef CONFIG_H
 #define CONFIG_H
 
