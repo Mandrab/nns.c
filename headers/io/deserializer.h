@@ -1,3 +1,19 @@
+/**
+ * @file deserializer.h
+ * 
+ * @brief Defines deserialization functions for all the data structures of the
+ * library.
+ * 
+ * This file contains declarations for functions used to deserialize various
+ * components of a nanowire network from files. These components include the
+ * network's datasheet, topology, state, connected components, interface, and
+ * MEA (Multi-Electrode Array). The deserialization process involves reading
+ * data from files named according to specific conventions, which include
+ * unique identifiers.
+ * 
+ * @note If any error occurs during deserialization, the program will exit with
+ * an error.
+ */
 #ifndef DESERIALIZER_H
 #define DESERIALIZER_H
 

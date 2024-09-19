@@ -1,3 +1,25 @@
+/**
+ * @file serializer.h
+ * 
+ * @brief Provides functions to serialize various components of a nanowire
+ * network.
+ * 
+ * This file contains function declarations for serializing datasheet and
+ * topology of a network, network state, connected components, network
+ * interface, and MEA (Multi-Electrode Array) to disk. Each serialization
+ * function creates or overwrites files in a folder named after the device
+ * identifier, following a specific naming convention for the files.
+ * 
+ * The functions ensure that any existing file with the same name will be
+ * replaced and will exit with an error if any issue occurs during the file
+ * operations.
+ * 
+ * @note All file paths and names are based on a device identifier and may be
+ * overwritten. Ensure that the paths and identifiers are managed appropriately
+ * to avoid data loss.
+ * @note If any error occurs during serialization, the program will exit with
+ * an error.
+ */
 #ifndef SERIALIZER_H
 #define SERIALIZER_H
 
