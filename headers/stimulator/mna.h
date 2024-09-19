@@ -1,3 +1,24 @@
+/**
+ * @file mna.h
+ * 
+ * @brief Defines functions to perform voltage stimulation on a Nanowire
+ * Network using the Modified Nodal Analysis (MNA) algorithm.
+ * 
+ * This file defines the functions required to perform voltage stimulation 
+ * of a Nanowire Network through the Modified Nodal Analysis (MNA) algorithm. 
+ * The MNA algorithm is used to calculate the voltage distribution across the 
+ * network without considering its plasticity, effectively treating it as a 
+ * static device. The voltage distribution is stored in the vector `V` of the 
+ * `ns` parameter.
+ * 
+ * The file defines two different functions for the stimulation of the Nanowire
+ * Network: one using an interface, and one using a MEA. The MEA implementation
+ * simply converts the MEA into an interface before passing it to the main
+ * function.
+ * 
+ * @note The MNA implementation leverages UMFPACK functions for efficient
+ * computation.
+ */
 #ifndef MNA_H
 #define MNA_H
 
