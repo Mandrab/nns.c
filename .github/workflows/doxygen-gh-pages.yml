@@ -19,7 +19,7 @@ jobs:
         run: git clone --depth 1 --branch v2.3.3 https://github.com/jothepro/doxygen-awesome-css.git
         shell: bash
       - name: Install Doxygen
-        run: sudo apt-get update -y && sudo apt-get install -y
+        run: sudo apt-get update -y && sudo apt-get install -y doxygen
         shell: bash
       - name: Build Documentation
         run: doxygen Doxyfile
