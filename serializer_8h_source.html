@@ -17,6 +17,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -96,8 +98,8 @@ $(document).ready(function(){initNavTree('serializer_8h_source.html',''); initRe
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef SERIALIZER_H</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define SERIALIZER_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;device/network.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;device/component.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;interface/interface.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;interface/mea.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
@@ -129,12 +131,14 @@ $(document).ready(function(){initNavTree('serializer_8h_source.html',''); initRe
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keywordtype">void</span> serialize_mea(<span class="keyword">const</span> <a class="code hl_struct" href="structMEA.html">MEA</a> mea, <span class="keywordtype">char</span>* path, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> step);</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#endif </span><span class="comment">/* SERIALIZER_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="acomponent_8h_html"><div class="ttname"><a href="component_8h.html">component.h</a></div><div class="ttdoc">Defines the structure and operations for connected components in a Nanowire Network.</div></div>
+<div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
 <div class="ttc" id="astructMEA_html"><div class="ttname"><a href="structMEA.html">MEA</a></div><div class="ttdoc">Represent a Micro-Electrode Array of 16 electrodes (physically sound). Save their position and the in...</div><div class="ttdef"><b>Definition:</b> mea.h:17</div></div>
-<div class="ttc" id="astructconnected__component_html"><div class="ttname"><a href="structconnected__component.html">connected_component</a></div><div class="ttdoc">Connected component of the Nanowire Network. It contains all the information needed to identify the n...</div><div class="ttdef"><b>Definition:</b> component.h:9</div></div>
-<div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:6</div></div>
+<div class="ttc" id="astructconnected__component_html"><div class="ttname"><a href="structconnected__component.html">connected_component</a></div><div class="ttdoc">Connected component of the Nanowire Network. It contains all the information needed to identify the n...</div><div class="ttdef"><b>Definition:</b> component.h:24</div></div>
+<div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:16</div></div>
 <div class="ttc" id="astructinterface_html"><div class="ttname"><a href="structinterface.html">interface</a></div><div class="ttdoc">Interface between the nanowire-network device and external systems.</div><div class="ttdef"><b>Definition:</b> interface.h:26</div></div>
-<div class="ttc" id="astructnetwork__state_html"><div class="ttname"><a href="structnetwork__state.html">network_state</a></div><div class="ttdoc">Electrical state of the Nanowire Network. It contains the varying values of the junctions and the vol...</div><div class="ttdef"><b>Definition:</b> network.h:32</div></div>
-<div class="ttc" id="astructnetwork__topology_html"><div class="ttname"><a href="structnetwork__topology.html">network_topology</a></div><div class="ttdoc">Topology of the Nanowire Network. It contains information about the physical placement of nanowires a...</div><div class="ttdef"><b>Definition:</b> network.h:11</div></div>
+<div class="ttc" id="astructnetwork__state_html"><div class="ttname"><a href="structnetwork__state.html">network_state</a></div><div class="ttdoc">Electrical state of the Nanowire Network. It contains the varying values of the junctions and the vol...</div><div class="ttdef"><b>Definition:</b> network.h:47</div></div>
+<div class="ttc" id="astructnetwork__topology_html"><div class="ttname"><a href="structnetwork__topology.html">network_topology</a></div><div class="ttdoc">Topology of the Nanowire Network. It contains information about the physical placement of nanowires a...</div><div class="ttdef"><b>Definition:</b> network.h:26</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

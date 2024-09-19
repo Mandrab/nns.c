@@ -17,6 +17,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -93,34 +95,36 @@ $(document).ready(function(){initNavTree('wire_8h_source.html',''); initResizabl
   <div class="headertitle"><div class="title">wire.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef WIRE_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define WIRE_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;util/point.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structwire.html">    8</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structwire.html#af7bcb91efbef1ba59b5e7f7f9d536d15">   10</a></span>    <a class="code hl_struct" href="structpoint.html">point</a>   <a class="code hl_variable" href="structwire.html#af7bcb91efbef1ba59b5e7f7f9d536d15">centroid</a>;     </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structwire.html#a1638d0499ced4f50b3df609cefbe3f7e">   11</a></span>    <a class="code hl_struct" href="structpoint.html">point</a>   <a class="code hl_variable" href="structwire.html#a1638d0499ced4f50b3df609cefbe3f7e">start_edge</a>;   </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="structwire.html#a7da5febb8a0853bec6e0d2ab3728eab4">   12</a></span>    <a class="code hl_struct" href="structpoint.html">point</a>   <a class="code hl_variable" href="structwire.html#a7da5febb8a0853bec6e0d2ab3728eab4">end_edge</a>;     </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structwire.html#a996d07fe4af92240bf306fcbf9fdc739">   13</a></span>    <span class="keywordtype">double</span>  <a class="code hl_variable" href="structwire.html#a996d07fe4af92240bf306fcbf9fdc739">length</a>;       </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>} <a class="code hl_struct" href="structwire.html">wire</a>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">int</span> wcmp(<span class="keyword">const</span> <span class="keywordtype">void</span>* e1, <span class="keyword">const</span> <span class="keywordtype">void</span>* e2);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif </span><span class="comment">/* WIRE_H */</span><span class="preprocessor"></span></div>
+<a href="wire_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifndef WIRE_H</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define WIRE_H</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;util/point.h&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structwire.html">   19</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structwire.html#af7bcb91efbef1ba59b5e7f7f9d536d15">   21</a></span>    <a class="code hl_struct" href="structpoint.html">point</a>   <a class="code hl_variable" href="structwire.html#af7bcb91efbef1ba59b5e7f7f9d536d15">centroid</a>;     </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structwire.html#a1638d0499ced4f50b3df609cefbe3f7e">   22</a></span>    <a class="code hl_struct" href="structpoint.html">point</a>   <a class="code hl_variable" href="structwire.html#a1638d0499ced4f50b3df609cefbe3f7e">start_edge</a>;   </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structwire.html#a7da5febb8a0853bec6e0d2ab3728eab4">   23</a></span>    <a class="code hl_struct" href="structpoint.html">point</a>   <a class="code hl_variable" href="structwire.html#a7da5febb8a0853bec6e0d2ab3728eab4">end_edge</a>;     </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structwire.html#a996d07fe4af92240bf306fcbf9fdc739">   24</a></span>    <span class="keywordtype">double</span>  <a class="code hl_variable" href="structwire.html#a996d07fe4af92240bf306fcbf9fdc739">length</a>;       </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <a class="code hl_struct" href="structwire.html">wire</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">int</span> <a class="code hl_function" href="wire_8h.html#a3068549318da69ac89e1ee0ff594f960">wcmp</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* e1, <span class="keyword">const</span> <span class="keywordtype">void</span>* e2);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif </span><span class="comment">/* WIRE_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="astructpoint_html"><div class="ttname"><a href="structpoint.html">point</a></div><div class="ttdoc">Structure representing a point in the cartesian space.</div><div class="ttdef"><b>Definition:</b> point.h:6</div></div>
-<div class="ttc" id="astructwire_html"><div class="ttname"><a href="structwire.html">wire</a></div><div class="ttdoc">Stores the starting and ending positions of a wire together with its centroid position and total leng...</div><div class="ttdef"><b>Definition:</b> wire.h:9</div></div>
-<div class="ttc" id="astructwire_html_a1638d0499ced4f50b3df609cefbe3f7e"><div class="ttname"><a href="structwire.html#a1638d0499ced4f50b3df609cefbe3f7e">wire::start_edge</a></div><div class="ttdeci">point start_edge</div><div class="ttdoc">Position of one of the edges of the wire.</div><div class="ttdef"><b>Definition:</b> wire.h:11</div></div>
-<div class="ttc" id="astructwire_html_a7da5febb8a0853bec6e0d2ab3728eab4"><div class="ttname"><a href="structwire.html#a7da5febb8a0853bec6e0d2ab3728eab4">wire::end_edge</a></div><div class="ttdeci">point end_edge</div><div class="ttdoc">Position of one of the edges of the wire.</div><div class="ttdef"><b>Definition:</b> wire.h:12</div></div>
-<div class="ttc" id="astructwire_html_a996d07fe4af92240bf306fcbf9fdc739"><div class="ttname"><a href="structwire.html#a996d07fe4af92240bf306fcbf9fdc739">wire::length</a></div><div class="ttdeci">double length</div><div class="ttdoc">Total length of the wire.</div><div class="ttdef"><b>Definition:</b> wire.h:13</div></div>
-<div class="ttc" id="astructwire_html_af7bcb91efbef1ba59b5e7f7f9d536d15"><div class="ttname"><a href="structwire.html#af7bcb91efbef1ba59b5e7f7f9d536d15">wire::centroid</a></div><div class="ttdeci">point centroid</div><div class="ttdoc">Position of the centroid of the wire.</div><div class="ttdef"><b>Definition:</b> wire.h:10</div></div>
+<div class="ttc" id="astructwire_html"><div class="ttname"><a href="structwire.html">wire</a></div><div class="ttdoc">Stores the starting and ending positions of a wire together with its centroid position and total leng...</div><div class="ttdef"><b>Definition:</b> wire.h:20</div></div>
+<div class="ttc" id="astructwire_html_a1638d0499ced4f50b3df609cefbe3f7e"><div class="ttname"><a href="structwire.html#a1638d0499ced4f50b3df609cefbe3f7e">wire::start_edge</a></div><div class="ttdeci">point start_edge</div><div class="ttdoc">Position of one of the edges of the wire.</div><div class="ttdef"><b>Definition:</b> wire.h:22</div></div>
+<div class="ttc" id="astructwire_html_a7da5febb8a0853bec6e0d2ab3728eab4"><div class="ttname"><a href="structwire.html#a7da5febb8a0853bec6e0d2ab3728eab4">wire::end_edge</a></div><div class="ttdeci">point end_edge</div><div class="ttdoc">Position of one of the edges of the wire.</div><div class="ttdef"><b>Definition:</b> wire.h:23</div></div>
+<div class="ttc" id="astructwire_html_a996d07fe4af92240bf306fcbf9fdc739"><div class="ttname"><a href="structwire.html#a996d07fe4af92240bf306fcbf9fdc739">wire::length</a></div><div class="ttdeci">double length</div><div class="ttdoc">Total length of the wire.</div><div class="ttdef"><b>Definition:</b> wire.h:24</div></div>
+<div class="ttc" id="astructwire_html_af7bcb91efbef1ba59b5e7f7f9d536d15"><div class="ttname"><a href="structwire.html#af7bcb91efbef1ba59b5e7f7f9d536d15">wire::centroid</a></div><div class="ttdeci">point centroid</div><div class="ttdoc">Position of the centroid of the wire.</div><div class="ttdef"><b>Definition:</b> wire.h:21</div></div>
+<div class="ttc" id="awire_8h_html_a3068549318da69ac89e1ee0ff594f960"><div class="ttname"><a href="wire_8h.html#a3068549318da69ac89e1ee0ff594f960">wcmp</a></div><div class="ttdeci">int wcmp(const void *e1, const void *e2)</div><div class="ttdoc">Compares two nanowires according to their length.</div><div class="ttdef"><b>Definition:</b> wire.c:3</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bcdf4e7f8b96bd5604cfa9640850d3bd.html">device</a></li><li class="navelem"><b>wire.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bcdf4e7f8b96bd5604cfa9640850d3bd.html">device</a></li><li class="navelem"><a class="el" href="wire_8h.html">wire.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

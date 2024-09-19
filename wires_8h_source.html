@@ -17,6 +17,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -98,10 +100,10 @@ $(document).ready(function(){initNavTree('wires_8h_source.html',''); initResizab
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;device/datasheet.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;device/junction.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;device/network.h&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;device/wire.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="datasheet_8h.html">device/datasheet.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="junction_8h.html">device/junction.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="wire_8h.html">device/wire.h</a>&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><a class="code hl_struct" href="structwire.html">wire</a>* drop_wires(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
@@ -110,10 +112,14 @@ $(document).ready(function(){initNavTree('wires_8h_source.html',''); initResizab
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">bool</span>** construe_adjacency_matrix(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif </span><span class="comment">/* WIRES_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:6</div></div>
-<div class="ttc" id="astructjunction_html"><div class="ttname"><a href="structjunction.html">junction</a></div><div class="ttdoc">Stores the index of the wires forming the junction together with its position.</div><div class="ttdef"><b>Definition:</b> junction.h:9</div></div>
-<div class="ttc" id="astructnetwork__topology_html"><div class="ttname"><a href="structnetwork__topology.html">network_topology</a></div><div class="ttdoc">Topology of the Nanowire Network. It contains information about the physical placement of nanowires a...</div><div class="ttdef"><b>Definition:</b> network.h:11</div></div>
-<div class="ttc" id="astructwire_html"><div class="ttname"><a href="structwire.html">wire</a></div><div class="ttdoc">Stores the starting and ending positions of a wire together with its centroid position and total leng...</div><div class="ttdef"><b>Definition:</b> wire.h:9</div></div>
+<div class="ttc" id="adatasheet_8h_html"><div class="ttname"><a href="datasheet_8h.html">datasheet.h</a></div><div class="ttdoc">Defines the structure and comparison function for a device's datasheet.</div></div>
+<div class="ttc" id="ajunction_8h_html"><div class="ttname"><a href="junction_8h.html">junction.h</a></div><div class="ttdoc">Defines the structure and comparison function for nanowire junctions.</div></div>
+<div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
+<div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:16</div></div>
+<div class="ttc" id="astructjunction_html"><div class="ttname"><a href="structjunction.html">junction</a></div><div class="ttdoc">Stores the index of the wires forming the junction together with its position.</div><div class="ttdef"><b>Definition:</b> junction.h:19</div></div>
+<div class="ttc" id="astructnetwork__topology_html"><div class="ttname"><a href="structnetwork__topology.html">network_topology</a></div><div class="ttdoc">Topology of the Nanowire Network. It contains information about the physical placement of nanowires a...</div><div class="ttdef"><b>Definition:</b> network.h:26</div></div>
+<div class="ttc" id="astructwire_html"><div class="ttname"><a href="structwire.html">wire</a></div><div class="ttdoc">Stores the starting and ending positions of a wire together with its centroid position and total leng...</div><div class="ttdef"><b>Definition:</b> wire.h:20</div></div>
+<div class="ttc" id="awire_8h_html"><div class="ttname"><a href="wire_8h.html">wire.h</a></div><div class="ttdoc">Defines the ‘wire’ structure and a function for comparing wires by length.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

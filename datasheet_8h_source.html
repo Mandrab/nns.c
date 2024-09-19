@@ -17,6 +17,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -93,33 +95,35 @@ $(document).ready(function(){initNavTree('datasheet_8h_source.html',''); initRes
   <div class="headertitle"><div class="title">datasheet.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef DATASHEET_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define DATASHEET_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="structdatasheet.html">    5</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="structdatasheet.html#a52214ba164a5d10db87df613a0506ed9">    7</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="structdatasheet.html#a52214ba164a5d10db87df613a0506ed9">wires_count</a>;        </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structdatasheet.html#a418e9237bbf68512d0b7726a9266d395">    9</a></span>    <span class="keywordtype">double</span>  <a class="code hl_variable" href="structdatasheet.html#a418e9237bbf68512d0b7726a9266d395">length_mean</a>;        </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structdatasheet.html#aff986bebad5f361bc2cce8b958ec68ee">   10</a></span>    <span class="keywordtype">double</span>  <a class="code hl_variable" href="structdatasheet.html#aff986bebad5f361bc2cce8b958ec68ee">length_std_dev</a>;     </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="structdatasheet.html#a09efcbf90c750be30c847253d9bd7ed4">   12</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="structdatasheet.html#a09efcbf90c750be30c847253d9bd7ed4">package_size</a>;       </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structdatasheet.html#a6fbd9832284ae0b4b86cdb7482474060">   14</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="structdatasheet.html#a6fbd9832284ae0b4b86cdb7482474060">generation_seed</a>;    </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <a class="code hl_struct" href="structdatasheet.html">datasheet</a>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">int</span> dscmp(<span class="keyword">const</span> <span class="keywordtype">void</span>* e1, <span class="keyword">const</span> <span class="keywordtype">void</span>* e2);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif </span><span class="comment">/* DATASHEET_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:6</div></div>
-<div class="ttc" id="astructdatasheet_html_a09efcbf90c750be30c847253d9bd7ed4"><div class="ttname"><a href="structdatasheet.html#a09efcbf90c750be30c847253d9bd7ed4">datasheet::package_size</a></div><div class="ttdeci">int package_size</div><div class="ttdef"><b>Definition:</b> datasheet.h:12</div></div>
-<div class="ttc" id="astructdatasheet_html_a418e9237bbf68512d0b7726a9266d395"><div class="ttname"><a href="structdatasheet.html#a418e9237bbf68512d0b7726a9266d395">datasheet::length_mean</a></div><div class="ttdeci">double length_mean</div><div class="ttdoc">Average length of the nano-wires in µm.</div><div class="ttdef"><b>Definition:</b> datasheet.h:9</div></div>
-<div class="ttc" id="astructdatasheet_html_a52214ba164a5d10db87df613a0506ed9"><div class="ttname"><a href="structdatasheet.html#a52214ba164a5d10db87df613a0506ed9">datasheet::wires_count</a></div><div class="ttdeci">int wires_count</div><div class="ttdef"><b>Definition:</b> datasheet.h:7</div></div>
-<div class="ttc" id="astructdatasheet_html_a6fbd9832284ae0b4b86cdb7482474060"><div class="ttname"><a href="structdatasheet.html#a6fbd9832284ae0b4b86cdb7482474060">datasheet::generation_seed</a></div><div class="ttdeci">int generation_seed</div><div class="ttdef"><b>Definition:</b> datasheet.h:14</div></div>
-<div class="ttc" id="astructdatasheet_html_aff986bebad5f361bc2cce8b958ec68ee"><div class="ttname"><a href="structdatasheet.html#aff986bebad5f361bc2cce8b958ec68ee">datasheet::length_std_dev</a></div><div class="ttdeci">double length_std_dev</div><div class="ttdef"><b>Definition:</b> datasheet.h:10</div></div>
+<a href="datasheet_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef DATASHEET_H</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define DATASHEET_H</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="structdatasheet.html">   15</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structdatasheet.html#a52214ba164a5d10db87df613a0506ed9">   17</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="structdatasheet.html#a52214ba164a5d10db87df613a0506ed9">wires_count</a>;        </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structdatasheet.html#a418e9237bbf68512d0b7726a9266d395">   19</a></span>    <span class="keywordtype">double</span>  <a class="code hl_variable" href="structdatasheet.html#a418e9237bbf68512d0b7726a9266d395">length_mean</a>;        </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structdatasheet.html#aff986bebad5f361bc2cce8b958ec68ee">   20</a></span>    <span class="keywordtype">double</span>  <a class="code hl_variable" href="structdatasheet.html#aff986bebad5f361bc2cce8b958ec68ee">length_std_dev</a>;     </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structdatasheet.html#a09efcbf90c750be30c847253d9bd7ed4">   22</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="structdatasheet.html#a09efcbf90c750be30c847253d9bd7ed4">package_size</a>;       </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structdatasheet.html#a6fbd9832284ae0b4b86cdb7482474060">   24</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="structdatasheet.html#a6fbd9832284ae0b4b86cdb7482474060">generation_seed</a>;    </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <a class="code hl_struct" href="structdatasheet.html">datasheet</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">int</span> <a class="code hl_function" href="datasheet_8h.html#ae931433c386f55662e70e6a9b9fab3c7">dscmp</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* e1, <span class="keyword">const</span> <span class="keywordtype">void</span>* e2);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#endif </span><span class="comment">/* DATASHEET_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="adatasheet_8h_html_ae931433c386f55662e70e6a9b9fab3c7"><div class="ttname"><a href="datasheet_8h.html#ae931433c386f55662e70e6a9b9fab3c7">dscmp</a></div><div class="ttdeci">int dscmp(const void *e1, const void *e2)</div><div class="ttdoc">Compare two datasheets according to the number of nanowires, the size of their package and their crea...</div><div class="ttdef"><b>Definition:</b> datasheet.c:3</div></div>
+<div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:16</div></div>
+<div class="ttc" id="astructdatasheet_html_a09efcbf90c750be30c847253d9bd7ed4"><div class="ttname"><a href="structdatasheet.html#a09efcbf90c750be30c847253d9bd7ed4">datasheet::package_size</a></div><div class="ttdeci">int package_size</div><div class="ttdef"><b>Definition:</b> datasheet.h:22</div></div>
+<div class="ttc" id="astructdatasheet_html_a418e9237bbf68512d0b7726a9266d395"><div class="ttname"><a href="structdatasheet.html#a418e9237bbf68512d0b7726a9266d395">datasheet::length_mean</a></div><div class="ttdeci">double length_mean</div><div class="ttdoc">Average length of the nano-wires in µm.</div><div class="ttdef"><b>Definition:</b> datasheet.h:19</div></div>
+<div class="ttc" id="astructdatasheet_html_a52214ba164a5d10db87df613a0506ed9"><div class="ttname"><a href="structdatasheet.html#a52214ba164a5d10db87df613a0506ed9">datasheet::wires_count</a></div><div class="ttdeci">int wires_count</div><div class="ttdef"><b>Definition:</b> datasheet.h:17</div></div>
+<div class="ttc" id="astructdatasheet_html_a6fbd9832284ae0b4b86cdb7482474060"><div class="ttname"><a href="structdatasheet.html#a6fbd9832284ae0b4b86cdb7482474060">datasheet::generation_seed</a></div><div class="ttdeci">int generation_seed</div><div class="ttdef"><b>Definition:</b> datasheet.h:24</div></div>
+<div class="ttc" id="astructdatasheet_html_aff986bebad5f361bc2cce8b958ec68ee"><div class="ttname"><a href="structdatasheet.html#aff986bebad5f361bc2cce8b958ec68ee">datasheet::length_std_dev</a></div><div class="ttdeci">double length_std_dev</div><div class="ttdef"><b>Definition:</b> datasheet.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bcdf4e7f8b96bd5604cfa9640850d3bd.html">device</a></li><li class="navelem"><b>datasheet.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bcdf4e7f8b96bd5604cfa9640850d3bd.html">device</a></li><li class="navelem"><a class="el" href="datasheet_8h.html">datasheet.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>
