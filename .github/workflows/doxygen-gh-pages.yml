@@ -25,12 +25,11 @@ jobs:
         run: doxygen Doxyfile
         shell: bash
       - name: Create .nojekyll (ensures pages with underscores work on gh pages)
-        run: sudo touch ${{ inputs.folder }}/.nojekyll
+        run: sudo touch docs/html/.nojekyll
         shell: bash
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ inputs.branch }}
-          folder: ${{ inputs.folder }}
-          target-folder: ${{ inputs.target_folder }}
+          branch: "gh-pages"
+          folder: "docs/html"
