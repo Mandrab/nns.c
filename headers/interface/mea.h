@@ -1,3 +1,15 @@
+/**
+ * @file mea.h
+ * 
+ * @brief Defines the Micro-Electrode Array (MEA) structure and related
+ * functions.
+ * 
+ * This header file provides definitions for the Micro-Electrode Array (MEA)
+ * data structure and functions for connecting the MEA to a nanowire network
+ * and for converting it to an interface data structure. The MEA consists of an
+ * array of electrodes, each with position data, a mapping to the  nearest
+ * nanowire, connection state, and possible weights of attached loads.
+ */
 #ifndef MEA_H
 #define MEA_H
 

@@ -1,3 +1,22 @@
+/**
+ * @file interface.h
+ * 
+ * @brief Defines the structure of the nanowire-network device interface to the
+ * external world.
+ * 
+ * This file defines the data structures and functions for interfacing with a
+ * nanowire-network device. It includes functionality for comparing, copying,
+ * and destroying interfaces.
+ * 
+ * The interface is represented by the `interface` structure, which holds
+ * information about sources, grounds, loads and weights, and index of the
+ * nanowire they are connected to. The provided functions allow for the
+ * comparison of interfaces, creation of deep copies, and proper cleanup of
+ * allocated resources.
+ * 
+ * @note The `interface` uses dynamically allocated memory that must be managed
+ * using the provided functions.
+ */
 #ifndef INTERFACE_H
 #define INTERFACE_H
 

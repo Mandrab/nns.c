@@ -1,3 +1,13 @@
+/**
+ * @file connection.h
+ * 
+ * @brief Defines the enumeration for the possible connection states of an
+ * electrode to a specific nanowire in a Nanowire Network.
+ * 
+ * This header contains an enumeration that represents the different input/
+ * output states a nanowire can be in. A nanowire can either be unconnected,
+ * connected to a voltage source, grounded, or connected to an external load.
+ */
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
