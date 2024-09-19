@@ -17,6 +17,7 @@ wire* drop_wires(const datasheet ds)
 {
     // set the rng and its seed for the device generation
     gsl_rng* rng = gsl_rng_alloc(gsl_rng_random64_bsd);
+    gsl_rng_set(rng, ds.generation_seed);
 
     // create the array of wires to fill
     wire* ws = vector(wire, ds.wires_count);
