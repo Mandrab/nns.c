@@ -1,3 +1,17 @@
+/**
+ * @file measures.h
+ * 
+ * @brief Defines the function to calculate the resistance distance between two
+ * points in a Nanowire Network Connected Component.
+ * 
+ * This file contains the declaration of the function `resistive_distance`
+ * which computes the equivalent resistance between two nanowires in a
+ * connected component of a Nanowire Network. The measure is based on the
+ * circuital state of the network.
+ * 
+ * @note If the two nanowires are not connected, the function returns -1 as an
+ * error value.
+ */
 #ifndef MEASURES_H
 #define MEASURES_H
 

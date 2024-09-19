@@ -1,3 +1,9 @@
+/**
+ * @file distributions.h
+ * 
+ * @brief Contains an utility function to generate random number from a normal
+ * distribution. Not supposed to be used directly by the user.
+ */
 #ifndef DISTRIBUTIONS_H
 #define DISTRIBUTIONS_H
 

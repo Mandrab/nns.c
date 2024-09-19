@@ -1,3 +1,9 @@
+/**
+ * @file errors.h
+ * 
+ * @brief Contains an utilities to manage exceptions. Not supposed to be used
+ * directly by the user.
+ */
 #ifndef ERRORS_H
 #define ERRORS_H
 

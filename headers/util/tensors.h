@@ -1,3 +1,9 @@
+/**
+ * @file tensors.h
+ * 
+ * @brief Contains an utilities to work with tensors. Not supposed to be used
+ * directly by the user.
+ */
 #ifndef TENSORS_H
 #define TENSORS_H
 

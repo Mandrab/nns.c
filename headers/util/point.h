@@ -1,3 +1,9 @@
+/**
+ * @file point.h
+ * 
+ * @brief Defines a structure representing a point in the Cartesian space, and
+ * a function to compute the squared Euclidean distance between two points.
+ */
 #ifndef POINT_H
 #define POINT_H
 

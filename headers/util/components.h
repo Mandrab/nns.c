@@ -1,3 +1,10 @@
+/**
+ * @file components.h
+ * 
+ * @brief Contains utility functions to work with connected components of a
+ * Nanowire Network. The only function that is supposed to be used directly by
+ * a user is `split_components`.
+ */
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 

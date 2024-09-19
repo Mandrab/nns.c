@@ -2,6 +2,9 @@
  * @file config.h
  * 
  * @brief Defines constants of the simulator. Not supposed to be modified.
+ * 
+ * @note Modifying one of the following parameters will break the physical
+ * model of a Nanowire Network, making the simulator useless.
  */
 #ifndef CONFIG_H
 #define CONFIG_H

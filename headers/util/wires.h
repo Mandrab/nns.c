@@ -1,3 +1,9 @@
+/**
+ * @file wires.h
+ * 
+ * @brief Contains an utilities to build a nanowire network. Not supposed to be
+ * used directly by the user.
+ */
 #ifndef WIRES_H
 #define WIRES_H
 
