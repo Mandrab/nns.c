@@ -12,7 +12,7 @@ jobs:
     permissions: write-all
     steps:
       - name: Set the doxygen-awesome submodule
-        run: sudo apt-get install -y git && git submodule add https://github.com/jothepro/doxygen-awesome-css.git && cd cd doxygen-awesome-css && git checkout v2.3.3 && cd ..
+        run: sudo apt-get install -y git && ls && git submodule add https://github.com/jothepro/doxygen-awesome-css.git && cd cd doxygen-awesome-css && git checkout v2.3.3 && cd ..
       - uses: DenverCoder1/doxygen-github-pages-action@v2.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
