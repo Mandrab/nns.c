@@ -91,119 +91,133 @@ $(document).ready(function(){initNavTree('md_CHANGELOG.html',''); initResizable(
 <div class="contents">
 <div class="textblock"><p>All notable changes to this project will be documented in this file.</p>
 <h1><a class="anchor" id="autotoc_md12"></a>
-[v1.0.1] — 2024-09-18</h1>
+[v1.0.2] — 2024-09-19</h1>
 <h2><a class="anchor" id="autotoc_md13"></a>
 Added</h2>
-<ul>
-<li>GitHub workflow for the automatic generation of documentation. </li>
-</ul>
 <h2><a class="anchor" id="autotoc_md14"></a>
 Changed</h2>
+<ul>
+<li>Changed theme in doxygen documentation. </li>
+</ul>
 <h2><a class="anchor" id="autotoc_md15"></a>
 Fixed</h2>
+<ul>
+<li>Generation of the nanowire network is now more robust as the seed is set internally before the creation.</li>
+</ul>
 <h1><a class="anchor" id="autotoc_md16"></a>
-[v1.0.0] — 2024-09-18</h1>
+[v1.0.1] — 2024-09-18</h1>
 <h2><a class="anchor" id="autotoc_md17"></a>
 Added</h2>
 <ul>
-<li>Software license. </li>
+<li>GitHub workflow for the automatic generation of documentation. </li>
 </ul>
 <h2><a class="anchor" id="autotoc_md18"></a>
 Changed</h2>
 <h2><a class="anchor" id="autotoc_md19"></a>
 Fixed</h2>
 <h1><a class="anchor" id="autotoc_md20"></a>
-[v0.4.2-beta] — 2024-05-30</h1>
+[v1.0.0] — 2024-09-18</h1>
 <h2><a class="anchor" id="autotoc_md21"></a>
 Added</h2>
+<ul>
+<li>Software license. </li>
+</ul>
 <h2><a class="anchor" id="autotoc_md22"></a>
 Changed</h2>
 <h2><a class="anchor" id="autotoc_md23"></a>
 Fixed</h2>
-<ul>
-<li>Reproducible network generation across different Unix distributions.</li>
-</ul>
 <h1><a class="anchor" id="autotoc_md24"></a>
-[v0.4.1-beta] — 2024-03-11</h1>
+[v0.4.2-beta] — 2024-05-30</h1>
 <h2><a class="anchor" id="autotoc_md25"></a>
 Added</h2>
 <h2><a class="anchor" id="autotoc_md26"></a>
 Changed</h2>
+<h2><a class="anchor" id="autotoc_md27"></a>
+Fixed</h2>
+<ul>
+<li>Reproducible network generation across different Unix distributions.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md28"></a>
+[v0.4.1-beta] — 2024-03-11</h1>
+<h2><a class="anchor" id="autotoc_md29"></a>
+Added</h2>
+<h2><a class="anchor" id="autotoc_md30"></a>
+Changed</h2>
 <ul>
 <li>LAPACK function call in order to work with older versions of the library. </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md31"></a>
 Fixed</h2>
 <ul>
 <li>Parameters in examples.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md32"></a>
 [v0.4.0-beta] — 2023-12-14</h1>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 Added</h2>
 <ul>
 <li>The <a class="el" href="structMEA.html" title="Represent a Micro-Electrode Array of 16 electrodes (physically sound). Save their position and the in...">MEA</a> structure for a more realistic connection of sources, grounds, and loads.</li>
 <li>New utility functions for the comparison, copy, creation, and destruction of data structures. </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md34"></a>
 Changed</h2>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md35"></a>
 Fixed</h2>
 <ul>
 <li>CMake automation and README instructions to work on macOS.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 [v0.3.0-alpha] — 2023-10-26</h1>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md37"></a>
 Added</h2>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md38"></a>
 Changed</h2>
 <ul>
 <li>Used UMFPACK instead of LAPACK for the MNA solution: passed from solving a system of equations to solve a <em>sparse</em> system of equations.</li>
 <li>Computation speed increased by ~500%. </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md35"></a>
+<h2><a class="anchor" id="autotoc_md39"></a>
 Fixed</h2>
 <ul>
 <li>Bug in MNA solution when multiple sources are used.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 [v0.2.0-alpha] — 2023-10-12</h1>
-<h2><a class="anchor" id="autotoc_md37"></a>
+<h2><a class="anchor" id="autotoc_md41"></a>
 Added</h2>
 <ul>
 <li>Connected component abstraction, allowing to use multiple connected components belonging to the same NN. </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md38"></a>
+<h2><a class="anchor" id="autotoc_md42"></a>
 Changed</h2>
 <ul>
 <li>Linearized the simulation data: from array of arrays to array.</li>
 <li>Reduced the memory usage of the simulator by using wires and junctions index instead of containing the whole sparse matrix.</li>
 <li>Computation speed increased by ~10%. </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md39"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Fixed</h2>
-<h1><a class="anchor" id="autotoc_md40"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 [v0.1.1-alpha] — 2023-09-27</h1>
-<h2><a class="anchor" id="autotoc_md41"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Added</h2>
-<h2><a class="anchor" id="autotoc_md42"></a>
+<h2><a class="anchor" id="autotoc_md46"></a>
 Changed</h2>
 <ul>
 <li>Reduced the memory usage of the simulator. </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md43"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 Fixed</h2>
-<h1><a class="anchor" id="autotoc_md44"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 [v0.1.0-alpha] — 2023-09-27</h1>
-<h2><a class="anchor" id="autotoc_md45"></a>
+<h2><a class="anchor" id="autotoc_md49"></a>
 Added</h2>
 <ul>
 <li>First alpha version of the NN simulator. </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md46"></a>
+<h2><a class="anchor" id="autotoc_md50"></a>
 Changed</h2>
-<h2><a class="anchor" id="autotoc_md47"></a>
+<h2><a class="anchor" id="autotoc_md51"></a>
 Fixed</h2>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
