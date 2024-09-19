@@ -25,7 +25,19 @@
 var NAVTREE =
 [
   [ "nns.c", "index.html", [
-    [ "NNS: Nanowire Network Simulator", "index.html", "index" ],
+    [ "NNS: Nanowire Network Simulator", "index.html", [
+      [ "Table of Contents", "index.html#autotoc_md1", null ],
+      [ "Software design", "index.html#autotoc_md2", null ],
+      [ "Requirements", "index.html#autotoc_md3", null ],
+      [ "Installation", "index.html#autotoc_md4", [
+        [ "Linux", "index.html#autotoc_md5", null ],
+        [ "macOS", "index.html#autotoc_md6", null ],
+        [ "Windows", "index.html#autotoc_md7", null ]
+      ] ],
+      [ "Usage", "index.html#autotoc_md8", null ],
+      [ "Troubleshoot", "index.html#autotoc_md9", null ],
+      [ "Credits", "index.html#autotoc_md10", null ]
+    ] ],
     [ "Change Log", "md_CHANGELOG.html", [
       [ "[v1.0.1] — 2024-09-18", "md_CHANGELOG.html#autotoc_md12", [
         [ "Added", "md_CHANGELOG.html#autotoc_md13", null ],
