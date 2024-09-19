@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wcmp_0',['wcmp',['../wire_8h.html#a3068549318da69ac89e1ee0ff594f960',1,'wire.c']]]
+  ['jcmp_0',['jcmp',['../junction_8h.html#a458142eb449a23063f63e204c2308d2d',1,'junction.c']]]
 ];

@@ -95,27 +95,29 @@ $(document).ready(function(){initNavTree('point_8h_source.html',''); initResizab
   <div class="headertitle"><div class="title">point.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef POINT_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define POINT_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="structpoint.html">    5</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="structpoint.html#a9c6b34deaf4900ad4193c17935fd384a">    7</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structpoint.html#a9c6b34deaf4900ad4193c17935fd384a">x</a>;   </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structpoint.html#a613f8f0d7352731638b0094e1b958b87">    8</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structpoint.html#a613f8f0d7352731638b0094e1b958b87">y</a>;   </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>} <a class="code hl_struct" href="structpoint.html">point</a>;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keywordtype">double</span> squared_distance(<span class="keyword">const</span> <a class="code hl_struct" href="structpoint.html">point</a> a, <span class="keyword">const</span> <a class="code hl_struct" href="structpoint.html">point</a> b);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#endif </span><span class="comment">/* POINT_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="astructpoint_html"><div class="ttname"><a href="structpoint.html">point</a></div><div class="ttdoc">Structure representing a point in the cartesian space.</div><div class="ttdef"><b>Definition:</b> point.h:6</div></div>
-<div class="ttc" id="astructpoint_html_a613f8f0d7352731638b0094e1b958b87"><div class="ttname"><a href="structpoint.html#a613f8f0d7352731638b0094e1b958b87">point::y</a></div><div class="ttdeci">double y</div><div class="ttdoc">The position in the second dimension of the point.</div><div class="ttdef"><b>Definition:</b> point.h:8</div></div>
-<div class="ttc" id="astructpoint_html_a9c6b34deaf4900ad4193c17935fd384a"><div class="ttname"><a href="structpoint.html#a9c6b34deaf4900ad4193c17935fd384a">point::x</a></div><div class="ttdeci">double x</div><div class="ttdoc">The position in the first dimension of the point.</div><div class="ttdef"><b>Definition:</b> point.h:7</div></div>
+<a href="point_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#ifndef POINT_H</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define POINT_H</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structpoint.html">   11</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structpoint.html#a9c6b34deaf4900ad4193c17935fd384a">   13</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structpoint.html#a9c6b34deaf4900ad4193c17935fd384a">x</a>;   </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structpoint.html#a613f8f0d7352731638b0094e1b958b87">   14</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structpoint.html#a613f8f0d7352731638b0094e1b958b87">y</a>;   </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>} <a class="code hl_struct" href="structpoint.html">point</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">double</span> <a class="code hl_function" href="point_8h.html#a07bf56a47cc097bd866f1fb9288ad184">squared_distance</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structpoint.html">point</a> a, <span class="keyword">const</span> <a class="code hl_struct" href="structpoint.html">point</a> b);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#endif </span><span class="comment">/* POINT_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="apoint_8h_html_a07bf56a47cc097bd866f1fb9288ad184"><div class="ttname"><a href="point_8h.html#a07bf56a47cc097bd866f1fb9288ad184">squared_distance</a></div><div class="ttdeci">double squared_distance(const point a, const point b)</div><div class="ttdoc">Compute the point to point distance with the euclidean rule without performing the root....</div><div class="ttdef"><b>Definition:</b> point.c:5</div></div>
+<div class="ttc" id="astructpoint_html"><div class="ttname"><a href="structpoint.html">point</a></div><div class="ttdoc">Structure representing a point in the cartesian space.</div><div class="ttdef"><b>Definition:</b> point.h:12</div></div>
+<div class="ttc" id="astructpoint_html_a613f8f0d7352731638b0094e1b958b87"><div class="ttname"><a href="structpoint.html#a613f8f0d7352731638b0094e1b958b87">point::y</a></div><div class="ttdeci">double y</div><div class="ttdoc">The position in the second dimension of the point.</div><div class="ttdef"><b>Definition:</b> point.h:14</div></div>
+<div class="ttc" id="astructpoint_html_a9c6b34deaf4900ad4193c17935fd384a"><div class="ttname"><a href="structpoint.html#a9c6b34deaf4900ad4193c17935fd384a">point::x</a></div><div class="ttdeci">double x</div><div class="ttdoc">The position in the first dimension of the point.</div><div class="ttdef"><b>Definition:</b> point.h:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bc4f3d3130ea46cbb34c9fa0d9c95a03.html">util</a></li><li class="navelem"><b>point.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bc4f3d3130ea46cbb34c9fa0d9c95a03.html">util</a></li><li class="navelem"><a class="el" href="point_8h.html">point.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

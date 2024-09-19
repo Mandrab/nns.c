@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ntcmp_0',['ntcmp',['../network_8h.html#aa5914e90d4fea864923514285526b02b',1,'network.c']]]
+  ['itcmp_0',['itcmp',['../interface_8h.html#a5a0b60b142334b61c9eaaff399e10c89',1,'interface.c']]]
 ];

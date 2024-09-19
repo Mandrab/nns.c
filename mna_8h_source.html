@@ -95,41 +95,46 @@ $(document).ready(function(){initNavTree('mna_8h_source.html',''); initResizable
   <div class="headertitle"><div class="title">mna.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef MNA_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define MNA_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;interface/interface.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;interface/mea.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">int</span> voltage_stimulation(</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_struct" href="structnetwork__state.html">network_state</a> ns,</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structconnected__component.html">connected_component</a> cc,</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structinterface.html">interface</a> it,</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">double</span> io[]</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">int</span> voltage_stimulation_mea(</div>
+<a href="mna_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#ifndef MNA_H</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define MNA_H</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="interface_8h.html">interface/interface.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="mea_8h.html">interface/mea.h</a>&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">int</span> <a class="code hl_function" href="mna_8h.html#a1043b9f1df8c7e1c1a9fb89deecac7b3">voltage_stimulation</a>(</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_struct" href="structnetwork__state.html">network_state</a> ns,</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structconnected__component.html">connected_component</a> cc,</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structMEA.html">MEA</a> mea,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structinterface.html">interface</a> it,</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">double</span> io[]</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif </span><span class="comment">/* MNA_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keywordtype">int</span> <a class="code hl_function" href="mna_8h.html#a879cbd7c4fe27d9fe1fc5ce1248004bc">voltage_stimulation_mea</a>(</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <a class="code hl_struct" href="structnetwork__state.html">network_state</a> ns,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structconnected__component.html">connected_component</a> cc,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structMEA.html">MEA</a> mea,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">double</span> io[]</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#endif </span><span class="comment">/* MNA_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="acomponent_8h_html"><div class="ttname"><a href="component_8h.html">component.h</a></div><div class="ttdoc">Defines the structure and operations for connected components in a Nanowire Network.</div></div>
+<div class="ttc" id="ainterface_8h_html"><div class="ttname"><a href="interface_8h.html">interface.h</a></div><div class="ttdoc">Defines the structure of the nanowire-network device interface to the external world.</div></div>
+<div class="ttc" id="amea_8h_html"><div class="ttname"><a href="mea_8h.html">mea.h</a></div><div class="ttdoc">Defines the Micro-Electrode Array (MEA) structure and related functions.</div></div>
+<div class="ttc" id="amna_8h_html_a1043b9f1df8c7e1c1a9fb89deecac7b3"><div class="ttname"><a href="mna_8h.html#a1043b9f1df8c7e1c1a9fb89deecac7b3">voltage_stimulation</a></div><div class="ttdeci">int voltage_stimulation(network_state ns, const connected_component cc, const interface it, double io[])</div><div class="ttdoc">Perform the voltage stimulation of the Nanowire Network by using the Modified Nodal Analysis algorith...</div><div class="ttdef"><b>Definition:</b> mna.c:13</div></div>
+<div class="ttc" id="amna_8h_html_a879cbd7c4fe27d9fe1fc5ce1248004bc"><div class="ttname"><a href="mna_8h.html#a879cbd7c4fe27d9fe1fc5ce1248004bc">voltage_stimulation_mea</a></div><div class="ttdeci">int voltage_stimulation_mea(network_state ns, const connected_component cc, const MEA mea, double io[])</div><div class="ttdoc">Perform the voltage stimulation of a Nanowire Network connected with a MEA. See voltage_stimulation f...</div><div class="ttdef"><b>Definition:</b> mna.c:295</div></div>
 <div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
-<div class="ttc" id="astructMEA_html"><div class="ttname"><a href="structMEA.html">MEA</a></div><div class="ttdoc">Represent a Micro-Electrode Array of 16 electrodes (physically sound). Save their position and the in...</div><div class="ttdef"><b>Definition:</b> mea.h:17</div></div>
+<div class="ttc" id="astructMEA_html"><div class="ttname"><a href="structMEA.html">MEA</a></div><div class="ttdoc">Represent a Micro-Electrode Array of 16 electrodes (physically sound). Save their position and the in...</div><div class="ttdef"><b>Definition:</b> mea.h:29</div></div>
 <div class="ttc" id="astructconnected__component_html"><div class="ttname"><a href="structconnected__component.html">connected_component</a></div><div class="ttdoc">Connected component of the Nanowire Network. It contains all the information needed to identify the n...</div><div class="ttdef"><b>Definition:</b> component.h:24</div></div>
-<div class="ttc" id="astructinterface_html"><div class="ttname"><a href="structinterface.html">interface</a></div><div class="ttdoc">Interface between the nanowire-network device and external systems.</div><div class="ttdef"><b>Definition:</b> interface.h:26</div></div>
+<div class="ttc" id="astructinterface_html"><div class="ttname"><a href="structinterface.html">interface</a></div><div class="ttdoc">Interface between the nanowire-network device and external systems.</div><div class="ttdef"><b>Definition:</b> interface.h:45</div></div>
 <div class="ttc" id="astructnetwork__state_html"><div class="ttname"><a href="structnetwork__state.html">network_state</a></div><div class="ttdoc">Electrical state of the Nanowire Network. It contains the varying values of the junctions and the vol...</div><div class="ttdef"><b>Definition:</b> network.h:47</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_c6ce869de297f50677fe87b2a451a6c4.html">stimulator</a></li><li class="navelem"><b>mna.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_c6ce869de297f50677fe87b2a451a6c4.html">stimulator</a></li><li class="navelem"><a class="el" href="mna_8h.html">mna.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

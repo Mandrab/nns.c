@@ -95,41 +95,49 @@ $(document).ready(function(){initNavTree('mea_8h_source.html',''); initResizable
   <div class="headertitle"><div class="title">mea.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef MEA_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define MEA_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;config.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="datasheet_8h.html">device/datasheet.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;interface/connection.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;interface/interface.h&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;util/point.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="structMEA.html">   16</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structMEA.html#afec12967702b3bb69788f5ae99283eaa">   18</a></span>    <a class="code hl_struct" href="structpoint.html">point</a> Ps[MEA_ELECTRODES];           </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structMEA.html#a20b68d14c57cc3495c32c232f6436f0f">   19</a></span>    <span class="keywordtype">int</span> e2n[MEA_ELECTRODES];            </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structMEA.html#ae78f4e9d9356f1c871a515c35e42d64f">   23</a></span>    connection_t ct[MEA_ELECTRODES];    </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structMEA.html#a6dbba7c1e0a0b6a7d7a77aa6866a8137">   25</a></span>    <span class="keywordtype">double</span> ws[MEA_ELECTRODES];          </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>} <a class="code hl_struct" href="structMEA.html">MEA</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><a class="code hl_struct" href="structMEA.html">MEA</a> connect_MEA(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">interface </span>mea2interface(const <a class="code hl_struct" href="structMEA.html">MEA</a> mea);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif </span><span class="comment">/* MEA_H */</span><span class="preprocessor"></span></div>
+<a href="mea_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#ifndef MEA_H</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define MEA_H</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="config_8h.html">config.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="datasheet_8h.html">device/datasheet.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="connection_8h.html">interface/connection.h</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="interface_8h.html">interface/interface.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="point_8h.html">util/point.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structMEA.html">   28</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structMEA.html#afec12967702b3bb69788f5ae99283eaa">   30</a></span>    <a class="code hl_struct" href="structpoint.html">point</a> Ps[MEA_ELECTRODES];           </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structMEA.html#a20b68d14c57cc3495c32c232f6436f0f">   31</a></span>    <span class="keywordtype">int</span> e2n[MEA_ELECTRODES];            </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structMEA.html#ae78f4e9d9356f1c871a515c35e42d64f">   35</a></span>    <a class="code hl_enumeration" href="connection_8h.html#acb623eacad9e3765acdc2e10ae9eeb85">connection_t</a> ct[MEA_ELECTRODES];    </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structMEA.html#a6dbba7c1e0a0b6a7d7a77aa6866a8137">   37</a></span>    <span class="keywordtype">double</span> ws[MEA_ELECTRODES];          </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>} <a class="code hl_struct" href="structMEA.html">MEA</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><a class="code hl_struct" href="structMEA.html">MEA</a> <a class="code hl_function" href="mea_8h.html#aa062b62c2ce63a4abd4a1182b2e54312">connect_MEA</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">interface </span><a class="code hl_function" href="mea_8h.html#acfb9bc2ea6234154aeba1b730c28988b">mea2interface</a>(const <a class="code hl_struct" href="structMEA.html">MEA</a> mea);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif </span><span class="comment">/* MEA_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Defines constants of the simulator. Not supposed to be modified.</div></div>
+<div class="ttc" id="aconnection_8h_html"><div class="ttname"><a href="connection_8h.html">connection.h</a></div><div class="ttdoc">Defines the enumeration for the possible connection states of an electrode to a specific nanowire in ...</div></div>
+<div class="ttc" id="aconnection_8h_html_acb623eacad9e3765acdc2e10ae9eeb85"><div class="ttname"><a href="connection_8h.html#acb623eacad9e3765acdc2e10ae9eeb85">connection_t</a></div><div class="ttdeci">connection_t</div><div class="ttdoc">Enumeration of possible connection states for a nanowire in a Nanowire Network. A nanowire is always ...</div><div class="ttdef"><b>Definition:</b> connection.h:18</div></div>
 <div class="ttc" id="adatasheet_8h_html"><div class="ttname"><a href="datasheet_8h.html">datasheet.h</a></div><div class="ttdoc">Defines the structure and comparison function for a device's datasheet.</div></div>
+<div class="ttc" id="ainterface_8h_html"><div class="ttname"><a href="interface_8h.html">interface.h</a></div><div class="ttdoc">Defines the structure of the nanowire-network device interface to the external world.</div></div>
+<div class="ttc" id="amea_8h_html_aa062b62c2ce63a4abd4a1182b2e54312"><div class="ttname"><a href="mea_8h.html#aa062b62c2ce63a4abd4a1182b2e54312">connect_MEA</a></div><div class="ttdeci">MEA connect_MEA(const datasheet ds, const network_topology nt)</div><div class="ttdoc">Connect the MEA to the Nanowire Network discovering the touched nanowires.</div><div class="ttdef"><b>Definition:</b> mea.c:8</div></div>
+<div class="ttc" id="amea_8h_html_acfb9bc2ea6234154aeba1b730c28988b"><div class="ttname"><a href="mea_8h.html#acfb9bc2ea6234154aeba1b730c28988b">mea2interface</a></div><div class="ttdeci">interface mea2interface(const MEA mea)</div><div class="ttdoc">Convert a MEA data structure into an interface data structure.</div><div class="ttdef"><b>Definition:</b> mea.c:61</div></div>
 <div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
-<div class="ttc" id="astructMEA_html"><div class="ttname"><a href="structMEA.html">MEA</a></div><div class="ttdoc">Represent a Micro-Electrode Array of 16 electrodes (physically sound). Save their position and the in...</div><div class="ttdef"><b>Definition:</b> mea.h:17</div></div>
+<div class="ttc" id="apoint_8h_html"><div class="ttname"><a href="point_8h.html">point.h</a></div><div class="ttdoc">Defines a structure representing a point in the Cartesian space, and a function to compute the square...</div></div>
+<div class="ttc" id="astructMEA_html"><div class="ttname"><a href="structMEA.html">MEA</a></div><div class="ttdoc">Represent a Micro-Electrode Array of 16 electrodes (physically sound). Save their position and the in...</div><div class="ttdef"><b>Definition:</b> mea.h:29</div></div>
 <div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:16</div></div>
 <div class="ttc" id="astructnetwork__topology_html"><div class="ttname"><a href="structnetwork__topology.html">network_topology</a></div><div class="ttdoc">Topology of the Nanowire Network. It contains information about the physical placement of nanowires a...</div><div class="ttdef"><b>Definition:</b> network.h:26</div></div>
-<div class="ttc" id="astructpoint_html"><div class="ttname"><a href="structpoint.html">point</a></div><div class="ttdoc">Structure representing a point in the cartesian space.</div><div class="ttdef"><b>Definition:</b> point.h:6</div></div>
+<div class="ttc" id="astructpoint_html"><div class="ttname"><a href="structpoint.html">point</a></div><div class="ttdoc">Structure representing a point in the cartesian space.</div><div class="ttdef"><b>Definition:</b> point.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_49822cff457b2f8a83b35629c1114e2e.html">interface</a></li><li class="navelem"><b>mea.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_49822cff457b2f8a83b35629c1114e2e.html">interface</a></li><li class="navelem"><a class="el" href="mea_8h.html">mea.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

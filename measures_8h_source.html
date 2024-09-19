@@ -95,21 +95,23 @@ $(document).ready(function(){initNavTree('measures_8h_source.html',''); initResi
   <div class="headertitle"><div class="title">measures.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef MEASURES_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define MEASURES_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">double</span> resistive_distance(</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__state.html">network_state</a> ns,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structconnected__component.html">connected_component</a> cc,</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">int</span> a,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">int</span> b</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#endif </span><span class="comment">/* MEASURES_H */</span><span class="preprocessor"></span></div>
+<a href="measures_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#ifndef MEASURES_H</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define MEASURES_H</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">double</span> <a class="code hl_function" href="measures_8h.html#ad4d886691de61d1f1b19a81039a7e976">resistive_distance</a>(</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__state.html">network_state</a> ns,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structconnected__component.html">connected_component</a> cc,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">int</span> a,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">int</span> b</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif </span><span class="comment">/* MEASURES_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="acomponent_8h_html"><div class="ttname"><a href="component_8h.html">component.h</a></div><div class="ttdoc">Defines the structure and operations for connected components in a Nanowire Network.</div></div>
+<div class="ttc" id="ameasures_8h_html_ad4d886691de61d1f1b19a81039a7e976"><div class="ttname"><a href="measures_8h.html#ad4d886691de61d1f1b19a81039a7e976">resistive_distance</a></div><div class="ttdeci">double resistive_distance(const network_state ns, const connected_component cc, int a, int b)</div><div class="ttdoc">Calculate the resistance distance between two points of a Nanowire Network Connected Component.</div><div class="ttdef"><b>Definition:</b> measures.c:7</div></div>
 <div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
 <div class="ttc" id="astructconnected__component_html"><div class="ttname"><a href="structconnected__component.html">connected_component</a></div><div class="ttdoc">Connected component of the Nanowire Network. It contains all the information needed to identify the n...</div><div class="ttdef"><b>Definition:</b> component.h:24</div></div>
 <div class="ttc" id="astructnetwork__state_html"><div class="ttname"><a href="structnetwork__state.html">network_state</a></div><div class="ttdoc">Electrical state of the Nanowire Network. It contains the varying values of the junctions and the vol...</div><div class="ttdef"><b>Definition:</b> network.h:47</div></div>
@@ -118,7 +120,7 @@ $(document).ready(function(){initNavTree('measures_8h_source.html',''); initResi
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bc4f3d3130ea46cbb34c9fa0d9c95a03.html">util</a></li><li class="navelem"><b>measures.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bc4f3d3130ea46cbb34c9fa0d9c95a03.html">util</a></li><li class="navelem"><a class="el" href="measures_8h.html">measures.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

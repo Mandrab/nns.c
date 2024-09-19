@@ -95,30 +95,34 @@ $(document).ready(function(){initNavTree('components_8h_source.html',''); initRe
   <div class="headertitle"><div class="title">components.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef COMPONENTS_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define COMPONENTS_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">int</span> map_components(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt, <span class="keywordtype">int</span> n2c[]);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keywordtype">void</span> group_nanowires(</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">int</span> n2c[],</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">int</span> cc_count</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><a class="code hl_struct" href="structconnected__component.html">connected_component</a>* split_components(</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">int</span> n2c[],</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">int</span> cc_count</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#endif </span><span class="comment">/* COMPONENTS_H */</span><span class="preprocessor"></span></div>
+<a href="components_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef COMPONENTS_H</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define COMPONENTS_H</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">int</span> <a class="code hl_function" href="components_8h.html#a8edd6596e974faa8d6febbad8baf3d99">map_components</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt, <span class="keywordtype">int</span> n2c[]);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keywordtype">void</span> <a class="code hl_function" href="components_8h.html#a50c21a86554c18efddef763bdc995f05">group_nanowires</a>(</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">int</span> n2c[],</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">int</span> cc_count</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><a class="code hl_struct" href="structconnected__component.html">connected_component</a>* <a class="code hl_function" href="components_8h.html#ac8bbdab3558d4816cc3608d1ac1f666a">split_components</a>(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">int</span> n2c[],</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">int</span> cc_count</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif </span><span class="comment">/* COMPONENTS_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="acomponent_8h_html"><div class="ttname"><a href="component_8h.html">component.h</a></div><div class="ttdoc">Defines the structure and operations for connected components in a Nanowire Network.</div></div>
+<div class="ttc" id="acomponents_8h_html_a50c21a86554c18efddef763bdc995f05"><div class="ttname"><a href="components_8h.html#a50c21a86554c18efddef763bdc995f05">group_nanowires</a></div><div class="ttdeci">void group_nanowires(const datasheet ds, network_topology nt, int n2c[], int cc_count)</div><div class="ttdoc">Sort the Ws and Js arrays of nt according to the index of the connected component each entry belongs ...</div><div class="ttdef"><b>Definition:</b> components.c:96</div></div>
+<div class="ttc" id="acomponents_8h_html_a8edd6596e974faa8d6febbad8baf3d99"><div class="ttname"><a href="components_8h.html#a8edd6596e974faa8d6febbad8baf3d99">map_components</a></div><div class="ttdeci">int map_components(const datasheet ds, const network_topology nt, int n2c[])</div><div class="ttdoc">Given a network topology and its corresponding datasheet, generate an array containing for each node ...</div><div class="ttdef"><b>Definition:</b> components.c:7</div></div>
+<div class="ttc" id="acomponents_8h_html_ac8bbdab3558d4816cc3608d1ac1f666a"><div class="ttname"><a href="components_8h.html#ac8bbdab3558d4816cc3608d1ac1f666a">split_components</a></div><div class="ttdeci">connected_component * split_components(const datasheet ds, const network_topology nt, int n2c[], int cc_count)</div><div class="ttdoc">Create cc_count connected components referencing the sub-arrays of ns containing the data belonging t...</div><div class="ttdef"><b>Definition:</b> components.c:145</div></div>
 <div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
 <div class="ttc" id="astructconnected__component_html"><div class="ttname"><a href="structconnected__component.html">connected_component</a></div><div class="ttdoc">Connected component of the Nanowire Network. It contains all the information needed to identify the n...</div><div class="ttdef"><b>Definition:</b> component.h:24</div></div>
 <div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:16</div></div>
@@ -128,7 +132,7 @@ $(document).ready(function(){initNavTree('components_8h_source.html',''); initRe
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bc4f3d3130ea46cbb34c9fa0d9c95a03.html">util</a></li><li class="navelem"><b>components.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bc4f3d3130ea46cbb34c9fa0d9c95a03.html">util</a></li><li class="navelem"><a class="el" href="components_8h.html">components.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

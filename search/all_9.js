@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['network_2eh_0',['network.h',['../network_8h.html',1,'']]],
-  ['network_5fstate_1',['network_state',['../structnetwork__state.html',1,'']]],
-  ['network_5ftopology_2',['network_topology',['../structnetwork__topology.html',1,'']]],
-  ['nns_3a_20nanowire_20network_20simulator_3',['NNS: Nanowire Network Simulator',['../index.html',1,'']]],
-  ['node_4',['node',['../structnode.html',1,'']]],
-  ['ntcmp_5',['ntcmp',['../network_8h.html#aa5914e90d4fea864923514285526b02b',1,'network.c']]]
+  ['map_5fcomponents_0',['map_components',['../components_8h.html#a8edd6596e974faa8d6febbad8baf3d99',1,'components.c']]],
+  ['matrix_1',['matrix',['../tensors_8h.html#ad877b2ac1cf74cbde3d2516e9bb9e401',1,'tensors.h']]],
+  ['mea_2',['MEA',['../structMEA.html',1,'']]],
+  ['mea_2eh_3',['mea.h',['../mea_8h.html',1,'']]],
+  ['mea2interface_4',['mea2interface',['../mea_8h.html#acfb9bc2ea6234154aeba1b730c28988b',1,'mea.c']]],
+  ['measures_2eh_5',['measures.h',['../measures_8h.html',1,'']]],
+  ['mna_2eh_6',['mna.h',['../mna_8h.html',1,'']]]
 ];

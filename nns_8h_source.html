@@ -95,39 +95,50 @@ $(document).ready(function(){initNavTree('nns_8h_source.html',''); initResizable
   <div class="headertitle"><div class="title">nns.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NNS_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NNS_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="datasheet_8h.html">device/datasheet.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="junction_8h.html">device/junction.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="wire_8h.html">device/wire.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;interface/interface.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;interface/mea.h&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;io/deserializer.h&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;io/serializer.h&quot;</span></div>
+<a href="nns_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#ifndef NNS_H</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define NNS_H</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="datasheet_8h.html">device/datasheet.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="junction_8h.html">device/junction.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="wire_8h.html">device/wire.h</a>&quot;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;stimulator/mna.h&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;stimulator/update.h&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="interface_8h.html">interface/interface.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="mea_8h.html">interface/mea.h</a>&quot;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;util/components.h&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;util/measures.h&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;util/point.h&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;util/tensors.h&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif </span><span class="comment">/* NNS_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="deserializer_8h.html">io/deserializer.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="serializer_8h.html">io/serializer.h</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="mna_8h.html">stimulator/mna.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="update_8h.html">stimulator/update.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="components_8h.html">util/components.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="measures_8h.html">util/measures.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="point_8h.html">util/point.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="tensors_8h.html">util/tensors.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#endif </span><span class="comment">/* NNS_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="acomponents_8h_html"><div class="ttname"><a href="components_8h.html">components.h</a></div><div class="ttdoc">Contains utility functions to work with connected components of a Nanowire Network....</div></div>
 <div class="ttc" id="adatasheet_8h_html"><div class="ttname"><a href="datasheet_8h.html">datasheet.h</a></div><div class="ttdoc">Defines the structure and comparison function for a device's datasheet.</div></div>
+<div class="ttc" id="adeserializer_8h_html"><div class="ttname"><a href="deserializer_8h.html">deserializer.h</a></div><div class="ttdoc">Defines deserialization functions for all the data structures of the library.</div></div>
+<div class="ttc" id="ainterface_8h_html"><div class="ttname"><a href="interface_8h.html">interface.h</a></div><div class="ttdoc">Defines the structure of the nanowire-network device interface to the external world.</div></div>
 <div class="ttc" id="ajunction_8h_html"><div class="ttname"><a href="junction_8h.html">junction.h</a></div><div class="ttdoc">Defines the structure and comparison function for nanowire junctions.</div></div>
+<div class="ttc" id="amea_8h_html"><div class="ttname"><a href="mea_8h.html">mea.h</a></div><div class="ttdoc">Defines the Micro-Electrode Array (MEA) structure and related functions.</div></div>
+<div class="ttc" id="ameasures_8h_html"><div class="ttname"><a href="measures_8h.html">measures.h</a></div><div class="ttdoc">Defines the function to calculate the resistance distance between two points in a Nanowire Network Co...</div></div>
+<div class="ttc" id="amna_8h_html"><div class="ttname"><a href="mna_8h.html">mna.h</a></div><div class="ttdoc">Defines functions to perform voltage stimulation on a Nanowire Network using the Modified Nodal Analy...</div></div>
 <div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
+<div class="ttc" id="apoint_8h_html"><div class="ttname"><a href="point_8h.html">point.h</a></div><div class="ttdoc">Defines a structure representing a point in the Cartesian space, and a function to compute the square...</div></div>
+<div class="ttc" id="aserializer_8h_html"><div class="ttname"><a href="serializer_8h.html">serializer.h</a></div><div class="ttdoc">Provides functions to serialize various components of a nanowire network.</div></div>
+<div class="ttc" id="atensors_8h_html"><div class="ttname"><a href="tensors_8h.html">tensors.h</a></div><div class="ttdoc">Contains an utilities to work with tensors. Not supposed to be used directly by the user.</div></div>
+<div class="ttc" id="aupdate_8h_html"><div class="ttname"><a href="update_8h.html">update.h</a></div><div class="ttdoc">Defines the update_conductance function.</div></div>
 <div class="ttc" id="awire_8h_html"><div class="ttname"><a href="wire_8h.html">wire.h</a></div><div class="ttdoc">Defines the ‘wire’ structure and a function for comparing wires by length.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><b>nns.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="nns_8h.html">nns.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

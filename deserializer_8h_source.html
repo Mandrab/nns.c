@@ -95,48 +95,56 @@ $(document).ready(function(){initNavTree('deserializer_8h_source.html',''); init
   <div class="headertitle"><div class="title">deserializer.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef DESERIALIZER_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define DESERIALIZER_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;interface/interface.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;interface/mea.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">void</span> deserialize_network(</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_struct" href="structdatasheet.html">datasheet</a>* ds,</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a>* nt,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">char</span>* path,</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">int</span> <span class="keywordtype">id</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span> deserialize_state(</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_struct" href="structnetwork__state.html">network_state</a>* ns,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">char</span>* path,</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">int</span> <span class="keywordtype">id</span>,</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">int</span> step</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">void</span> deserialize_component(</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_struct" href="structconnected__component.html">connected_component</a>* cc,</div>
+<a href="deserializer_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#ifndef DESERIALIZER_H</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#define DESERIALIZER_H</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="component_8h.html">device/component.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="interface_8h.html">interface/interface.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="mea_8h.html">interface/mea.h</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="deserializer_8h.html#a400ddfa8cd44470f1f84849f14bd5d25">deserialize_network</a>(</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_struct" href="structdatasheet.html">datasheet</a>* ds,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a>* nt,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">char</span>* path,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">int</span> <span class="keywordtype">id</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> <a class="code hl_function" href="deserializer_8h.html#ae710349d8f0a5c06db634f1d290e0ae5">deserialize_state</a>(</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_struct" href="structnetwork__state.html">network_state</a>* ns,</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">char</span>* path,</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">int</span> nn_id,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">int</span> cc_id</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">int</span> <span class="keywordtype">id</span>,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">int</span> step</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">void</span> deserialize_interface(<a class="code hl_struct" href="structinterface.html">interface</a>* it, <span class="keywordtype">char</span>* path, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> step);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> deserialize_mea(<a class="code hl_struct" href="structMEA.html">MEA</a>* mea, <span class="keywordtype">char</span>* path, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> step);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#endif </span><span class="comment">/* DESERIALIZER_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keywordtype">void</span> <a class="code hl_function" href="deserializer_8h.html#a1c36fdf8f72965716d37668419fb2fad">deserialize_component</a>(</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_struct" href="structconnected__component.html">connected_component</a>* cc,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">char</span>* path,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">int</span> nn_id,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">int</span> cc_id</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">void</span> <a class="code hl_function" href="deserializer_8h.html#aab5937d80e6a7aa3c517ee9deb87c596">deserialize_interface</a>(<a class="code hl_struct" href="structinterface.html">interface</a>* it, <span class="keywordtype">char</span>* path, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> step);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keywordtype">void</span> <a class="code hl_function" href="deserializer_8h.html#a79e1b939a1a6ac414c75656e81905fe3">deserialize_mea</a>(<a class="code hl_struct" href="structMEA.html">MEA</a>* mea, <span class="keywordtype">char</span>* path, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> step);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#endif </span><span class="comment">/* DESERIALIZER_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="acomponent_8h_html"><div class="ttname"><a href="component_8h.html">component.h</a></div><div class="ttdoc">Defines the structure and operations for connected components in a Nanowire Network.</div></div>
+<div class="ttc" id="adeserializer_8h_html_a1c36fdf8f72965716d37668419fb2fad"><div class="ttname"><a href="deserializer_8h.html#a1c36fdf8f72965716d37668419fb2fad">deserialize_component</a></div><div class="ttdeci">void deserialize_component(connected_component *cc, char *path, int nn_id, int cc_id)</div><div class="ttdoc">Deserialize a network connected component. NN_ID is the univocal identifier of the NN....</div><div class="ttdef"><b>Definition:</b> deserializer.c:73</div></div>
+<div class="ttc" id="adeserializer_8h_html_a400ddfa8cd44470f1f84849f14bd5d25"><div class="ttname"><a href="deserializer_8h.html#a400ddfa8cd44470f1f84849f14bd5d25">deserialize_network</a></div><div class="ttdeci">void deserialize_network(datasheet *ds, network_topology *nt, char *path, int id)</div><div class="ttdoc">Deserialize the static characteristics of the network from a file named &quot;nanowire_network....</div><div class="ttdef"><b>Definition:</b> deserializer.c:16</div></div>
+<div class="ttc" id="adeserializer_8h_html_a79e1b939a1a6ac414c75656e81905fe3"><div class="ttname"><a href="deserializer_8h.html#a79e1b939a1a6ac414c75656e81905fe3">deserialize_mea</a></div><div class="ttdeci">void deserialize_mea(MEA *mea, char *path, int id, int step)</div><div class="ttdoc">Deserialize the MEA of the network from a file named &quot;mea_STEP.nns&quot; where ID is the univocal identifi...</div><div class="ttdef"><b>Definition:</b> deserializer.c:115</div></div>
+<div class="ttc" id="adeserializer_8h_html_aab5937d80e6a7aa3c517ee9deb87c596"><div class="ttname"><a href="deserializer_8h.html#aab5937d80e6a7aa3c517ee9deb87c596">deserialize_interface</a></div><div class="ttdeci">void deserialize_interface(interface *it, char *path, int id, int step)</div><div class="ttdoc">Deserialize the interface to the network from a file named &quot;it_STEP.dat&quot;, where ID is the univocal id...</div><div class="ttdef"><b>Definition:</b> deserializer.c:90</div></div>
+<div class="ttc" id="adeserializer_8h_html_ae710349d8f0a5c06db634f1d290e0ae5"><div class="ttname"><a href="deserializer_8h.html#ae710349d8f0a5c06db634f1d290e0ae5">deserialize_state</a></div><div class="ttdeci">void deserialize_state(const datasheet ds, const network_topology nt, network_state *ns, char *path, int id, int step)</div><div class="ttdoc">Deserialize the state of the network from a file named &quot;nanowire_state.ID.dat&quot;, where ID is the univo...</div><div class="ttdef"><b>Definition:</b> deserializer.c:50</div></div>
+<div class="ttc" id="ainterface_8h_html"><div class="ttname"><a href="interface_8h.html">interface.h</a></div><div class="ttdoc">Defines the structure of the nanowire-network device interface to the external world.</div></div>
+<div class="ttc" id="amea_8h_html"><div class="ttname"><a href="mea_8h.html">mea.h</a></div><div class="ttdoc">Defines the Micro-Electrode Array (MEA) structure and related functions.</div></div>
 <div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
-<div class="ttc" id="astructMEA_html"><div class="ttname"><a href="structMEA.html">MEA</a></div><div class="ttdoc">Represent a Micro-Electrode Array of 16 electrodes (physically sound). Save their position and the in...</div><div class="ttdef"><b>Definition:</b> mea.h:17</div></div>
+<div class="ttc" id="astructMEA_html"><div class="ttname"><a href="structMEA.html">MEA</a></div><div class="ttdoc">Represent a Micro-Electrode Array of 16 electrodes (physically sound). Save their position and the in...</div><div class="ttdef"><b>Definition:</b> mea.h:29</div></div>
 <div class="ttc" id="astructconnected__component_html"><div class="ttname"><a href="structconnected__component.html">connected_component</a></div><div class="ttdoc">Connected component of the Nanowire Network. It contains all the information needed to identify the n...</div><div class="ttdef"><b>Definition:</b> component.h:24</div></div>
 <div class="ttc" id="astructdatasheet_html"><div class="ttname"><a href="structdatasheet.html">datasheet</a></div><div class="ttdoc">Defines the static characteristics of the device.</div><div class="ttdef"><b>Definition:</b> datasheet.h:16</div></div>
-<div class="ttc" id="astructinterface_html"><div class="ttname"><a href="structinterface.html">interface</a></div><div class="ttdoc">Interface between the nanowire-network device and external systems.</div><div class="ttdef"><b>Definition:</b> interface.h:26</div></div>
+<div class="ttc" id="astructinterface_html"><div class="ttname"><a href="structinterface.html">interface</a></div><div class="ttdoc">Interface between the nanowire-network device and external systems.</div><div class="ttdef"><b>Definition:</b> interface.h:45</div></div>
 <div class="ttc" id="astructnetwork__state_html"><div class="ttname"><a href="structnetwork__state.html">network_state</a></div><div class="ttdoc">Electrical state of the Nanowire Network. It contains the varying values of the junctions and the vol...</div><div class="ttdef"><b>Definition:</b> network.h:47</div></div>
 <div class="ttc" id="astructnetwork__topology_html"><div class="ttname"><a href="structnetwork__topology.html">network_topology</a></div><div class="ttdoc">Topology of the Nanowire Network. It contains information about the physical placement of nanowires a...</div><div class="ttdef"><b>Definition:</b> network.h:26</div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -144,7 +152,7 @@ $(document).ready(function(){initNavTree('deserializer_8h_source.html',''); init
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_e853d87953c0a0e9e0d68fd150570edc.html">io</a></li><li class="navelem"><b>deserializer.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_e853d87953c0a0e9e0d68fd150570edc.html">io</a></li><li class="navelem"><a class="el" href="deserializer_8h.html">deserializer.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

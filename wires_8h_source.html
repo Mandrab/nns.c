@@ -95,23 +95,24 @@ $(document).ready(function(){initNavTree('wires_8h_source.html',''); initResizab
   <div class="headertitle"><div class="title">wires.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef WIRES_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define WIRES_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="datasheet_8h.html">device/datasheet.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="junction_8h.html">device/junction.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="wire_8h.html">device/wire.h</a>&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><a class="code hl_struct" href="structwire.html">wire</a>* drop_wires(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keywordtype">void</span> detect_junctions(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structwire.html">wire</a>* ws, <a class="code hl_struct" href="structjunction.html">junction</a>** js, <span class="keywordtype">int</span>* js_count);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">bool</span>** construe_adjacency_matrix(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif </span><span class="comment">/* WIRES_H */</span><span class="preprocessor"></span></div>
+<a href="wires_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#ifndef WIRES_H</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define WIRES_H</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="datasheet_8h.html">device/datasheet.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="junction_8h.html">device/junction.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">device/network.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="wire_8h.html">device/wire.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><a class="code hl_struct" href="structwire.html">wire</a>* <a class="code hl_function" href="wires_8h.html#a3dbbf67a14a5acc5cc2bbf8c6cff14cf">drop_wires</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> <a class="code hl_function" href="wires_8h.html#ac9bf025d5adabc9b1df97b13823e2138">detect_junctions</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structwire.html">wire</a>* ws, <a class="code hl_struct" href="structjunction.html">junction</a>** js, <span class="keywordtype">int</span>* js_count);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keywordtype">bool</span>** <a class="code hl_function" href="wires_8h.html#a038c6fd186c97d1b9c53e59067628099">construe_adjacency_matrix</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structdatasheet.html">datasheet</a> ds, <span class="keyword">const</span> <a class="code hl_struct" href="structnetwork__topology.html">network_topology</a> nt);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif </span><span class="comment">/* WIRES_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="adatasheet_8h_html"><div class="ttname"><a href="datasheet_8h.html">datasheet.h</a></div><div class="ttdoc">Defines the structure and comparison function for a device's datasheet.</div></div>
 <div class="ttc" id="ajunction_8h_html"><div class="ttname"><a href="junction_8h.html">junction.h</a></div><div class="ttdoc">Defines the structure and comparison function for nanowire junctions.</div></div>
 <div class="ttc" id="anetwork_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Defines the structures and functions used to model and simulate the topology and electrical state of ...</div></div>
@@ -120,12 +121,15 @@ $(document).ready(function(){initNavTree('wires_8h_source.html',''); initResizab
 <div class="ttc" id="astructnetwork__topology_html"><div class="ttname"><a href="structnetwork__topology.html">network_topology</a></div><div class="ttdoc">Topology of the Nanowire Network. It contains information about the physical placement of nanowires a...</div><div class="ttdef"><b>Definition:</b> network.h:26</div></div>
 <div class="ttc" id="astructwire_html"><div class="ttname"><a href="structwire.html">wire</a></div><div class="ttdoc">Stores the starting and ending positions of a wire together with its centroid position and total leng...</div><div class="ttdef"><b>Definition:</b> wire.h:20</div></div>
 <div class="ttc" id="awire_8h_html"><div class="ttname"><a href="wire_8h.html">wire.h</a></div><div class="ttdoc">Defines the ‘wire’ structure and a function for comparing wires by length.</div></div>
+<div class="ttc" id="awires_8h_html_a038c6fd186c97d1b9c53e59067628099"><div class="ttname"><a href="wires_8h.html#a038c6fd186c97d1b9c53e59067628099">construe_adjacency_matrix</a></div><div class="ttdeci">bool ** construe_adjacency_matrix(const datasheet ds, const network_topology nt)</div><div class="ttdoc">Given the datasheet and the network topology, construe the Nanowire Network adjacency matrix identify...</div><div class="ttdef"><b>Definition:</b> wires.c:142</div></div>
+<div class="ttc" id="awires_8h_html_a3dbbf67a14a5acc5cc2bbf8c6cff14cf"><div class="ttname"><a href="wires_8h.html#a3dbbf67a14a5acc5cc2bbf8c6cff14cf">drop_wires</a></div><div class="ttdeci">wire * drop_wires(const datasheet ds)</div><div class="ttdoc">Given the Nanowire Network description (i.e., the datasheet), produce it by dropping the specified nu...</div><div class="ttdef"><b>Definition:</b> wires.c:16</div></div>
+<div class="ttc" id="awires_8h_html_ac9bf025d5adabc9b1df97b13823e2138"><div class="ttname"><a href="wires_8h.html#ac9bf025d5adabc9b1df97b13823e2138">detect_junctions</a></div><div class="ttdeci">void detect_junctions(const datasheet ds, const wire *ws, junction **js, int *js_count)</div><div class="ttdoc">Detect the junctions between the nanowires composing the Nanowire Network.</div><div class="ttdef"><b>Definition:</b> wires.c:63</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bc4f3d3130ea46cbb34c9fa0d9c95a03.html">util</a></li><li class="navelem"><b>wires.h</b></li>
+    <li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li><li class="navelem"><a class="el" href="dir_bc4f3d3130ea46cbb34c9fa0d9c95a03.html">util</a></li><li class="navelem"><a class="el" href="wires_8h.html">wires.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

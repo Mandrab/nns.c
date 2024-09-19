@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jcmp_0',['jcmp',['../junction_8h.html#a458142eb449a23063f63e204c2308d2d',1,'junction.c']]]
+  ['group_5fnanowires_0',['group_nanowires',['../components_8h.html#a50c21a86554c18efddef763bdc995f05',1,'components.c']]]
 ];

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['length_0',['length',['../structwire.html#a996d07fe4af92240bf306fcbf9fdc739',1,'wire']]],
-  ['length_5fmean_1',['length_mean',['../structdatasheet.html#a418e9237bbf68512d0b7726a9266d395',1,'datasheet']]],
-  ['length_5fstd_5fdev_2',['length_std_dev',['../structdatasheet.html#aff986bebad5f361bc2cce8b958ec68ee',1,'datasheet']]],
-  ['loads_5fcount_3',['loads_count',['../structinterface.html#a202064d1cfb45e9bcccee258e03d9535',1,'interface']]],
-  ['loads_5findex_4',['loads_index',['../structinterface.html#a506214af41dc92867de7b484a87542ea',1,'interface']]],
-  ['loads_5fweight_5',['loads_weight',['../structinterface.html#abde54f836c297b6850ccf19a7595efbc',1,'interface']]]
+  ['jcmp_0',['jcmp',['../junction_8h.html#a458142eb449a23063f63e204c2308d2d',1,'junction.c']]],
+  ['js_1',['Js',['../structnetwork__topology.html#ab3eb77552d8573d09eab1cb90df6874f',1,'network_topology']]],
+  ['js_5fcount_2',['js_count',['../structconnected__component.html#ace53766303e42abbe759a5082d8407db',1,'connected_component::js_count()'],['../structnetwork__topology.html#a22626d6faa154c4368c4723facf835d1',1,'network_topology::js_count()']]],
+  ['js_5fskip_3',['js_skip',['../structconnected__component.html#a987074f9d478d759d8665589fac1435c',1,'connected_component']]],
+  ['junction_4',['junction',['../structjunction.html',1,'']]],
+  ['junction_2eh_5',['junction.h',['../junction_8h.html',1,'']]]
 ];
