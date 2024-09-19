@@ -1,3 +1,18 @@
+/**
+ * @file component.h
+ * 
+ * @brief Defines the structure and operations for connected components in a
+ * Nanowire Network.
+ * 
+ * This file contains the definition of the `connected_component` struct, which
+ * represents a connected component of the Nanowire Network and identify its
+ * belonging nanowires and junctions.
+ * Additionally, it provides functions to compare, copy, and destroy connected
+ * components.
+ * 
+ * @note The `connected_component` uses dynamically allocated memory that must be 
+ * managed using the provided functions.
+ */
 #ifndef COMPONENT_H
 #define COMPONENT_H
 

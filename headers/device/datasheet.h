@@ -1,3 +1,13 @@
+/**
+ * @file datasheet.h
+ * 
+ * @brief Defines the structure and comparison function for a device's
+ * datasheet.
+ * 
+ * This file contains the definition of the `datasheet` struct, which
+ * summarizes static characteristics of the nanowire network.
+ * Additionally, it provides a method for the comparison of datasheets.
+ */
 #ifndef DATASHEET_H
 #define DATASHEET_H
 

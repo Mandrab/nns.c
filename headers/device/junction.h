@@ -1,3 +1,13 @@
+/**
+ * @file junction.h
+ * 
+ * @brief Defines the structure and comparison function for nanowire junctions.
+ * 
+ * This file defines a `junction` struct and provides a comparison function
+ * `jcmp` to compare two junctions based on the indices of the wires forming
+ * the junction. This allows sorting junctions by the first and second wire
+ * index.
+ */
 #ifndef JUNCTION_H
 #define JUNCTION_H
 

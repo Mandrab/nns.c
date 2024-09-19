@@ -1,3 +1,18 @@
+/**
+ * @file network.h
+ * 
+ * @brief Defines the structures and functions used to model and simulate the
+ * topology and electrical state of a Nanowire Network.
+ * 
+ * This file contains the necessary data structures and function declarations 
+ * to represent a Nanowire Network, including the physical layout of nanowires 
+ * and junctions, and the electrical properties such as voltage distribution 
+ * and admittances. It also provides utilities for creating, copying, comparing, 
+ * and destroying network topologies and states.
+ * 
+ * @note The structures here defined use dynamically allocated memory that must
+ * be managed using the provided functions.
+ */
 #ifndef NETWORK_H
 #define NETWORK_H
 

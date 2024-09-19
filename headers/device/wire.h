@@ -1,3 +1,14 @@
+/**
+ * @file wire.h
+ * 
+ * @brief Defines the `wire' structure and a function for comparing wires by
+ * length.
+ * 
+ * This file contains the definition of the `wire` structure, which represents
+ * a nanowire with its centroid, start / end positions, and length. It also
+ * provides a comparison function `wcmp` to compare two nanowires based on
+ * their lengths.
+ */
 #ifndef WIRE_H
 #define WIRE_H
 
