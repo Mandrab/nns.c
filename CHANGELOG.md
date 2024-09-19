@@ -2,10 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.1] — 2024-09-18
+
+### Added
+- GitHub workflow for the automatic generation of documentation.
+### Changed
+### Fixed
+
+
+
 ## [v1.0.0] — 2024-09-18
 
 ### Added
-- Software license
+- Software license.
 ### Changed
 ### Fixed
 
