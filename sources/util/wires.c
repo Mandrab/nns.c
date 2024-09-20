@@ -34,9 +34,9 @@ wire* drop_wires(const datasheet ds)
         } while (length <= 0);
 
         // generate the centroids of the ws
-        double xc = (double) gsl_rng_uniform(rng) / RAND_MAX * ds.package_size;
-        double yc = (double) gsl_rng_uniform(rng) / RAND_MAX * ds.package_size;
-        double theta = (double) gsl_rng_uniform(rng) / RAND_MAX * M_PI;
+        double xc = gsl_rng_uniform(rng) * ds.package_size;
+        double yc = gsl_rng_uniform(rng) * ds.package_size;
+        double theta = gsl_rng_uniform(rng) * M_PI;
 
         // save the information into the data-structure
         ws[i] = (wire)
