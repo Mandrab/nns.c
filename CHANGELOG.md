@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.2] — 2024-09-19
+
+### Added
+### Changed
+- Changed theme in doxygen documentation.
+### Fixed
+- Generation of the nanowire network is now more robust as the seed is set internally before the creation.
+
+
+
 ## [v1.0.1] — 2024-09-18
 
 ### Added
