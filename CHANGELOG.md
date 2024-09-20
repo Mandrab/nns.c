@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.3] — 2024-09-20
+
+### Added
+### Changed
+### Fixed
+- Bug in generation of network topology.
+
+
+
 ## [v1.0.2] — 2024-09-19
 
 ### Added
