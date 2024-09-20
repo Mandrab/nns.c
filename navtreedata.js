@@ -39,60 +39,55 @@ var NAVTREE =
       [ "Credits", "index.html#autotoc_md10", null ]
     ] ],
     [ "Change Log", "md_CHANGELOG.html", [
-      [ "[v1.0.3] — 2024-09-20", "md_CHANGELOG.html#autotoc_md12", [
+      [ "[v1.0.2] — 2024-09-19", "md_CHANGELOG.html#autotoc_md12", [
         [ "Added", "md_CHANGELOG.html#autotoc_md13", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md14", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md15", null ]
       ] ],
-      [ "[v1.0.2] — 2024-09-19", "md_CHANGELOG.html#autotoc_md16", [
+      [ "[v1.0.1] — 2024-09-18", "md_CHANGELOG.html#autotoc_md16", [
         [ "Added", "md_CHANGELOG.html#autotoc_md17", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md18", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md19", null ]
       ] ],
-      [ "[v1.0.1] — 2024-09-18", "md_CHANGELOG.html#autotoc_md20", [
+      [ "[v1.0.0] — 2024-09-18", "md_CHANGELOG.html#autotoc_md20", [
         [ "Added", "md_CHANGELOG.html#autotoc_md21", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md22", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md23", null ]
       ] ],
-      [ "[v1.0.0] — 2024-09-18", "md_CHANGELOG.html#autotoc_md24", [
+      [ "[v0.4.2-beta] — 2024-05-30", "md_CHANGELOG.html#autotoc_md24", [
         [ "Added", "md_CHANGELOG.html#autotoc_md25", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md26", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md27", null ]
       ] ],
-      [ "[v0.4.2-beta] — 2024-05-30", "md_CHANGELOG.html#autotoc_md28", [
+      [ "[v0.4.1-beta] — 2024-03-11", "md_CHANGELOG.html#autotoc_md28", [
         [ "Added", "md_CHANGELOG.html#autotoc_md29", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md30", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md31", null ]
       ] ],
-      [ "[v0.4.1-beta] — 2024-03-11", "md_CHANGELOG.html#autotoc_md32", [
+      [ "[v0.4.0-beta] — 2023-12-14", "md_CHANGELOG.html#autotoc_md32", [
         [ "Added", "md_CHANGELOG.html#autotoc_md33", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md34", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md35", null ]
       ] ],
-      [ "[v0.4.0-beta] — 2023-12-14", "md_CHANGELOG.html#autotoc_md36", [
+      [ "[v0.3.0-alpha] — 2023-10-26", "md_CHANGELOG.html#autotoc_md36", [
         [ "Added", "md_CHANGELOG.html#autotoc_md37", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md38", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md39", null ]
       ] ],
-      [ "[v0.3.0-alpha] — 2023-10-26", "md_CHANGELOG.html#autotoc_md40", [
+      [ "[v0.2.0-alpha] — 2023-10-12", "md_CHANGELOG.html#autotoc_md40", [
         [ "Added", "md_CHANGELOG.html#autotoc_md41", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md42", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md43", null ]
       ] ],
-      [ "[v0.2.0-alpha] — 2023-10-12", "md_CHANGELOG.html#autotoc_md44", [
+      [ "[v0.1.1-alpha] — 2023-09-27", "md_CHANGELOG.html#autotoc_md44", [
         [ "Added", "md_CHANGELOG.html#autotoc_md45", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md46", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md47", null ]
       ] ],
-      [ "[v0.1.1-alpha] — 2023-09-27", "md_CHANGELOG.html#autotoc_md48", [
+      [ "[v0.1.0-alpha] — 2023-09-27", "md_CHANGELOG.html#autotoc_md48", [
         [ "Added", "md_CHANGELOG.html#autotoc_md49", null ],
         [ "Changed", "md_CHANGELOG.html#autotoc_md50", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md51", null ]
-      ] ],
-      [ "[v0.1.0-alpha] — 2023-09-27", "md_CHANGELOG.html#autotoc_md52", [
-        [ "Added", "md_CHANGELOG.html#autotoc_md53", null ],
-        [ "Changed", "md_CHANGELOG.html#autotoc_md54", null ],
-        [ "Fixed", "md_CHANGELOG.html#autotoc_md55", null ]
       ] ]
     ] ],
     [ "Things TO-DO", "md_TODOs.html", null ],
